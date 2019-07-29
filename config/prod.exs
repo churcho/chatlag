@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :chatlag, ChatlagWeb.Endpoint,
   url: [host: "vilearn.com"],
-  check_origin: ["https://chat.vilearn.com", "http://localhost"],
+  check_origin: ["//localhost", "//127.0.0.1", "//*.vilearn.com"],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
