@@ -44,6 +44,7 @@ defmodule ChatlagWeb do
       import ChatlagWeb.ErrorHelpers
       import ChatlagWeb.Gettext
       alias ChatlagWeb.Router.Helpers, as: Routes
+      alias PhoenixBootstrapForm, as: PBF
     end
   end
 
