@@ -22,10 +22,13 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# locale
+config :chatlag, ChatlagWeb.Gettext, locales: ~w(en he), default_locale: "he"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-#live view
+# live view
 config :chatlag, ChatlagWeb.Endpoint,
   live_view: [
     signing_salt: "gPHQm6yxSF6JzQHAMS0Y1QRsIsJ19rzI"
