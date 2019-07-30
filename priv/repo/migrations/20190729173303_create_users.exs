@@ -5,7 +5,8 @@ defmodule Chatlag.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :full_name, :string, null: true, size: 60
       add :nickname, :string, null: false
-      add :email, :string, null: true, size: 60
+      add :email, :string, null: true
+      add :password_hash, :string, null: true, size: 60
       add :role, :string, null: false, default: "visitor"
       add :age, :integer, null: false
       add :gender, :string, null: false, size: 2
