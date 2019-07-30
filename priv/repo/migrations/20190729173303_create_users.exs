@@ -11,6 +11,7 @@ defmodule Chatlag.Repo.Migrations.CreateUsers do
       add :age, :integer, null: false
       add :gender, :string, null: false, size: 2
       add :ip_address, :string, size: 20, null: true
+      add :is_loggedin, :boolean, default: false
       add :suspend_at, :date, null: true
 
       timestamps()

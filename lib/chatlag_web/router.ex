@@ -10,14 +10,24 @@ defmodule ChatlagWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :protected do
+    plug Chatlag.Auth
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", ChatlagWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
     get "/", PageController, :index
+  end
+
+  scope "/", ChatlagWeb do
+    pipe_through [:browser, :protected]
+
+    get "/users", UserController, :index
   end
 
   # Other scopes may use custom stacks.
