@@ -1,5 +1,5 @@
 defmodule Chatlag.Release do
-  @app :my_app
+  @app :chatlag
 
   def migrate do
     for repo <- repos() do
