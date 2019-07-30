@@ -1,0 +1,34 @@
+<h1>Listing Rooms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Slug</th>
+      <th>On front</th>
+      <th>Small desc</th>
+      <th>Min age</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for room <- @rooms do %>
+    <tr>
+      <td><%= room.title %></td>
+      <td><%= room.slug %></td>
+      <td><%= room.on_front %></td>
+      <td><%= room.small_desc %></td>
+      <td><%= room.min_age %></td>
+
+      <td>
+        <%= link "Show", to: Routes.room_path(@conn, :show, room) %>
+        <%= link "Edit", to: Routes.room_path(@conn, :edit, room) %>
+        <%= link "Delete", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Room", to: Routes.room_path(@conn, :new) %></span>

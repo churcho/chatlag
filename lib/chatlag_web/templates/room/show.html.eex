@@ -1,0 +1,33 @@
+<h1>Show Room</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @room.title %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @room.slug %>
+  </li>
+
+  <li>
+    <strong>On front:</strong>
+    <%= @room.on_front %>
+  </li>
+
+  <li>
+    <strong>Small desc:</strong>
+    <%= @room.small_desc %>
+  </li>
+
+  <li>
+    <strong>Min age:</strong>
+    <%= @room.min_age %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.room_path(@conn, :edit, @room) %></span>
+<span><%= link "Back", to: Routes.room_path(@conn, :index) %></span>

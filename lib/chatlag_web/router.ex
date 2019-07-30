@@ -28,6 +28,7 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/users", UserController, :index
+    resources "/rooms", RoomController
   end
 
   # Other scopes may use custom stacks.
