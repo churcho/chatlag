@@ -22,13 +22,14 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser]
 
     get "/", PageController, :index
+    get "/chat", ChatController, :chat
+    resources "/rooms", RoomController
   end
 
   scope "/", ChatlagWeb do
     pipe_through [:browser, :protected]
 
     get "/users", UserController, :index
-    resources "/rooms", RoomController
   end
 
   # Other scopes may use custom stacks.

@@ -8,6 +8,14 @@ defmodule Chatlag.Chat do
 
   alias Chatlag.Chat.Room
 
+  @topic inspect(__MODULE__)
+
+  def subscribe do
+    # IO.inspect(@topic, label: "**Topic**")
+
+    Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
+  end
+
   @doc """
   Returns the list of rooms.
 
@@ -149,6 +157,7 @@ defmodule Chatlag.Chat do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert()
+    |> notify_subs([:message, :inserted])
   end
 
   @doc """
@@ -194,7 +203,16 @@ defmodule Chatlag.Chat do
       %Ecto.Changeset{source: %Message{}}
 
   """
-  def change_message(%Message{} = message) do
-    Message.changeset(message, %{})
+  def change_message(%Message{} = message, attrs \\ %{}) do
+    Message.changeset(message, attrs)
+  end
+
+  defp notify_subs({:ok, result}, event) do
+    Phoenix.PubSub.broadcast(Chatlag.PubSub, @topic, {__MODULE__, event, result})
+    {:ok, result}
+  end
+
+  defp notify_subs({:error, reason}, _event) do
+    {:error, reason}
   end
 end

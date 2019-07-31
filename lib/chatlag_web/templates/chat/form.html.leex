@@ -1,0 +1,12 @@
+<%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
+  <%= hidden_input f, :username %>
+
+  <%= text_input f, :content %>
+  
+  <%= hidden_input f, :room_id %>
+  <%= hidden_input f, :user_id %>
+
+  <div>
+    <%= submit "Send", phx_disable_with: "Loading..." %>
+  </div>
+</form>
