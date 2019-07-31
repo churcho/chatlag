@@ -8,12 +8,8 @@ defmodule Chatlag.Chat do
 
   alias Chatlag.Chat.Room
 
-  @topic inspect(__MODULE__)
-
-  def subscribe do
-    # IO.inspect(@topic, label: "**Topic**")
-
-    Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
+  def subscribe(room_id) do
+    Phoenix.PubSub.subscribe(Chatlag.PubSub, "ROOM#{room_id}")
   end
 
   @doc """
@@ -121,8 +117,10 @@ defmodule Chatlag.Chat do
       [%Message{}, ...]
 
   """
-  def list_messagese do
-    Repo.all(Message)
+  def list_messagese(room_id) do
+    Message
+    |> where(room_id: ^room_id)
+    |> Repo.all()
   end
 
   @doc """
@@ -208,7 +206,7 @@ defmodule Chatlag.Chat do
   end
 
   defp notify_subs({:ok, result}, event) do
-    Phoenix.PubSub.broadcast(Chatlag.PubSub, @topic, {__MODULE__, event, result})
+    Phoenix.PubSub.broadcast(Chatlag.PubSub, "ROOM#{result.room_id}", {__MODULE__, event, result})
     {:ok, result}
   end
 

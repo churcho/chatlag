@@ -22,7 +22,7 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser]
 
     get "/", PageController, :index
-    get "/chat", ChatController, :chat
+    get "/chat/:id", ChatController, :chat
     resources "/rooms", RoomController
   end
 
