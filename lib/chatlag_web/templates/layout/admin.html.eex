@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatlag</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+</head>
+
+<body>
+    <header>
+        <section class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a href="<%= Routes.room_path(@conn, :index) %>" class="logo">
+                    <img src="<%= Routes.static_path(@conn, "/images/Logo.png") %>" alt="Logo"/>
+                  </a>
+          
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="pull-right collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                            <li class="nav-item"> <%= link gettext("Rooms"), to: Routes.room_path(@conn, :index), class: "nav-link" %></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </section>
+    </header>
+    <main role="main" class="container">
+        <%= unless is_nil(get_flash(@conn, :info)) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <% end %>
+        <%= unless is_nil(get_flash(@conn, :error)) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <% end %>
+        
+        <%= render @view_module, @view_template, assigns %>
+
+    </main>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>
+</body>
+
+</html>

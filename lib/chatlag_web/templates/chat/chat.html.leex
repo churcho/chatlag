@@ -1,8 +1,66 @@
+<style>
+ body {
+     background: url(<%= getRoomBg(@room_id) %>);
+ }
 
-<ul id="msgs" style="list-style: none; min-height:400px; border: 1px solid; padding: 10px;">
-    <%= for msg <- @messages do %>
-        <li><strong> <%= msg.user_id %> : </strong> <%= msg.content %> </li>
-    <% end %>
-</ul>
+ @media screen and (max-width: 992px) {
+ body {
+     background:  url(<%= getRoomSmallBg(@room_id) %>);
+ }
+ }
+</style>
+<div class="chat">
+    <div class="chat_scroll">
+        <div class="chat_box chat_alert">
+            <span class="icon"></span>
+            הודעות שאת/ה שולח/ת לצ'אט זה עכשיו מוצפנות מקצה לקצה. 
+            <a class="link">למידע נוסף »</a>
+        </div>
+        <%= for msg <- @messages do %>
+        <div class="chat_massage massage01">
+            <img class="profile_picture" alt="user_pic" src="/images/profile1.png" />
+            <div class="chat_box massage_box">
+                <%= msg.content %>
+                <div class="massage_footer">
+                    <div class="massage_meta">
+                        <span class="username">שיר</span>
+                        <span class="usertime">02:10</span>
+                        <a class="reply">הגב</a>
+                    </div>
+                    <div class="massage_social">
+                        <a class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
+                        <a class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <% end %>
+    </div>
+    <div class="chat_input">
+        <div class="input_box">
+            <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
+                <%= hidden_input f, :username %>
+                <%= hidden_input f, :room_id %>
+                <%= hidden_input f, :user_id %>
 
-<%= render "form.html", assigns %>
+                <input type="text" class="input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
+                <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
+            </form>
+            <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
+            <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a>
+        </div>
+    </div>
+
+</div>
+<div class="menu">
+    <div class="menu_icon users"><span class="icon"></span><span class="user_number">1658 <span class="desktop">משתמשים</span></span></div>
+    <div class="menu_icon user"><span class="icon"></span><span class="notifications">12</span></div>
+    <div class="menu_icon home"><span class="icon"></span></div>
+    <div class="menu_icon goreply"><span class="icon"></span></div>
+    <div class="menu_icon mail"><span class="icon"></span></div>
+    <div class="menu_icon share"><span class="icon"></span></div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>

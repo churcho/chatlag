@@ -28,6 +28,9 @@ config :chatlag, ChatlagWeb.Gettext, locales: ~w(en he), default_locale: "he"
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :arc,
+  storage_dir: "uploads"
+
 # live view
 config :chatlag, ChatlagWeb.Endpoint,
   live_view: [

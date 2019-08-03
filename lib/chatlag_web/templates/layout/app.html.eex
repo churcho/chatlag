@@ -4,27 +4,31 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
   <title>Chatlag</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/chat.css") %>" />
+
 </head>
 
 <body>
-  <header>
-   
-  </header>
-  <main role="main" class="container">
-    <%= unless is_nil(get_flash(@conn, :info)) do %>
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <% end %>
-    <%= unless is_nil(get_flash(@conn, :error)) do %>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-    <% end %>
-    <%= render @view_module, @view_template, assigns %>
-  </main>
+  <div class="page">
+    <div class="display-table">
+      <div class="table-cell">
+        <div class="main">
+
+          <%= render @view_module, @view_template, assigns %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/scale.js") %>'></script>
 </body>
 
 </html>

@@ -44,6 +44,9 @@ defmodule Chatlag.MixProject do
       {:phoenix_bootstrap_form, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.2"},
+      {:slugger, "~> 0.3"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
