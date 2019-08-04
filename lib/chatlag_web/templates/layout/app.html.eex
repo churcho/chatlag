@@ -2,14 +2,15 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
   <title>Chatlag</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/chat.css") %>" />
+  <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/scale.js") %>'></script>
 
 </head>
 
@@ -17,10 +18,9 @@
   <div class="page">
     <div class="display-table">
       <div class="table-cell">
+          <div class="header"></div>
         <div class="main">
-
           <%= render @view_module, @view_template, assigns %>
-
         </div>
       </div>
     </div>
@@ -28,7 +28,6 @@
 
 
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-  <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/scale.js") %>'></script>
 </body>
 
 </html>

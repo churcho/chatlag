@@ -1,19 +1,29 @@
 <style>
+.phx-connected {
+    display: inline;
+}
  body {
      background: url(<%= getRoomBg(@room.id) %>);
+     background-repeat: no-repeat;
  }
 
  @media screen and (max-width: 992px) {
  body {
      background:  url(<%= getRoomSmallBg(@room.id) %>);
+     background-repeat: no-repeat;
  }
  }
 </style>
-<div class="chat">
-    <div class="chat_scroll">
+
+
+    <div class="chat">
         <div class="chat_box chat_alert">
-            <%= @room.title %>
+            <span class="icon"></span>
+            הודעות שאת/ה שולח/ת לצ'אט זה עכשיו מוצפנות מקצה לקצה.
+            <a class="link">למידע נוסף »</a>
         </div>
+        <div class="chat_scroll">
+
         <%= for msg <- @messages do %>
         <div class="chat_massage massage01">
             <img class="profile_picture" alt="user_pic" src="/images/profile1.png" />
@@ -35,30 +45,27 @@
             <div class="clear"></div>
         </div>
         <% end %>
-    </div>
-    <div class="chat_input">
-        <div class="input_box">
-            <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
-                <%= hidden_input f, :username %>
-                <%= hidden_input f, :room_id %>
-                <%= hidden_input f, :user_id %>
-
-                <input type="text" class="input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
-                <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
-            </form>
-            <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
-            <%# <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a> %>
+        </div>
+        <div class="chat_input">
+            <div class="input_box">
+                <form>
+                    <input type="text" class="input" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
+                    <button type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
+                </form>
+                <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
+                <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a>
+            </div>
         </div>
     </div>
-
-</div>
-<div class="menu">
-    <div class="menu_icon users"><span class="icon"></span><span class="user_number"><%= @users %> <span class="desktop">משתמשים</span></span></div>
-    <div class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @users_in_room %></span></div>
-    <div class="menu_icon home"><span class="icon"></span></div>
-    <div class="menu_icon goreply"><span class="icon"></span></div>
-    <div class="menu_icon mail"><span class="icon"></span></div>
-    <div class="menu_icon share"><span class="icon"></span></div>
+    <div class="menu">
+        <div class="menu_icon users"><span class="icon"></span><span class="user_number">1658 <span class="desktop">משתמשים</span></span></div>
+        <div class="menu_icon user"><span class="icon"></span><span class="notifications">12</span></div>
+        <div class="menu_icon home"><span class="icon"></span></div>
+        <div class="menu_icon goreply"><span class="icon"></span></div>
+        <div class="menu_icon mail"><span class="icon"></span></div>
+        <div class="menu_icon share"><span class="icon"></span></div>
+        <div class="clear"></div>
+    </div>
     <div class="clear"></div>
 </div>
-<div class="clear"></div>
+<div class="footer">כל הזכויות שמורות</div>
