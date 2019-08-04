@@ -10,7 +10,6 @@
 
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/chat.css") %>" />
-  <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/scale.js") %>'></script>
 
 </head>
 
