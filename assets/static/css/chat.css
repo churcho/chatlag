@@ -21,7 +21,6 @@ body * {
 	height: 100%;
 	min-height: 680px;
 	overflow: hidden;
-	background-image: url(/images/back_1920x1280.jpg);
 	background-size: 120em auto;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -365,7 +364,6 @@ body * {
 		max-width: 100%;
 	}
 	.page {
-		background-image:url(/images/back_640x1300.jpg);
 		background-size: 100% auto;
 		background-position: top center;
 		min-height: 100%;
