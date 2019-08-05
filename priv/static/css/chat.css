@@ -42,9 +42,8 @@ body * {
 .header, .footer {
 	width: 20em;
 	height: 2em;
-	/* background-color: rgba(0,0,0,0.5); */
 	color: white;
-	margin: 2.2em auto;
+	margin: 1em auto;
 	text-align: center;
 	padding: 0.2em;
 }
@@ -59,7 +58,7 @@ body * {
 	margin: 0 auto;
 	background-color: #f6f6fc;
 	border-radius: 0.5em;
-	box-shadow: 0 4px 38px #b3b3b3;
+	box-shadow: 0.1em 0.1em 0.1em black;
 	overflow: hidden;
 }
 .chat {
@@ -242,12 +241,12 @@ body * {
 .chat_input {
 	width: 100%;
 	height: 4.5em;
-	/* background-color: #dedede; */
-	/* font-size: 0.77em; */
-	/* box-shadow: 0.3em -0.3em 0.3em rgba(0,0,0,0.2); */
+	background-color: #dedede;
+	font-size: 0.77em;
+	box-shadow: 0.3em -0.3em 0.3em rgba(0,0,0,0.2);
 	position: relative;
 	z-index: 2;
-	/* margin-top: 0.2em; */
+	margin-top: 0.3em;
 }
 
 .input_box {
@@ -399,16 +398,13 @@ body * {
 }
 
 @media screen and (max-width: 992px) {
-	html {
-		font-size: 20.72px;
-	}
 	html,body,.page,.main,.chat,.chat_scroll {
 		height: 1px;
 		min-height: 100%;
 		max-height: 100%;
 	}
 	body {
-		font-size: 1.9em;
+		font-size: 16px;
 		width: 100%;
 		max-width: 100%;
 		background-color: lightblue;
@@ -421,7 +417,7 @@ body * {
 		min-width: 100%;
 		margin: 0;
 		padding: 0;
-		padding-bottom: 10.7em;
+		padding-bottom: 8.7em;
 	}
 	.table-cell {
 		vertical-align: top;
@@ -440,21 +436,22 @@ body * {
 	}
 	
 	.header, .footer {
-		/* margin: 0.7em auto 0.7em auto; */
+		margin: 0.4em auto 0.4em auto;
+		max-width: 80%;
 	}
 	
 	.header {
-		height: 3.5em;
+		height: 3em;
 	}
 	.chat {
 		width: 92%;
+		max-width: 92%;
 		margin: 0 auto 0 auto;
 		float: none;
-		max-width: 100%;
 		border-radius: 1em;
 		overflow: hidden;
 		background-color: #f6f6fc;
-		padding-bottom: 7.95em;
+		padding-bottom: 6.35em;
 	}
 	.chat_scroll {
 		width: 100%;
@@ -463,6 +460,7 @@ body * {
 	}
 	.chat_alert {
 		margin: 1em auto 1em auto;
+		max-width: 80%;
 	}
 	.massage_box:before {
 		content: "";
@@ -473,25 +471,32 @@ body * {
 		border-right: 1em solid transparent;
 		border-bottom: 1em solid white;
 		transform: rotate(-45deg);
-		right: 4.2em;
+		right: 3.2em;
 		top: 0.5em;
 	}
 	.menu {
 		float: none;
 		width: 100%;
-		height: 3em;
+		height: 2.6em;
 		position: fixed;
 		bottom: 0;
 		right: 0;
 	}
 	.massage_box {
-		width: 23em;
 		min-width: 85%;
+		max-width: 85%;
+		width: 1px;
+	}
+	
+	.profile_picture {
+		width: 2em;
+		height: auto;
 	}
 	
 	.chat_box {
-		width: 23em;
+		width: 1px;
 		min-width: 75%;
+		max-width: 75%;
 	}
 	
 	.typing {
@@ -500,8 +505,17 @@ body * {
 	}
 	
 	.input_box {
-		width: 27em;
+		width: 1px;
 		min-width: 90%;
+		max-width: 90%;
+	}
+	
+	.input {
+		margin: 0.5em auto;
+	}
+	
+	.input_icon {
+		top: 0.5em;
 	}
 
 	.menu_icon {
@@ -510,8 +524,9 @@ body * {
 		border-left: 1px solid rgba(0,0,0,0.2);
 		width: 16.6%;
 		padding: 0;
-		font-size: 1.2em;
-		padding-top: 0.2em;
+		font-size: 1em;
+		padding-top: 0em;
+		height: 100%;
 	}
 	.users {
 		padding-top: 0;
@@ -529,7 +544,8 @@ body * {
 	
 	.notifications {
 		padding: 0.2em 0.3em 0.2em 0.3em;
-		right: 20%;
+		right: 50%;
+		margin-right: -2.5em;
 	}
 	
 	.camera {
@@ -539,95 +555,38 @@ body * {
 	.submit {
 		left: 0.2em;
 	}
+	
+
 }
 
-@media screen and (max-width: 960px) {
-	html {
-		font-size: 20px;
+@media screen and (max-width: 550px) {
+	.massage_meta {
+		float: none;
+	}
+	.massage_social {
+		float: none;
+		margin-right: auto;
+		margin-top: 0.3em;
+	}
+	
+	.social_icon .icon:before{
+		margin-right: auto;
+		margin-left: 0.3em;
 	}
 }
-@media screen and (max-width: 800px) {
-	html {
-		font-size: 16.67px;
-	}
-}
-@media screen and (max-width: 768px) {
-	html {
-		font-size: 16px;
-	}
-}
-@media screen and (max-width: 640px) {
-	html {
-		font-size: 13.33;
-	}
-}
-@media screen and (max-width: 568px) {
-	html {
-		font-size: 11.83px;
-	}
-}
-@media screen and (max-width: 480px) {
-	html {
-		font-size: 10px;
-	}
-}
-@media screen and (max-width: 414px) {
-	html {
-		font-size: 8.63px;
-	}
-}
-@media screen and (max-width: 375px) {
-	html {
-		font-size: 7.81px;
-	}
-}
-@media screen and (max-width: 360px) {
-	html {
-		font-size: 7.5px;
-	}
-}
-@media screen and (max-width: 320px) {
-	html {
-		font-size: 6.67px;
-	}
-}
+
+
 @media screen and (max-width: 992px) and (orientation: landscape) {
-	body {
-		font-size: 1.2em;
-	}
-	.page {
-		padding-bottom: 6.5em;
-	}
-	.chat {
-		width: 97%;
-		padding-bottom: 6.1em;
-		height: 1px;
-	}
 	.header {
 		font-size: 0.6em;
-		margin: 0.4em auto;
 	}
 	.footer {
 		font-size: 0.5em;
-		margin: 0.6em auto;
+	}
+	.page {
+		padding-bottom: 5.6em;
 	}
 	.menu {
-		font-size: 0.8em
-	}
-	
-	.notifications {
-		right: 30%;
-	}
-
-	.chat_input {
-		height: 3.5em;
-	}
-	
-	.input {
-		margin: 0.4em auto;
-	}
-	
-	.input_icon {
-		top: 0.4em;
+		font-size: 0.7em;
 	}
 }

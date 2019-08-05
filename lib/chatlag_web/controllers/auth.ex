@@ -15,7 +15,7 @@ defmodule Chatlag.Auth do
     else
       conn
       |> put_flash(:error, "You must be logged in to access that page")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.auth_path(conn, :login))
       |> halt()
     end
   end
