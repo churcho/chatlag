@@ -3,13 +3,14 @@ defmodule Chatlag.Release do
 
   def migrate do
     for repo <- repos() do
-      IO.inspect(repo)
       {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true))
     end
   end
 
-  def rollback(repo, version) do
-    {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))
+  def rollback(version) do
+    for repo <- repos() do
+      {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))
+    end
   end
 
   defp repos do
