@@ -7,6 +7,7 @@ defmodule Chatlag.Chat.Room do
     field :min_age, :integer
     field :on_front, :boolean, default: false
     field :slug, :string
+    field :attached, :string
     field :small_desc, :string
     field :title, :string
     field :bg_image, ChatlagWeb.DisplayImage.Type
@@ -21,7 +22,7 @@ defmodule Chatlag.Chat.Room do
     attrs = Map.merge(attrs, slug_map(attrs))
 
     room
-    |> cast(attrs, [:title, :slug, :on_front, :small_desc, :min_age])
+    |> cast(attrs, [:title, :slug, :on_front, :small_desc, :min_age, :attached])
     |> cast_attachments(attrs, [:bg_image])
     |> cast_attachments(attrs, [:bg_small_image])
     |> cast_attachments(attrs, [:room_icon])

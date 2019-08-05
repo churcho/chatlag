@@ -18,7 +18,7 @@
 
     <div class="chat">
         <div class="chat_box chat_alert">
-            הודעה נעוצה
+            <%= @room.attached %>
         </div>
         <div class="chat_scroll">
 
@@ -29,7 +29,7 @@
                 <%= msg.content %>
                 <div class="massage_footer">
                     <div class="massage_meta">
-                        <span class="username">שיר</span>
+                        <span class="username"><%= msg.user_id %></span>
                         <span class="usertime">02:10</span>
                         <a class="reply">הגב</a>
                     </div>

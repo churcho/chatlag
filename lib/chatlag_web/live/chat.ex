@@ -6,21 +6,22 @@ defmodule ChatlagWeb.Live.Chat do
 
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(session.room_id)
-    {:ok, fetch(socket, session.room_id)}
+    {:ok, fetch(socket, session.room_id, session.user_id)}
   end
 
   def render(assigns) do
     ChatlagWeb.ChatView.render("chat.html", assigns)
   end
 
-  def fetch(socket, room_id \\ nil, users_in_room \\ 1258) do
+  def fetch(socket, room_id, user_id, users_in_room \\ 0) do
     assign(socket, %{
       room: Chatlag.Chat.get_room!(room_id),
       room_id: room_id,
+      user_id: user_id,
       users_in_room: users_in_room,
       users: 120,
       messages: Chat.list_messagese(room_id),
-      changeset: Chat.change_message(%Message{user_id: 2, room_id: room_id})
+      changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
   end
 
@@ -36,7 +37,7 @@ defmodule ChatlagWeb.Live.Chat do
   def handle_event("send_message", %{"message" => params}, socket) do
     case Chat.create_message(params) do
       {:ok, message} ->
-        {:noreply, fetch(socket, message.room_id, get_users_in_room(socket))}
+        {:noreply, fetch(socket, message.room_id, get_user(socket), get_users_in_room(socket))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
@@ -44,9 +45,13 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({Chat, [:message, _event_type], _message}, socket) do
-    {:noreply, fetch(socket, get_room_id(socket), get_users_in_room(socket) + 1)}
+    {:noreply, fetch(socket, get_room_id(socket), get_user(socket), get_users_in_room(socket) + 1)}
   end
 
+  defp get_user(socket) do
+    socket.assigns
+    |> Map.get(:user_id)
+  end
   defp get_room_id(socket) do
     socket.assigns
     |> Map.get(:room_id)
