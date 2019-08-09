@@ -14,8 +14,12 @@
  }
  }
 </style>
-
-
+  <div class="page">
+    <div class="display-table">
+      <div class="table-cell">
+          <div class="header"></div>
+        <div class="main">
+<%# ============================================================================== %>
     <div class="chat">
         <div class="chat_box chat_alert">
             <%= @room.attached %>
@@ -59,9 +63,9 @@
         </div>
     </div>
     <div class="menu">
-        <div class="menu_icon users"><span class="icon"></span><span class="user_number">1658 <span class="desktop">משתמשים</span></span></div>
-        <div class="menu_icon user"><span class="icon"></span><span class="notifications">12</span></div>
-        <div class="menu_icon home"><span class="icon"></span></div>
+        <div class="menu_icon users"><span class="icon"></span><span class="user_number"><%= @all_users %><br><span class="desktop">משתמשים</span></span></div>
+        <div class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @users_in_room %></span></div>
+        <a href="/chat"><div class="menu_icon home"><span class="icon"></span></div></a>
         <div class="menu_icon goreply"><span class="icon"></span></div>
         <div class="menu_icon mail"><span class="icon"></span></div>
         <div class="menu_icon share"><span class="icon"></span></div>
@@ -70,3 +74,8 @@
     <div class="clear"></div>
 </div>
 <div class="footer">כל הזכויות שמורות</div>
+<%# ================================================================== %>
+        </div>
+      </div>
+    </div>
+  </div>

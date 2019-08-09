@@ -10,9 +10,10 @@ defmodule Chatlag.Chat.Room do
     field :attached, :string
     field :small_desc, :string
     field :title, :string
+    field :slogen, :string
     field :bg_image, ChatlagWeb.DisplayImage.Type
     field :bg_small_image, ChatlagWeb.DisplayImage.Type
-    field :room_icon, ChatlagWeb.DisplayImage.Type
+    field :room_icon, ChatlagWeb.DisplayIcon.Type
 
     timestamps()
   end
@@ -22,7 +23,7 @@ defmodule Chatlag.Chat.Room do
     attrs = Map.merge(attrs, slug_map(attrs))
 
     room
-    |> cast(attrs, [:title, :slug, :on_front, :small_desc, :min_age, :attached])
+    |> cast(attrs, [:title, :slug, :on_front, :small_desc, :min_age, :attached, :slogen])
     |> cast_attachments(attrs, [:bg_image])
     |> cast_attachments(attrs, [:bg_small_image])
     |> cast_attachments(attrs, [:room_icon])

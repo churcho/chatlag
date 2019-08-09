@@ -5,39 +5,53 @@
     }
 </style>
 
-<span style="padding: 4em; margin: 4em;">
-
-    <div class="row">
-        <div class="col-lg-12">
-            הוסף למועדפים
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            lkajdfklsjdklfj
-        </div>
-        <div class="col-lg-8">
-            <div class="" id="">
+<div class="container">
 
 
-                <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
-                <%= if @changeset.action do %>
-                <div class="alert alert-danger">
-                    <p>Oops, something went wrong! Please check the errors below.</p>
+    <div class="row pad-bottom">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
                 </div>
-                <% end %>
+                <div class="col-md-8">
+                </div>
+            </div>
+            <div class="row">
+                <div class="pad-bottom pad-top col-md-12">
+                    <h6 class="btn-xs">
+                        <%= gettext("Add to Favorites") %>
+                    </h6>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/Logo_with_name.png") %>" />
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+
+                        <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
+                        <%= if @changeset.action do %>
+                        <div class="alert alert-danger">
+                            <p>Oops, something went wrong! Please check the errors below.</p>
+                        </div>
+                        <% end %>
 
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <%= PBF.text_input f, :nickname %>
-                        <%= PBF.text_input f, :age %>
-                        <%= PBF.text_input f, :gender %>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <%= PBF.text_input f, :nickname %>
+                                <%= PBF.text_input f, :age %>
+                                <%= PBF.radio_buttons f, :gender, ["M", "F"], input: [inline: true], label: [text: ""]  %>
+                            </div>
+                        </div>
+                        <%= PBF.submit f, gettext("As Anonymous"), class: "btn-primary"%>
+                        <% end %>
                     </div>
                 </div>
-                <%= PBF.submit f, "Save", class: "btn-primary"%>
-                <% end %>
             </div>
         </div>
-    </div>
-</span>
+        <div class="pad-bottom"></div>
+        <div class="pad-bottom"></div>
+        <div class="pad-bottom"></div>

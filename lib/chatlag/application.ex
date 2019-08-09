@@ -11,7 +11,8 @@ defmodule Chatlag.Application do
       # Start the Ecto repository
       Chatlag.Repo,
       # Start the endpoint when the application starts
-      ChatlagWeb.Endpoint
+      ChatlagWeb.Endpoint,
+      ChatlagWeb.Presence
       # Starts a worker by calling: Chatlag.Worker.start_link(arg)
       # {Chatlag.Worker, arg},
     ]

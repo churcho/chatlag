@@ -9,7 +9,7 @@ defmodule ChatlagWeb.DisplayImage do
 
   def storage_dir(:primary, {_file, room}) do
     slug = room.slug
-    "uploads/rooms/display-images/primary/#{slug}"
+    "uploads/rooms/bg/#{slug}"
   end
 
   def default_url(:primary, _room) do

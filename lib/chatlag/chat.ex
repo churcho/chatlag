@@ -8,8 +8,8 @@ defmodule Chatlag.Chat do
 
   alias Chatlag.Chat.Room
 
-  def subscribe(room_id) do
-    Phoenix.PubSub.subscribe(Chatlag.PubSub, "ROOM#{room_id}")
+  def subscribe(topic) do
+    Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
   end
 
   @doc """
@@ -206,7 +206,7 @@ defmodule Chatlag.Chat do
   end
 
   defp notify_subs({:ok, result}, event) do
-    Phoenix.PubSub.broadcast(Chatlag.PubSub, "ROOM#{result.room_id}", {__MODULE__, event, result})
+    Phoenix.PubSub.broadcast(Chatlag.PubSub, "Chatlag:#{result.room_id}", {__MODULE__, event, result})
     {:ok, result}
   end
 

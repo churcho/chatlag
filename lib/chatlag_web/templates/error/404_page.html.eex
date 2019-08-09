@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nothing to see here</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/chat.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="page">
+            <div class="display-table">
+                <div class="table-cell">
+                    <div class="header"></div>
+                    <div class="main">
+                        <div class="chat">
+                                <img alt="Logo" src="/images/Logo_with_name.png" />
+                            <h2>הדף המבוקש לא נמצא</h2>
+                            <a href="/" class="btn btn-link">חזרה לדף הראשי</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+</body>
+
+</html>

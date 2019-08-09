@@ -12,6 +12,8 @@ defmodule ChatlagWeb.AuthController do
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
+        ####### --- TODO
+
         conn
         |> assign(:current_user, user)
         |> put_session(:user_id, user.id)

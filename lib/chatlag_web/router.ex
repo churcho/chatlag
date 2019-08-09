@@ -21,7 +21,8 @@ defmodule ChatlagWeb.Router do
   scope "/", ChatlagWeb do
     pipe_through [:browser]
 
-    get "/", PageController, :index
+    get "/", ChatController, :index
+    get "/chat", ChatController, :index
     get "/login", AuthController, :login
     post "/login", AuthController, :create
   end

@@ -1,7 +1,7 @@
 (function () {
     function init() {
         var baseWidth = 1920;
-        var baseFontSize = 40;
+        var baseFontSize = 16;
         var delayMS = 0/*100*/;
 
         var doc = document.documentElement;

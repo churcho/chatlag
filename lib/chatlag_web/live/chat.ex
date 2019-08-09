@@ -1,11 +1,15 @@
 defmodule ChatlagWeb.Live.Chat do
   use Phoenix.LiveView
 
+  alias ChatlagWeb.Presence
   alias Chatlag.Chat
   alias Chatlag.Chat.Message
 
   def mount(session, socket) do
-    if connected?(socket), do: Chat.subscribe(session.room_id)
+    if connected?(socket), do: Chat.subscribe(topic(session.room_id))
+
+    addUserToRoom(session.user_id, session.room_id)
+
     {:ok, fetch(socket, session.room_id, session.user_id)}
   end
 
@@ -13,13 +17,16 @@ defmodule ChatlagWeb.Live.Chat do
     ChatlagWeb.ChatView.render("chat.html", assigns)
   end
 
-  def fetch(socket, room_id, user_id, users_in_room \\ 0) do
+  def fetch(socket, room_id, user_id) do
+    in_room = 1
+    all_u = 100
+
     assign(socket, %{
       room: Chatlag.Chat.get_room!(room_id),
+      all_users: all_u,
+      users_in_room: in_room,
       room_id: room_id,
       user_id: user_id,
-      users_in_room: users_in_room,
-      users: 120,
       messages: Chat.list_messagese(room_id),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
@@ -37,7 +44,7 @@ defmodule ChatlagWeb.Live.Chat do
   def handle_event("send_message", %{"message" => params}, socket) do
     case Chat.create_message(params) do
       {:ok, message} ->
-        {:noreply, fetch(socket, message.room_id, get_user(socket), get_users_in_room(socket))}
+        {:noreply, fetch(socket, message.room_id, get_user(socket))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
@@ -45,20 +52,48 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({Chat, [:message, _event_type], _message}, socket) do
-    {:noreply, fetch(socket, get_room_id(socket), get_user(socket), get_users_in_room(socket) + 1)}
+    IO.inspect(Presence.list("Chatlag:*"), label: "*****")
+    {:noreply, fetch(socket, get_room_id(socket), get_user(socket))}
+  end
+
+  def handle_info(
+        %{event: "presence_diff", payload: _payload},
+        socket
+      ) do
+    users =
+      Presence.list(topic(get_room_id(socket)))
+      |> Enum.map(fn {_user_id, data} ->
+        data[:metas]
+        |> List.first()
+      end)
+
+    {:noreply, assign(socket, users: users, all_users: 123, users_in_room: Enum.count(users))}
   end
 
   defp get_user(socket) do
     socket.assigns
     |> Map.get(:user_id)
   end
+
   defp get_room_id(socket) do
     socket.assigns
     |> Map.get(:room_id)
   end
 
-  defp get_users_in_room(socket) do
-    socket.assigns
-    |> Map.get(:users_in_room)
+  defp addUserToRoom(user_id, room_id) do
+    Presence.track(
+      self(),
+      topic(room_id),
+      user_id,
+      %{
+        nickname: "heheh #{user_id}",
+        user_id: user_id,
+        room_id: room_id
+      }
+    )
+  end
+
+  defp topic(room_id) do
+    "Chatlag:#{room_id}"
   end
 end
