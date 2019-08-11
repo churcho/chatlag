@@ -14,7 +14,7 @@
   <tbody>
 <%= for room <- @rooms do %>
     <tr>
-      <td><%= room.title %></td>
+      <td><%= link room.title, to: Routes.room_path(@conn, :edit, room) %></td>
       <td><%= room.slug %></td>
       <td><%= room.on_front %></td>
       <td><%= room.min_age %></td>

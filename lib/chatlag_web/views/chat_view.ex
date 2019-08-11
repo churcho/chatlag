@@ -4,6 +4,8 @@ defmodule ChatlagWeb.ChatView do
   alias ChatlagWeb.DisplayImage
   alias ChatlagWeb.DisplayIcon
 
+  alias Chatlag.Accounts
+
   alias Chatlag.Chat
 
   def getRoomBg(id) do
@@ -27,4 +29,18 @@ defmodule ChatlagWeb.ChatView do
     |> DisplayIcon.url()
   end
 
+  def getUserIcon(uid) do
+    user = Accounts.get_user!(uid)
+    icn = if user.gender == "F" do
+      "/images/female.png"
+    else
+      "/images/male.png"
+    end
+  end
+
+  def getUserNickname(uid) do
+    user = Accounts.get_user!(uid)
+    user.nickname    
+  end
+  
 end

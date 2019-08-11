@@ -17,10 +17,10 @@ defmodule ChatlagWeb.RoomController do
 
   def create(conn, %{"room" => room_params}) do
     case Chat.create_room(room_params) do
-      {:ok, room} ->
+      {:ok, _room} ->
         conn
         |> put_flash(:info, "Room created successfully.")
-        |> redirect(to: Routes.room_path(conn, :show, room))
+        |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, changeset: changeset)
@@ -42,10 +42,10 @@ defmodule ChatlagWeb.RoomController do
     room = Chat.get_room!(id)
 
     case Chat.update_room(room, room_params) do
-      {:ok, room} ->
+      {:ok, _room} ->
         conn
         |> put_flash(:info, "Room updated successfully.")
-        |> redirect(to: Routes.room_path(conn, :show, room))
+        |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, room: room, changeset: changeset)

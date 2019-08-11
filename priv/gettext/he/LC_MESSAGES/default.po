@@ -33,8 +33,9 @@ msgstr "גיל מינימלי"
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/index.html.eex:32
+#: lib/chatlag_web/templates/room/new.html.eex:1
 msgid "New Room"
-msgstr "חדר חדש"
+msgstr "הוספת חדר"
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/index.html.eex:8
@@ -52,6 +53,82 @@ msgid "Slug"
 msgstr "שם יחודי"
 
 #, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:11
 #: lib/chatlag_web/templates/room/index.html.eex:6
 msgid "Title"
 msgstr "כותרת"
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/login.html.eex:27
+msgid "Add to Favorites"
+msgstr "הוסף למועדפים"
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/login.html.eex:54
+msgid "As Anonymous"
+msgstr "כניסה אנונימית"
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/login.html.eex:42
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "אירעה שגיאה. אנא, תקנו"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:13
+msgid "Attached"
+msgstr "הודעה נעוצה"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:12
+msgid "Slogen"
+msgstr "סלוגן"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:23
+msgid "bg_color"
+msgstr "צבע רקע"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:16
+msgid "min_age"
+msgstr "גיל מינימלי"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:17
+msgid "on_front"
+msgstr "פופולרי"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:18
+msgid "small_desc"
+msgstr "תיאור קצר"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:36
+msgid "Back"
+msgstr "חזרה"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:37
+msgid "Save"
+msgstr "שמירה"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:26
+msgid "bg_image"
+msgstr "תמונת רקע"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:30
+msgid "bg_small_image"
+msgstr "רקע לניידים"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:32
+msgid "room_icon"
+msgstr "אייקון החדר"
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/edit.html.eex:1
+msgid "Edit Room"
+msgstr "עדכון פרטי חדר"

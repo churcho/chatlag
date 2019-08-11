@@ -3,6 +3,7 @@ defmodule ChatlagWeb.AuthController do
 
   alias Chatlag.Accounts
   alias Chatlag.Accounts.User
+  plug :put_layout, "chat.html" when action in [:login]
 
   def login(conn, _params) do
     changeset = Accounts.change_user(%User{})
