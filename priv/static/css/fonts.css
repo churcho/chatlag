@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face {
+    font-family: 'Open Sans Hebrew';
+    font-style: italic;
+    font-weight: 400;
+    src: url(../fonts/opensanshebrew-regularitalic-webfont.eot);
+    src: url(../fonts/opensanshebrew-regularitalic-webfont.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/opensanshebrew-regularitalic-webfont.woff) format('woff'),
+    url(../fonts/opensanshebrew-regularitalic-webfont.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Open Sans Hebrew';
+    font-style: italic;
+    font-weight: 600;
+    src: url(../fonts/opensanshebrew-bolditalic-webfont.eot);
+    src: url(../fonts/opensanshebrew-bolditalic-webfont.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/opensanshebrew-bolditalic-webfont.woff) format('woff'),
+    url(../fonts/opensanshebrew-bolditalic-webfont.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Open Sans Hebrew';
+    font-style: italic;
+    font-weight: 800;
+    src: url(../fonts/opensanshebrew-extrabolditalic-webfont.eot);
+    src: url(../fonts/opensanshebrew-extrabolditalic-webfont.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/opensanshebrew-extrabolditalic-webfont.woff) format('woff'),
+    url(../fonts/opensanshebrew-extrabolditalic-webfont.ttf) format('truetype');
+}
