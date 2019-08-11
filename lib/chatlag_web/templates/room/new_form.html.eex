@@ -13,7 +13,7 @@
     <%= PBF.text_input f, :attached, label: [text: gettext("Attached")] %>
   </div>
   <div class="col-lg-6">
-      <%= PBF.text_input f, :min_age, input: [class: "col-lg-2"], label: [text: gettext("min_age")] %>
+      <%# < %= PBF.text_input f, :min_age, input: [class: "col-lg-2"], label: [text: gettext("min_age")] %> %>
       <%= PBF.checkbox f, :on_front, label: [text: gettext("on_front")] %>
     <%= PBF.textarea f, :small_desc, label: [text: gettext("small_desc")] %>
   </div>
