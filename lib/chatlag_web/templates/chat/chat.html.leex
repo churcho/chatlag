@@ -55,7 +55,7 @@
                     <%= hidden_input f, :room_id %>
                     <%= hidden_input f, :user_id %>
 
-                    <input type="text" class="input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
+                    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
                     <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
                 </form>
                 <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
@@ -73,7 +73,7 @@
     </div>
     <div class="clear"></div>
 </div>
-<div class="footer">כל הזכויות שמורות</div>
+<div class="footer"> <a class="link" id="footer-link">תקנון</a> <span class="seperator">|</span>   כל הזכויות שמורות <span class="green bold english">Chatlag</span> © </div>
 <%# ================================================================== %>
         </div>
       </div>
