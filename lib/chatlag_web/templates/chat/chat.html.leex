@@ -4,13 +4,20 @@
 }
  body {
      background: url(<%= getRoomBg(@room.id) %>);
+     background-color: <%= @room.bg_color || "transparent" %> !important;
      background-repeat: no-repeat;
  }
+
+
+
+ 
+
 
  @media screen and (max-width: 992px) {
  body {
      background:  url(<%= getRoomSmallBg(@room.id) %>);
      background-repeat: no-repeat;
+     background-color: <%= @room.bg_color || "transparent" %> !important;
  }
  }
 </style>
