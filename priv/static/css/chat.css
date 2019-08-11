@@ -47,6 +47,7 @@ body * {
 
 .header,
 .footer {
+    display: none;
     width: 20em;
     height: 2em;
     color: white;
@@ -615,6 +616,7 @@ body * {
         font-size: 0.6em;
     }
     .footer {
+        display: none;
         font-size: 0.5em;
     }
     .page {
