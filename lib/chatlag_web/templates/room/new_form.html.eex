@@ -1,0 +1,35 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
+
+<hr>
+<div class="row">
+  <div class="col-lg-6">
+    <%= PBF.text_input f, :title, label: [text: gettext("Title")] %>
+    <%= PBF.text_input f, :slogen, label: [text: gettext("Slogen")] %>
+    <%= PBF.text_input f, :attached, label: [text: gettext("Attached")] %>
+  </div>
+  <div class="col-lg-6">
+      <%= PBF.text_input f, :min_age, input: [class: "col-lg-2"], label: [text: gettext("min_age")] %>
+      <%= PBF.checkbox f, :on_front, label: [text: gettext("on_front")] %>
+    <%= PBF.textarea f, :small_desc, label: [text: gettext("small_desc")] %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <%= PBF.text_input f, :bg_color, input: [class: "col-lg-3"], label: [text: gettext("bg_color")] %>
+    
+    <%= PBF.file_input f, :bg_image, class: "form-control", label: [text: gettext("bg_image")] %>
+  </div>
+  <div class="col-lg-6">
+    <%= PBF.file_input f, :bg_small_image, class: "form-control", label: [text: gettext("bg_small_image")] %>
+    <%= PBF.file_input f, :room_icon, class: "form-control", label: [text: gettext("room_icon")] %>
+
+  </div>
+</div>
+<% cancel = link gettext("Back"), to: Routes.room_path(@conn, :index), class: "btn btn-link" %>
+<%= PBF.submit f, gettext("Save"), class: "btn-primary", alternative: cancel %>
+<% end %>
