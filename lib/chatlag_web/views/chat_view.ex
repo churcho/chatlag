@@ -31,7 +31,7 @@ defmodule ChatlagWeb.ChatView do
 
   def getUserIcon(uid) do
     user = Accounts.get_user!(uid)
-    icn = if user.gender == "F" do
+    if user.gender == "F" do
       "/images/female.png"
     else
       "/images/male.png"
