@@ -20,7 +20,7 @@ defmodule ChatlagWeb.AuthController do
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.chat_path(conn, :chat, 1))
+        |> redirect(to: Routes.chat_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "login.html", changeset: changeset)
