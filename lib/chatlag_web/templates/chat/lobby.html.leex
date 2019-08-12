@@ -35,8 +35,8 @@
 				<div class="container-fluid" id="fluid2">
 					<div class="row" id="row4">
                         <%= for room <- @top_rooms do %>
-						<div class="col-lg-3 col-sm-6 col-xs-6"> <a class="link" title="<%= room.title %>">
-							<div class="leading-chat"> <img class="leading-img" src="/images/leading-chat1.png" alt="<%= room.title %>"/>
+						<div class="col-lg-3 col-sm-6 col-xs-6"> <a href="/chat/<%= room.id %>" class="link" title="<%= room.title %>">
+							<div class="leading-chat"> <img class="leading-img" src="<%= getRoomIcon(room.id) %>" alt="<%= room.title %>"/>
 								<h4 class="leading-chat-title"><%= room.title %></h4>
 								<div class="leading-chat-content">
 									<p class="leading-chat-desc"></p>
@@ -72,7 +72,7 @@
 						<div class="more-chats-col">
                             <%= if (rem(room.id, 2) == 0) do %>
                             <div class="additional-chat"> 
-                                <a class="link" title="<%= room.title%>"> <img class="additional-img" alt="<%= room.title%>" src="/images/additional5.png" />
+                                <a href="/chat/<%= room.id %>" class="link" title="<%= room.title%>"> <img class="additional-img" alt="<%= room.title%>" src="<%= getRoomIcon(room.id) %>" />
                                     <div class="additional-content">
                                         <h5 class="additional-title"> <% room.id %> <%= room.title%></h5>
                                         <p class="additional-desc"><%= room.slogen %></p>
@@ -82,7 +82,7 @@
                             </div> 
                             <% else %>
 							<div class="additional-chat"> 
-                                <a class="link" title="<%= room.title %>"> <img class="additional-img" alt="<%= room.title %>" src="/images/additional6.png" />
+                                <a href="/chat/<%= room.id %>" class="link" title="<%= room.title %>"> <img class="additional-img" alt="<%= room.title %>" src="<%= getRoomIcon(room.id) %>" />
                                     <div class="additional-content">
                                         <h5 class="additional-title"><% room.id %> <%= room.title %></h5>
                                         <p class="additional-desc"><%= room.slogen %> </p>

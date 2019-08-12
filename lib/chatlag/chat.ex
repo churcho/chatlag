@@ -7,6 +7,7 @@ defmodule Chatlag.Chat do
   alias Chatlag.Repo
 
   alias Chatlag.Chat.Room
+  alias Chatlag.Chat.Message
 
   def subscribe(topic) do
     Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
@@ -90,6 +91,11 @@ defmodule Chatlag.Chat do
 
   """
   def delete_room(%Room{} = room) do
+    # rid = room.id
+    # Repo.delete_all(
+    #   from m in Message,
+    #   where: m.room_id = rid
+    # )
     Repo.delete(room)
   end
 
