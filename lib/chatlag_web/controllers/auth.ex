@@ -13,6 +13,8 @@ defmodule Chatlag.Auth do
       user = user_id && Chatlag.Accounts.get_user!(user_id)
       assign(conn, :current_user, user)
     else
+      conn = put_session(conn, :old_path, conn.request_path)
+
       conn
       |> put_flash(:error, "You must be logged in to access that page")
       |> redirect(to: Routes.auth_path(conn, :login))
