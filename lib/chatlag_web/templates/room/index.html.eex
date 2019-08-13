@@ -26,5 +26,5 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link gettext("New Room"), to: Routes.room_path(@conn, :new) %></span>
+<%= pagination_links @page %>
+<span><%= link gettext("New Room"), to: Routes.room_path(@conn, :new), class: "btn btn-primary" %></span>

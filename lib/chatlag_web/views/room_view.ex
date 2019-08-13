@@ -5,6 +5,8 @@ defmodule ChatlagWeb.RoomView do
 
   alias Chatlag.Chat
 
+  import Scrivener.HTML
+
   def getRoomBg(id) do
     room = Chat.get_room!(id)
 

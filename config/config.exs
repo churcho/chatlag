@@ -32,12 +32,16 @@ config :phoenix, :json_library, Jason
 #   translate_error_function: &Chatlag.ErrorHelpers.translate_error/1
 # ]
 
-
 # live view
 config :chatlag, ChatlagWeb.Endpoint,
   live_view: [
     signing_salt: "gPHQm6yxSF6JzQHAMS0Y1QRsIsJ19rzI"
   ]
+
+config :scrivener_html,
+  routes_helper: Chatlag.Router.Helpers,
+  # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.
+  view_style: :bootstrap_v4
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

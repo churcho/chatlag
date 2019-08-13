@@ -1,12 +1,19 @@
 defmodule ChatlagWeb.RoomController do
   use ChatlagWeb, :controller
 
+  import Ecto.Query
   alias Chatlag.Chat
   alias Chatlag.Chat.Room
+  alias Chatlag.Repo
 
-  def index(conn, _params) do
-    rooms = Chat.list_rooms()
-    render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, rooms: rooms)
+  def index(conn, params) do
+    # rooms = Chat.list_rooms()
+    page =
+      Room
+      |> order_by(asc: :id)
+      |> Repo.paginate(params)
+
+    render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, rooms: page.entries, page: page)
   end
 
   def new(conn, _params) do
@@ -48,7 +55,11 @@ defmodule ChatlagWeb.RoomController do
         |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, room: room, changeset: changeset)
+        render(conn,
+          layout: {ChatlagWeb.LayoutView, "admin.html"},
+          room: room,
+          changeset: changeset
+        )
     end
   end
 

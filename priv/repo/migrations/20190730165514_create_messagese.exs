@@ -5,8 +5,8 @@ defmodule Chatlag.Repo.Migrations.CreateMessagese do
     create table(:messagese) do
       add :content, :text
       add :reply_to, :integer
-      add :user_id, references(:users, on_delete: :nothing)
-      add :room_id, references(:rooms, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
+      add :room_id, references(:rooms, on_delete: :delete_all)
 
       timestamps()
     end

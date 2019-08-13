@@ -35,7 +35,7 @@ npm-debug.log
 # we ignore priv/static. You may want to comment
 # this depending on your deployment strategy.
 /priv/static/
-!priv/static/css/*.css
+!priv/static/css/
 !priv/static/js/*.js
 !priv/static/images/*.png
 !priv/static/images/*.jpg

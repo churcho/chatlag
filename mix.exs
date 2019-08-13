@@ -20,7 +20,7 @@ defmodule Chatlag.MixProject do
   def application do
     [
       mod: {Chatlag.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html]
     ]
   end
 
@@ -49,6 +49,8 @@ defmodule Chatlag.MixProject do
       {:slugger, "~> 0.3"},
       {:timex, "~> 3.5"},
       {:bamboo, "~> 1.3"},
+      {:scrivener_ecto, "~> 2.0"},
+      {:scrivener_html, "~> 1.8"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
