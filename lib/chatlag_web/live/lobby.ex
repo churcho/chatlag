@@ -25,9 +25,9 @@ defmodule ChatlagWeb.Live.Lobby do
   def fetch(socket) do
     assign(socket, %{
       top_rooms:
-        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == true)),
+        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == true, order_by: r.id)),
       rest_rooms:
-        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == false))
+        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == false, order_by: r.id))
     })
   end
 
