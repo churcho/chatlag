@@ -12,12 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #, elixir-format
-#: lib/chatlag_web/templates/page/index.html.eex:2
-msgid "Welcome to %{name}!"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/room/index.html.eex:25
+#: lib/chatlag_web/templates/room/index.html.eex:23
 msgid "Are you sure?"
 msgstr ""
 
@@ -27,12 +22,7 @@ msgid "Listing Rooms"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/index.html.eex:9
-msgid "Min age"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/room/index.html.eex:32
+#: lib/chatlag_web/templates/room/index.html.eex:30
 #: lib/chatlag_web/templates/room/new.html.eex:1
 msgid "New Room"
 msgstr ""
@@ -55,6 +45,7 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:11
 #: lib/chatlag_web/templates/room/index.html.eex:6
+#: lib/chatlag_web/templates/room/new_form.html.eex:11
 msgid "Title"
 msgstr ""
 
@@ -64,27 +55,25 @@ msgid "Add to Favorites"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:54
+#: lib/chatlag_web/templates/auth/login.html.eex:49
 msgid "As Anonymous"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:42
-msgid "Oops, something went wrong! Please check the errors below."
-msgstr ""
-
-#, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:13
+#: lib/chatlag_web/templates/room/new_form.html.eex:13
 msgid "Attached"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:12
+#: lib/chatlag_web/templates/room/new_form.html.eex:12
 msgid "Slogen"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:23
+#: lib/chatlag_web/templates/room/new_form.html.eex:22
 msgid "bg_color"
 msgstr ""
 
@@ -95,40 +84,57 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:17
+#: lib/chatlag_web/templates/room/new_form.html.eex:16
 msgid "on_front"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:18
+#: lib/chatlag_web/templates/room/new_form.html.eex:17
 msgid "small_desc"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:36
+#: lib/chatlag_web/templates/room/new_form.html.eex:32
 msgid "Back"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:37
+#: lib/chatlag_web/templates/room/new_form.html.eex:33
 msgid "Save"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:26
+#: lib/chatlag_web/templates/room/new_form.html.eex:24
 msgid "bg_image"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:30
+#: lib/chatlag_web/templates/room/new_form.html.eex:27
 msgid "bg_small_image"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:32
+#: lib/chatlag_web/templates/room/new_form.html.eex:28
 msgid "room_icon"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/edit.html.eex:1
 msgid "Edit Room"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/login.html.eex:46
+msgid "Age"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/login.html.eex:43
+msgid "nickname"
 msgstr ""

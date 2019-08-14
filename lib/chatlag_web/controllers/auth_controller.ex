@@ -3,7 +3,8 @@ defmodule ChatlagWeb.AuthController do
 
   alias Chatlag.Accounts
   alias Chatlag.Accounts.User
-  plug :put_layout, "chat.html" when action in [:login]
+
+  plug :put_layout, "chat.html" when action in [:login, :create]
 
   def login(conn, _params) do
     changeset = Accounts.change_user(%User{})
@@ -15,7 +16,7 @@ defmodule ChatlagWeb.AuthController do
       {:ok, user} ->
         ####### --- TODO
 
-        old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index)
+        old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index) 
 
         conn
         |> assign(:current_user, user)

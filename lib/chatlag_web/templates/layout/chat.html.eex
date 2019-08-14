@@ -14,10 +14,11 @@
 </head>
 
 <body>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>
+
   <%= render @view_module, @view_template, assigns %>
 
-
-  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 </body>
 
 </html>

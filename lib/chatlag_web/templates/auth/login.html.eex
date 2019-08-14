@@ -3,64 +3,88 @@
         background-color: green;
         background: none;
     }
+    .hidden {
+        display: none;
+    }
 </style>
 
 
- <div class="page">
+<div class="page">
     <div class="display-table">
-      <div class="table-cell">
-          <div class="header"></div>
-        <div class="main">
+        <div class="table-cell">
+            <div class="header"></div>
+            <div class="main">
 
 
-    <div class="row pad-bottom">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-8">
-                </div>
-            </div>
-            <div class="row">
-                <div class="pad-bottom pad-top col-md-12">
-                    <h6 class="btn-xs">
-                        <%= gettext("Add to Favorites") %>
-                    </h6>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/Logo_with_name.png") %>" />
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-
-                        <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
-                        <%= if @changeset.action do %>
-                        <div class="alert alert-danger">
-                            <p> <%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
-                        </div>
-                        <% end %>
-
-
+                <div class="row pad-bottom">
+                    <div class="col-sm-12 col-md-12">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <%= PBF.text_input f, :nickname %>
-                                <%= PBF.text_input f, :age %>
-                                <%= PBF.radio_buttons f, :gender, ["M", "F"], input: [inline: true], label: [text: ""]  %>
+                            <div class="col-sm-12 col-md-4">
+                            </div>
+                            <div class="col-sm-12 col-md-8">
                             </div>
                         </div>
-                        <%= PBF.submit f, gettext("As Anonymous"), class: "btn-primary"%>
-                        <% end %>
+                        <div class="row">
+                            <div class="pad-bottom pad-top col-md-12">
+                                <h6 class="btn-xs">
+                                    <%= gettext("Add to Favorites") %>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/Logo_with_name.png") %>" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <%= text_input f, :nickname, placeholder: gettext("nickname") %>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <%= gettext("Age") %>:
+                                                    <%= select f, :age, 12..120 %>
+                                            </div>
+                                        </div>
+
+                                        <span class="hidden">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="user[gender]" id="r-male" value="M">xxx
+                                        </div>
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="user[gender]" id="r-female" value="F">yyy
+                                        </div>
+                                        </span>
+
+                                        <a href="#"> <img id="id-female" width="70" src="/images/female.png"> </a>
+                                        <a href="#"> <img id="id-male" width="70" src="/images/male.png"> </a>
+                                        <div class="col-lg-12"></div>
+                                        <%= PBF.submit f, gettext("As Anonymous"), class: "btn-primary"%>
+                                            <% end %>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        <div class="pad-bottom"></div>
-        <div class="pad-bottom"></div>
-        <div class="pad-bottom"></div>
+    </div>
+    <div class="pad-bottom"></div>
+    <div class="pad-bottom"></div>
+    <div class="pad-bottom"></div>
+
+    <script>
+    $(document).ready(function(){
+        $("#id-male").click(function(){
+            $("#r-female").prop('checked', false);
+            $("#r-male").prop('checked', true);
+        });
+        $("#id-female").click(function(){
+            $("#r-male").prop('checked', false);
+            $("#r-female").prop('checked', true);
+        });
+
+    });
+    </script>
