@@ -51,8 +51,10 @@
                         <a class="reply">הגב</a>
                     </div>
                     <div class="massage_social">
-                        <a class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
-                        <a class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
+                        <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>" class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
+                        <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>" class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
+                        <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>" class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
+
                     </div>
                     <div class="clear"></div>
                 </div>

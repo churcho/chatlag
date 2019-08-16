@@ -5,6 +5,8 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.Chat
   alias Chatlag.Chat.Message
 
+  alias ChatlagWeb.Router.Helpers, as: Routes
+
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(topic(session.room_id))
 
@@ -27,6 +29,7 @@ defmodule ChatlagWeb.Live.Chat do
       users_in_room: in_room,
       room_id: room_id,
       user_id: user_id,
+      room_url: "/chat/#{room_id}", #Routes.chat_path(socket, room_id),
       messages: Chat.list_messagese(room_id),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
