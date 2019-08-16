@@ -153,6 +153,9 @@ body * {
     right: 4.2em;
     top: 0.25em;
 }
+.massage_box.me:before {
+    border-bottom: 0.6em solid #caeeca;
+}
 
 .massage_footer {
     color: #aaaaaa;
@@ -527,6 +530,9 @@ body * {
         transform: rotate(-45deg);
         right: 3.2em;
         top: 0.5em;
+    }
+    .massage_box.me:before {
+        border-bottom: 1em solid #caeeca;
     }
     .menu {
         float: none;
