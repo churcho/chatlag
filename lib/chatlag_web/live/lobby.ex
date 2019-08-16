@@ -44,7 +44,6 @@ defmodule ChatlagWeb.Live.Lobby do
     # end
 
     rest_rooms = Enum.chunk_every(rooms, 2)
-    IO.inspect(rest_rooms, label: "***********************")
 
     assign(socket, %{
       top_rooms:
@@ -73,9 +72,6 @@ defmodule ChatlagWeb.Live.Lobby do
     #     data[:metas]
     #     |> List.first()
     #   end)
-
-    IO.inspect(socket, label: "****Event all")
-    IO.inspect(payload, label: "****Event all")
 
     {:noreply, socket}
   end

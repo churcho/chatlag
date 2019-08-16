@@ -55,7 +55,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({Chat, [:message, _event_type], _message}, socket) do
-    IO.inspect(Presence.list("Chatlag:*"), label: "*****")
     {:noreply, fetch(socket, get_room_id(socket), get_user(socket))}
   end
 

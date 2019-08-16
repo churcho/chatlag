@@ -1,5 +1,7 @@
 defmodule ChatlagWeb.ChatView do
   use ChatlagWeb, :view
+  use Timex
+
   import Ecto.Query
 
   alias ChatlagWeb.DisplayImage
@@ -52,7 +54,7 @@ defmodule ChatlagWeb.ChatView do
   end
 
   def getUserNickname(uid) do
-    user = Accounts.get_user!(uid) 
+    user = Accounts.get_user!(uid)
     user.nickname
   end
 
@@ -61,6 +63,7 @@ defmodule ChatlagWeb.ChatView do
   # https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.efrat37.co.il%2F%23%2Fchat%3Froom%3D%25D7%25A4%25D7%2595%25D7%259C%25D7%2599%25D7%2598%25D7%2599%25D7%25A7%25D7%2594
   def shareMessage(url, media, msg) do
     thisUrl = "https://chatlag.co.il#{url}"
+
     link =
       case media do
         :facebook ->
@@ -72,19 +75,17 @@ defmodule ChatlagWeb.ChatView do
         :twitter ->
           "https://twitter.com/intent/tweet?text=#{thisUrl} #{msg}"
       end
-      "#{link}"
+
+    "#{link}"
   end
 
-  def getNext(id) do
-    q =
-      from(r in Room,
-        select: %{id: r.id, title: r.title, slogen: r.slogen},
-        where: r.on_front == false,
-        where: r.id > ^id,
-        order_by: r.id,
-        limit: 2
-      )
+  def meClass(me, id) do
+    if me == id, do: 1, else: 2
+  end
 
-    {Repo.all(q), 78}
+  def showDate(dt) do
+    timezone = Timezone.get("Asia/Jerusalem", Timex.now())
+    {:ok, dt} = Timezone.convert(dt, timezone) |> Timex.format("%H:%M %D", :strftime)
+    dt
   end
 end

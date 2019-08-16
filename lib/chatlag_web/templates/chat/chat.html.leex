@@ -42,12 +42,12 @@
         <%= for msg <- @messages do %>
         <div class="chat_massage massage01">
             <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
-            <div class="chat_box massage_box">
+            <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
                 <%= msg.content %>
                 <div class="massage_footer">
                     <div class="massage_meta">
                         <span class="username"><%= getUserNickname(msg.user_id) %></span>
-                        <span class="usertime"><%= msg.updated_at %></span>
+                        <span class="usertime"><%= showDate(msg.updated_at) %></span>
                         <a class="reply">הגב</a>
                     </div>
                     <div class="massage_social">
