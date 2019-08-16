@@ -8,6 +8,17 @@
      background-repeat: no-repeat;
  }
 
+
+
+ @media screen and (max-width: 1280px) {
+ body {
+     background:  url(<%= getRoomMidsizeBg(@room.id) %>);
+     background-repeat: no-repeat;
+     background-color: <%= @room.bg_color || "transparent" %> !important;
+ }
+ }
+
+
  @media screen and (max-width: 992px) {
  body {
      background:  url(<%= getRoomSmallBg(@room.id) %>);

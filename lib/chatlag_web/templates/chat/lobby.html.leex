@@ -45,7 +45,7 @@
                                     <div class="leading-chat"> <img class="leading-img" src="<%= getRoomIcon(room.id) %>" alt="<%= room.title %>" />
                                         <h4 class="leading-chat-title"><%= room.title %></h4>
                                         <div class="leading-chat-content">
-                                            <p class="leading-chat-desc"></p>
+                                            <p class="leading-chat-desc"><%= room.slogen %></p>
                                             <p class="leading-online green"><span class="online-users">130</span> משתמשים <span class="online" lang="en">online</span></p>
                                         </div>
                                         <div class="leading-chat-button">כנסו עכשיו</div>
@@ -75,32 +75,56 @@
                     </div>
                     <div class="col-lg-10 more-chats-container">
                         <div class="more-chats-scroll">
-							<%= for room <- @rest_rooms do %>
+
+							<%= for [room1, room2] <- @rest_rooms do %>    
 							<div class="more-chats-col">
-
                                 <div class="additional-chat">
-                                    <a href="/chat/<%= room.id %>" class="link" title="1 הפקות ארועים"> <img class="additional-img" alt="הפקות ארועים" src="images/additional1.png" />
+                                    <a href="/chat/<%= room1.id %>" class="link" title="<%= room1.title %>"> 
+                                            <img class="additional-img" alt="הפקות ארועים" src="<%= getRoomIcon(room1.id) %>" />
                                         <div class="additional-content">
-                                            <h5 class="additional-title">1 <%= room.title %></h5>
-                                            <p class="additional-desc"><%= room.slogen %></p>
+                                            <h5 class="additional-title"><%= room1.title %></h5>
+                                            <p class="additional-desc"><%= room1.slogen %></p>
                                         </div>
                                         <div class="clear"></div>
                                     </a>
                                 </div>
-
                                 <div class="additional-chat">
-                                    <a href="/chat/<%= room.id %>" class="link" title="הפקות ארועים"> <img class="additional-img" alt="הפקות ארועים" src="images/additional2.png" />
+                                    <a href="/chat/<%= room2.id %>" class="link" title="<%= room2.title %>"> 
+                                            <img class="additional-img" alt="הפקות ארועים" src="<%= getRoomIcon(room2.id) %>" />
                                         <div class="additional-content">
-                                            <h5 class="additional-title">2 <%= room.title %></h5>
-                                            <p class="additional-desc"><%= room.slogen %></p>
+                                            <h5 class="additional-title"><%= room2.title %></h5>
+                                            <p class="additional-desc"><%= room2.slogen %></p>
                                         </div>
                                         <div class="clear"></div>
                                     </a>
                                 </div>
-								
                             </div>
 							<% end %>
-                        
+							<%= for [room1] <- @rest_rooms do %>    
+							<div class="more-chats-col">
+                                <div class="additional-chat">
+                                    <a href="/chat/<%= room1.id %>" class="link" title="<%= room1.title %>"> 
+                                            <img class="additional-img" alt="הפקות ארועים" src="<%= getRoomIcon(room1.id) %>" />
+                                        <div class="additional-content">
+                                            <h5 class="additional-title"><%= room1.title %></h5>
+                                            <p class="additional-desc"><%= room1.slogen %></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </a>
+                                </div>
+                                <div class="additional-chat">
+                                    <a href="/chat/<%= room1.id %>" class="link" title=""> 
+                                            <img class="additional-img" alt="" src="" />
+                                        <div class="additional-content">
+                                            <h5 class="additional-title"></h5>
+                                            <p class="additional-desc"></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </a>
+                                </div>
+                            </div>
+							<% end %>
+
 						</div>
                     </div>
                     <div class="col-lg-1 arrow-col arrow-col-left">

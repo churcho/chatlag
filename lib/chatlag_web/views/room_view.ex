@@ -21,6 +21,14 @@ defmodule ChatlagWeb.RoomView do
     |> DisplayImage.url()
   end
 
+  def getRoomMidsizeBg(id) do
+    room = Chat.get_room!(id)
+
+    {room.midsize_image, room}
+    |> DisplayImage.url()
+  end
+
+
   def getRoomIcon(id) do
     room = Chat.get_room!(id)
 

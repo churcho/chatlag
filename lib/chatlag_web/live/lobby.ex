@@ -23,11 +23,39 @@ defmodule ChatlagWeb.Live.Lobby do
   end
 
   def fetch(socket) do
+    rooms =
+      Repo.all(
+        from(r in Room,
+          select: %{id: r.id, title: r.title, slogen: r.slogen},
+          where: r.on_front == false,
+          order_by: r.id
+        )
+      )
+
+    # cnt = Enum.count(rooms)
+
+    # rr =
+    #   if rem(cnt, 2) == 1 do
+    #     rr ++ %{id: nil}
+    #   end
+
+    # if rem(cnt, 2) == 1 do
+    #   rooms = rooms ++ %{id: nil}
+    # end
+
+    rest_rooms = Enum.chunk_every(rooms, 2)
+    IO.inspect(rest_rooms, label: "***********************")
+
     assign(socket, %{
       top_rooms:
-        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == true, order_by: r.id)),
-      rest_rooms:
-        Repo.all(from(r in Room, select: %{id: r.id, title: r.title, slogen: r.slogen}, where: r.on_front == false, order_by: r.id))
+        Repo.all(
+          from(r in Room,
+            select: %{id: r.id, title: r.title, slogen: r.slogen},
+            where: r.on_front == true,
+            order_by: r.id
+          )
+        ),
+      rest_rooms: rest_rooms
     })
   end
 

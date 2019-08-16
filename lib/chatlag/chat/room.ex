@@ -13,6 +13,7 @@ defmodule Chatlag.Chat.Room do
     field :title, :string
     field :slogen, :string
     field :bg_image, ChatlagWeb.DisplayImage.Type
+    field :midsize_image, ChatlagWeb.DisplayImage.Type
     field :bg_small_image, ChatlagWeb.DisplayImage.Type
     field :room_icon, ChatlagWeb.DisplayIcon.Type
 
@@ -26,6 +27,7 @@ defmodule Chatlag.Chat.Room do
     room
     |> cast(attrs, [:title, :slug, :on_front, :small_desc, :bg_color, :min_age, :attached, :slogen])
     |> cast_attachments(attrs, [:bg_image])
+    |> cast_attachments(attrs, [:midsize_image])
     |> cast_attachments(attrs, [:bg_small_image])
     |> cast_attachments(attrs, [:room_icon])
     |> validate_required([:title])
