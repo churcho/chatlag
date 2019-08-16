@@ -72,7 +72,7 @@
                         <%= for [room1, room2] <- @rest_rooms do %> 
                             <div class="more-chats-col">
                                 <div class="additional-chat"> 
-                                    <a class="link" title="<%= room1.title %>"> 
+                                    <a href="/chat/<%= room1.id %>" class="link" title="<%= room1.title %>"> 
                                     <img class="additional-img" alt="<%= room1.title %>" src="<%= getRoomIcon(room1.id) %>" />
                                     <div class="additional-content">
                                         <h5 class="additional-title"><%= room1.title %></h5>
@@ -81,7 +81,7 @@
                                     <div class="clear"></div>
                                     </a> 
                                 </div>
-                                <div class="additional-chat"> <a class="link" title="<%= room2.title %>"> 
+                                <div class="additional-chat"> <a href="/chat/<%= room2.id %>" class="link" title="<%= room2.title %>"> 
                                     <img class="additional-img" alt="<%= room2.title %>" src="<%= getRoomIcon(room2.id) %>" />
                                     <div class="additional-content">
                                         <h5 class="additional-title"><%= room2.title %></h5>
@@ -96,7 +96,7 @@
                         <%= for [room1] <- @rest_rooms do %> 
                             <div class="more-chats-col">
                                 <div class="additional-chat"> 
-                                    <a class="link" title="<%= room1.title %>"> 
+                                    <a href="/chat/<%= room1.id %>" class="link" title="<%= room1.title %>"> 
                                     <img class="additional-img" alt="<%= room1.title %>" src="<%= getRoomIcon(room1.id) %>" />
                                     <div class="additional-content">
                                         <h5 class="additional-title">1 <%= room1.title %></h5>
