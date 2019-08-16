@@ -15,7 +15,7 @@
 <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/scale.js") %>'></script>
 <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/script.js") %>'></script> 
 <link href='<%= Routes.static_path(@conn, "/css/bootstrap.min.css") %>' rel="stylesheet" type="text/css">
-<link href='<%= Routes.static_path(@conn, "/css/style.css") %>' rel="stylesheet" type="text/css">
+<link href='<%= Routes.static_path(@conn, "/css/lobby-style.css") %>' rel="stylesheet" type="text/css">
 </head>
 <body>
   <%= render @view_module, @view_template, assigns %> 

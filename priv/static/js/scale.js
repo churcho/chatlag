@@ -1,4 +1,3 @@
-var newFontSize;
 (function () {
     function init() {
         var baseWidth = 1920;
@@ -11,7 +10,7 @@ var newFontSize;
 
         function scaleFont() {
             // Calculate new font size
-            newFontSize = Math.min(doc.offsetWidth/baseWidth, 1)*baseFontSize;
+            var newFontSize = Math.min(doc.offsetWidth/baseWidth, 1)*baseFontSize;
             if (newFontSize !== currentFontSize) {
                 // Set new font size
                 doc.style.fontSize = newFontSize + 'px';
