@@ -18,7 +18,7 @@ defmodule Chatlag.Test do
 
     xx = Enum.chunk_every(rr, 2)
 
-    for [aa,bb] <- xx do
+    for [aa, bb] <- xx do
       aa
     end
   end

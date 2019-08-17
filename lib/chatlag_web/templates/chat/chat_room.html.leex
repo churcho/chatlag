@@ -1,0 +1,44 @@
+        
+<div class="chat">
+  <div class="chat_box chat_alert">
+    <%= @room.attached %> 
+  </div>
+  <div class="chat_scroll">
+    <%= for msg <- @messages do %>
+      <div class="chat_massage massage01">
+        <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+        <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
+                <%= msg.content %>
+                <div class="massage_footer">
+                    <div class="massage_meta">
+                        <span class="username"><%= getUserNickname(msg.user_id) %></span>
+                        <span class="usertime"><%= showDate(msg.updated_at) %></span>
+                        <a class="reply">הגב</a>
+                    </div>
+                    <div class="massage_social">
+                        <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>" class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
+                        <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>" class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
+                        <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>" class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <% end %>
+        </div>
+        <div class="chat_input">
+            <div class="input_box">
+                <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
+                    <%= hidden_input f, :username %>
+                    <%= hidden_input f, :room_id %>
+                    <%= hidden_input f, :user_id %>
+
+                    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
+                    <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
+                </form>
+      <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
+    </div>
+  </div>
+</div>

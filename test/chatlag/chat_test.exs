@@ -6,8 +6,20 @@ defmodule Chatlag.ChatTest do
   describe "rooms" do
     alias Chatlag.Chat.Room
 
-    @valid_attrs %{min_age: 42, on_front: true, slug: "some slug", small_desc: "some small_desc", title: "some title"}
-    @update_attrs %{min_age: 43, on_front: false, slug: "some updated slug", small_desc: "some updated small_desc", title: "some updated title"}
+    @valid_attrs %{
+      min_age: 42,
+      on_front: true,
+      slug: "some slug",
+      small_desc: "some small_desc",
+      title: "some title"
+    }
+    @update_attrs %{
+      min_age: 43,
+      on_front: false,
+      slug: "some updated slug",
+      small_desc: "some updated small_desc",
+      title: "some updated title"
+    }
     @invalid_attrs %{min_age: nil, on_front: nil, slug: nil, small_desc: nil, title: nil}
 
     def room_fixture(attrs \\ %{}) do

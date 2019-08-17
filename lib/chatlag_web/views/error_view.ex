@@ -6,6 +6,7 @@ defmodule ChatlagWeb.ErrorView do
   def render("500.html", _assigns) do
     render("500_page.html", %{})
   end
+
   def render("404.html", _assigns) do
     render("404_page.html", %{})
   end

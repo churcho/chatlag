@@ -24,5 +24,4 @@ defmodule ChatlagWeb.ChatController do
       session: %{room_id: room_id, user_id: user_id}
     )
   end
-
 end

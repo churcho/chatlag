@@ -1,0 +1,8 @@
+<div class="chat">
+  <div class="chat_scroll">
+    <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
+    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="חיפוש משתמשים" placeholder="חיפוש משתמשים"/>
+    <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
+  </form>
+</div>
+</div>

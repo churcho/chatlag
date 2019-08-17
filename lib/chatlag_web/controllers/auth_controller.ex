@@ -14,9 +14,7 @@ defmodule ChatlagWeb.AuthController do
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
-        ####### --- TODO
-
-        old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index) 
+        old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index)
 
         conn
         |> assign(:current_user, user)
@@ -28,5 +26,11 @@ defmodule ChatlagWeb.AuthController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "login.html", changeset: changeset)
     end
+  end
+
+  def logout(conn, _) do
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: "/")
   end
 end

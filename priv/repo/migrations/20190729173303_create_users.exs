@@ -16,6 +16,5 @@ defmodule Chatlag.Repo.Migrations.CreateUsers do
 
       timestamps()
     end
-
   end
 end

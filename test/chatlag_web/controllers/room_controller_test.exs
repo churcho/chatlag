@@ -3,8 +3,20 @@ defmodule ChatlagWeb.RoomControllerTest do
 
   alias Chatlag.Chat
 
-  @create_attrs %{min_age: 42, on_front: true, slug: "some slug", small_desc: "some small_desc", title: "some title"}
-  @update_attrs %{min_age: 43, on_front: false, slug: "some updated slug", small_desc: "some updated small_desc", title: "some updated title"}
+  @create_attrs %{
+    min_age: 42,
+    on_front: true,
+    slug: "some slug",
+    small_desc: "some small_desc",
+    title: "some title"
+  }
+  @update_attrs %{
+    min_age: 43,
+    on_front: false,
+    slug: "some updated slug",
+    small_desc: "some updated small_desc",
+    title: "some updated title"
+  }
   @invalid_attrs %{min_age: nil, on_front: nil, slug: nil, small_desc: nil, title: nil}
 
   def fixture(:room) do
@@ -75,6 +87,7 @@ defmodule ChatlagWeb.RoomControllerTest do
     test "deletes chosen room", %{conn: conn, room: room} do
       conn = delete(conn, Routes.room_path(conn, :delete, room))
       assert redirected_to(conn) == Routes.room_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.room_path(conn, :show, room))
       end

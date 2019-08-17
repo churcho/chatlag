@@ -5,7 +5,7 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.Chat
   alias Chatlag.Chat.Message
 
-  alias ChatlagWeb.Router.Helpers, as: Routes
+  # alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(topic(session.room_id))
@@ -24,12 +24,15 @@ defmodule ChatlagWeb.Live.Chat do
     all_u = 100
 
     assign(socket, %{
+      display: "chat",
+      max_id: 100,
       room: Chatlag.Chat.get_room!(room_id),
       all_users: all_u,
       users_in_room: in_room,
       room_id: room_id,
       user_id: user_id,
-      room_url: "/chat/#{room_id}", #Routes.chat_path(socket, room_id),
+      # Routes.chat_path(socket, room_id),
+      room_url: "/chat/#{room_id}",
       messages: Chat.list_messagese(room_id),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
@@ -54,6 +57,23 @@ defmodule ChatlagWeb.Live.Chat do
     end
   end
 
+  def handle_event("add-user", _params, socket) do
+    next_id = get_next_id(socket)
+    addUserToRoom(next_id, get_room_id(socket))
+
+    {:noreply, assign(socket, max_id: next_id + 1)}
+  end
+
+  def handle_event("show-members", _params, socket) do
+
+    {:noreply, assign(socket, display: "members")}
+  end
+
+  def handle_event("show-chat", _params, socket) do
+
+    {:noreply, assign(socket, display: "chat")}
+  end
+
   def handle_info({Chat, [:message, _event_type], _message}, socket) do
     {:noreply, fetch(socket, get_room_id(socket), get_user(socket))}
   end
@@ -75,6 +95,11 @@ defmodule ChatlagWeb.Live.Chat do
   defp get_user(socket) do
     socket.assigns
     |> Map.get(:user_id)
+  end
+
+  defp get_next_id(socket) do
+    socket.assigns
+    |> Map.get(:max_id)
   end
 
   defp get_room_id(socket) do

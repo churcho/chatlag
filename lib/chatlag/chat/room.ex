@@ -25,7 +25,16 @@ defmodule Chatlag.Chat.Room do
     attrs = Map.merge(attrs, slug_map(attrs))
 
     room
-    |> cast(attrs, [:title, :slug, :on_front, :small_desc, :bg_color, :min_age, :attached, :slogen])
+    |> cast(attrs, [
+      :title,
+      :slug,
+      :on_front,
+      :small_desc,
+      :bg_color,
+      :min_age,
+      :attached,
+      :slogen
+    ])
     |> cast_attachments(attrs, [:bg_image])
     |> cast_attachments(attrs, [:midsize_image])
     |> cast_attachments(attrs, [:bg_small_image])

@@ -1,98 +1,53 @@
 <style>
-.phx-connected {
-    display: inline;
-}
- body {
-     background: url(<%= getRoomBg(@room.id) %>);
-     background-color: <%= @room.bg_color || "transparent" %> !important;
-     background-repeat: no-repeat;
- }
-
-
-
- @media screen and (max-width: 1280px) {
- body {
-     background:  url(<%= getRoomMidsizeBg(@room.id) %>);
-     background-repeat: no-repeat;
-     background-color: <%= @room.bg_color || "transparent" %> !important;
- }
- }
-
-
- @media screen and (max-width: 992px) {
- body {
-     background:  url(<%= getRoomSmallBg(@room.id) %>);
-     background-repeat: no-repeat;
-     background-color: <%= @room.bg_color || "transparent" %> !important;
- }
- }
+  .hidden {
+    display: none;
+  }
+  .phx-connected {
+      display: inline;
+  }
+   body {
+       background: url(<%= getRoomBg(@room.id) %>);
+       background-color: <%= @room.bg_color || "transparent" %> !important;
+       background-repeat: no-repeat;
+   }
+  
+  
+  
+   @media screen and (max-width: 1280px) {
+    body {
+        background:  url(<%= getRoomMidsizeBg(@room.id) %>);
+        background-repeat: no-repeat;
+        background-color: <%= @room.bg_color || "transparent" %> !important;
+    }
+   }
+  
+  
+   @media screen and (max-width: 992px) {
+    body {
+        background:  url(<%= getRoomSmallBg(@room.id) %>);
+        background-repeat: no-repeat;
+        background-color: <%= @room.bg_color || "transparent" %> !important;
+    }
+   }
 </style>
-  <div class="page">
-    <div class="display-table">
-      <div class="table-cell">
-          <div class="header"></div>
-        <div class="main">
-<%# ============================================================================== %>
-    <div class="chat">
-        <div class="chat_box chat_alert">
-            <%= @room.attached %>
-        </div>
-        <div class="chat_scroll">
+<div class="page">
+  <div class="display-table">
+    <div class="table-cell">
+      <div class="header"></div>
+      <div class="main">
 
-        <%= for msg <- @messages do %>
-        <div class="chat_massage massage01">
-            <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
-            <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
-                <%= msg.content %>
-                <div class="massage_footer">
-                    <div class="massage_meta">
-                        <span class="username"><%= getUserNickname(msg.user_id) %></span>
-                        <span class="usertime"><%= showDate(msg.updated_at) %></span>
-                        <a class="reply">הגב</a>
-                    </div>
-                    <div class="massage_social">
-                        <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>" class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
-                        <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>" class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
-                        <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>" class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
-
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
+        <%= case @display do %>
+          <% "chat" -> %>
+            <%= render "chat_room.html", assigns %>
+          <% "members" -> %>
+            <%= render "chat_users.html", assigns %>
         <% end %>
-        </div>
-        <div class="chat_input">
-            <div class="input_box">
-                <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
-                    <%= hidden_input f, :username %>
-                    <%= hidden_input f, :room_id %>
-                    <%= hidden_input f, :user_id %>
+        <%= render "chat_menu.html", assigns %>
 
-                    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
-                    <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
-                </form>
-                <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
-            </div>
-        </div>
-    </div>
-    <div class="menu">
-        <div class="menu_icon users"><span class="icon"></span><span class="user_number"><%= @all_users %><br><span class="desktop">משתמשים</span></span></div>
-        <div class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @users_in_room %></span></div>
-        <a href="/chat"><div class="menu_icon home"><span class="icon"></span></div></a>
-        <div class="menu_icon goreply"><span class="icon"></span></div>
-        <div class="menu_icon mail"><span class="icon"></span></div>
-        <div class="menu_icon share"><span class="icon"></span></div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-</div>
-<div class="footer"> 
-    <!-- <a class="link" id="footer-link">תקנון</a> <span class="seperator">|</span>   כל הזכויות שמורות <span class="green bold english">Chatlag</span> © -->
-</div>
-<%# ================================================================== %>
-        </div>
+      <div class="footer">
+        <!-- <a class="link" id="footer-link">תקנון</a> <span class="seperator">|</span>   כל הזכויות שמורות <span class="green bold english">Chatlag</span> © -->
       </div>
     </div>
   </div>
+</div>
+</div>

@@ -212,7 +212,12 @@ defmodule Chatlag.Chat do
   end
 
   defp notify_subs({:ok, result}, event) do
-    Phoenix.PubSub.broadcast(Chatlag.PubSub, "Chatlag:#{result.room_id}", {__MODULE__, event, result})
+    Phoenix.PubSub.broadcast(
+      Chatlag.PubSub,
+      "Chatlag:#{result.room_id}",
+      {__MODULE__, event, result}
+    )
+
     {:ok, result}
   end
 

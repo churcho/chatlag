@@ -17,6 +17,5 @@ defmodule Chatlag.Repo.Migrations.CreateRooms do
 
       timestamps()
     end
-
   end
 end

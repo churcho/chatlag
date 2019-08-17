@@ -85,7 +85,7 @@ defmodule ChatlagWeb.ChatView do
 
   def showDate(dt) do
     timezone = Timezone.get("Asia/Jerusalem", Timex.now())
-    {:ok, dt} = Timezone.convert(dt, timezone) |> Timex.format("%H:%M %D", :strftime)
+    {:ok, dt} = Timezone.convert(dt, timezone) |> Timex.format("%H:%M", :strftime)
     dt
   end
 end
