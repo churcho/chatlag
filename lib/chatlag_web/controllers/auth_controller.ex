@@ -7,6 +7,7 @@ defmodule ChatlagWeb.AuthController do
   plug :put_layout, "chat.html" when action in [:login, :create]
 
   def login(conn, _params) do
+    IO.inspect(conn);
     ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 
     changeset = Accounts.change_user(%User{})
@@ -27,7 +28,8 @@ defmodule ChatlagWeb.AuthController do
         |> redirect(to: old_path)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "login.html", changeset: changeset)
+        ip = to_string(:inet_parse.ntoa(conn.remote_ip))
+        render(conn, "login.html", changeset: changeset, ip: ip)
     end
   end
 
