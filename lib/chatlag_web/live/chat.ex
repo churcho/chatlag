@@ -14,9 +14,9 @@ defmodule ChatlagWeb.Live.Chat do
 
     addUserToRoom(session.user_id, session.room_id)
 
-    for u <- Accounts.list_users() do
-      addUserToRoom(u.id, session.room_id)
-    end
+    # for u <- Accounts.list_users() do
+    #   addUserToRoom(u.id, session.room_id)
+    # end
 
     {:ok, fetch(socket, session.room_id, session.user_id)}
   end
