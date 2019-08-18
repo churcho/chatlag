@@ -7,11 +7,14 @@ defmodule ChatlagWeb.AuthController do
   plug :put_layout, "chat.html" when action in [:login, :create]
 
   def login(conn, _params) do
+    ip = to_string(:inet_parse.ntoa(conn.remote_ip))
+
     changeset = Accounts.change_user(%User{})
-    render(conn, "login.html", changeset: changeset)
+    render(conn, "login.html", changeset: changeset, ip: ip)
   end
 
   def create(conn, %{"user" => user_params}) do
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index)
