@@ -6,6 +6,7 @@ defmodule Chatlag.Chat.Room do
   schema "rooms" do
     field :min_age, :integer
     field :on_front, :boolean, default: false
+    field :is_private, :boolean, default: false
     field :slug, :string
     field :attached, :string
     field :bg_color, :string
@@ -29,6 +30,7 @@ defmodule Chatlag.Chat.Room do
       :title,
       :slug,
       :on_front,
+      :is_private,
       :small_desc,
       :bg_color,
       :min_age,

@@ -1,16 +1,22 @@
 <div class="chat">
   <div class="chat_box chat_alert">
-    <%= @room.title %> -- <%= @user_id %> 
+    <%= @room.title %> -- <%= @user_id %>
   </div>
   <div class="chat_scroll">
     <%= for u <- @users do %>
       <%= if @user_id != u.user_id do %>
-        <div class="chat-box">
+        <div  class="chat-box">
+          <a href="/room/create/<%= @user_id %>/<%= u.user_id%>"><img class="profile_picture" alt="user_pic" src="<%= getUserIcon(u.user_id) %>" /></a>
+          <%= f = form_for @changeset, "#", [phx_submit: :private_room, autocomplete: :off] %>
           <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
+          <%= hidden_input f, :me, value: @user_id %>
+          <%= hidden_input f, :uid, value: u.user_id %>
+          <button phx-disable-with=".." type="submit"  class="btn btn-secondary" title="שיחה פרטית">שיחה פרטית</button>
           <%= u.nickname %>(<%= u.user_id %>)
-        </div>
-        <div class="clear"></div>
-      <% end %>
+        </form>
+      </div>
+      <div class="clear"></div>
     <% end %>
-  </div>
+  <% end %>
+</div>
 </div>

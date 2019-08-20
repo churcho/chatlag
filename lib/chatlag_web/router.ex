@@ -33,6 +33,7 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/chat/:id", ChatController, :chat
+    get "/room/create/:u1/:u2", ChatController, :create_room
   end
 
   scope "/admin", ChatlagWeb do

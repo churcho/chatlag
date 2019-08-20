@@ -7,7 +7,7 @@ defmodule ChatlagWeb.Live.Chat do
 
   alias Chatlag.Accounts
 
-  # alias ChatlagWeb.Router.Helpers, as: Routes
+  alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(topic(session.room_id))
@@ -25,7 +25,7 @@ defmodule ChatlagWeb.Live.Chat do
     ChatlagWeb.ChatView.render("chat.html", assigns)
   end
 
-  def fetch(socket, room_id, user_id, display \\ "chat") do
+  def fetch(socket, room_id, user_id, display \\ "members") do
     in_room = 1
     all_u = 100
 
@@ -34,6 +34,7 @@ defmodule ChatlagWeb.Live.Chat do
     assign(socket, %{
       display: display,
       max_id: 100,
+      privates: 0,
       users: users,
       room: Chatlag.Chat.get_room!(room_id),
       all_users: all_u,
@@ -77,8 +78,22 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, assign(socket, display: "members")}
   end
 
+  def handle_event("show-privates", _params, socket) do
+    {:noreply, assign(socket, display: "members")}
+  end
+
   def handle_event("show-chat", _params, socket) do
     {:noreply, assign(socket, display: "chat")}
+  end
+
+  def handle_event("private_room", %{"message" => params}, socket) do
+    uid = params["uid"]
+    me = params["me"]
+
+    room_id = ChatlagWeb.ChatView.private_room(me, uid)
+
+    Chat.subscribe(topic(room_id))
+    {:noreply, fetch(socket, room_id, get_user(socket), "chat")}
   end
 
   def handle_info({Chat, [:message, _event_type], _message}, socket) do

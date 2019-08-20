@@ -24,4 +24,17 @@ defmodule ChatlagWeb.ChatController do
       session: %{room_id: room_id, user_id: user_id}
     )
   end
+
+  def create_room(conn, %{"id1" => id1, "id2" => id2}) do
+    # user_id = String.to_integer(get_session(conn, :id1))
+
+    IO.inspect("Chat #{id1} - #{id2}")
+    user_id = get_session(conn, :user_id)
+
+    Phoenix.LiveView.Controller.live_render(
+      conn,
+      ChatlagWeb.Live.Chat,
+      session: %{room_id: 46, user_id: user_id}
+    )
+  end
 end

@@ -43,6 +43,21 @@ defmodule Chatlag.Chat do
   def get_room!(id), do: Repo.get!(Room, id)
 
   @doc """
+  Gets a single room by title.
+
+  ## Examples
+
+      iex> get_room_by_title("lobby")
+      %Room{}
+
+      iex> get_room_by_title("lobby")
+      nil
+  """
+  def get_room_by_title(title) do
+    Room |> where(title: ^title) |> Repo.one
+  end
+
+  @doc """
   Creates a room.
 
   ## Examples

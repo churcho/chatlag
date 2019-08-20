@@ -88,4 +88,27 @@ defmodule ChatlagWeb.ChatView do
     {:ok, dt} = Timezone.convert(dt, timezone) |> Timex.format("%H:%M", :strftime)
     dt
   end
+
+  def private_room(u1, u2) do
+    room_title = "room_#{u2}_#{u1}"
+
+    room = Room |> where(title: ^room_title) |> Repo.one
+
+    room = case room do
+      nil ->
+        room_title = "room_#{u1}_#{u2}"
+        Room |> where(title: ^room_title) |> Repo.one
+      default ->
+        room
+    end
+
+    room = case room do
+      nil ->
+        {:ok, room} = Chat.create_room(%{title: room_title, attached: gettext("Private Room"), is_private: true})
+        room
+      default ->
+        room
+    end
+    room.id
+  end
 end

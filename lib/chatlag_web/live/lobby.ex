@@ -28,6 +28,7 @@ defmodule ChatlagWeb.Live.Lobby do
         from(r in Room,
           select: %{id: r.id, title: r.title, slogen: r.slogen},
           where: r.on_front == false,
+          where: r.is_private == false,
           order_by: r.id
         )
       )
@@ -51,6 +52,7 @@ defmodule ChatlagWeb.Live.Lobby do
           from(r in Room,
             select: %{id: r.id, title: r.title, slogen: r.slogen},
             where: r.on_front == true,
+            where: r.is_private == false,
             order_by: r.id
           )
         ),
