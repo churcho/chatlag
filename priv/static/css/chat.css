@@ -139,6 +139,7 @@ body * {
     float: right;
     max-width: 42em;
     margin-right: 1em;
+    overflow-wrap: break-word;
 }
 
 .massage_box:before {
@@ -152,6 +153,7 @@ body * {
     transform: rotate(-45deg);
     right: 4.2em;
     top: 0.25em;
+    overflow-wrap: break-word;
 }
 .massage_box.me:before {
     border-bottom: 0.6em solid #caeeca;
