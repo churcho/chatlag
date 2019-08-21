@@ -47,12 +47,12 @@ body * {
 
 .header,
 .footer {
-    width: 20em;
-    height: 2em;
+    /* width: 20em; */
+    /* height: 2em; */
     color: white;
-    margin: 1em auto;
+    /* margin: 1em auto; */
     text-align: center;
-    padding: 0.2em;
+    /* padding: 0.2em; */
     font-size: small !important;
 }
 
@@ -503,8 +503,8 @@ body * {
         height: 3em;
     }
     .chat {
-        width: 99.7%;
-        max-width: 99.7%;
+        width: 96%;
+        max-width: 96%;
         margin: 0 auto 0 auto;
         float: none;
         border-radius: 1em;
