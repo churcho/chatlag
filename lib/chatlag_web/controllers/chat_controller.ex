@@ -1,6 +1,6 @@
 defmodule ChatlagWeb.ChatController do
   use ChatlagWeb, :controller
-  # alias Chatlag.Chat
+  alias Chatlag.Chat
 
   plug :put_layout, "chat.html" when action in [:chat]
   plug :put_layout, "front.html" when action in [:index]
@@ -25,16 +25,10 @@ defmodule ChatlagWeb.ChatController do
     )
   end
 
-  def create_room(conn, %{"id1" => id1, "id2" => id2}) do
-    # user_id = String.to_integer(get_session(conn, :id1))
+  def create_room(conn, %{"u1" => id1, "u2" => id2}) do
+    room_id = ChatlagWeb.ChatView.private_room(id1, id2)
 
-    IO.inspect("Chat #{id1} - #{id2}")
-    user_id = get_session(conn, :user_id)
-
-    Phoenix.LiveView.Controller.live_render(
-      conn,
-      ChatlagWeb.Live.Chat,
-      session: %{room_id: 46, user_id: user_id}
-    )
+    conn
+    |> redirect(to: Routes.chat_path(conn, :chat, room_id))
   end
 end

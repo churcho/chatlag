@@ -7,7 +7,7 @@ defmodule ChatlagWeb.Live.Chat do
 
   alias Chatlag.Accounts
 
-  alias ChatlagWeb.Router.Helpers, as: Routes
+  # alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(topic(session.room_id))
@@ -25,9 +25,8 @@ defmodule ChatlagWeb.Live.Chat do
     ChatlagWeb.ChatView.render("chat.html", assigns)
   end
 
-  def fetch(socket, room_id, user_id, display \\ "members") do
+  def fetch(socket, room_id, user_id, display \\ "chat") do
     in_room = 1
-    all_u = 100
 
     users = get_room_users(socket)
 
@@ -37,11 +36,9 @@ defmodule ChatlagWeb.Live.Chat do
       privates: 0,
       users: users,
       room: Chatlag.Chat.get_room!(room_id),
-      all_users: all_u,
       users_in_room: in_room,
       room_id: room_id,
       user_id: user_id,
-      # Routes.chat_path(socket, room_id),
       room_url: "/chat/#{room_id}",
       messages: Chat.list_messagese(room_id),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
@@ -79,7 +76,7 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("show-privates", _params, socket) do
-    {:noreply, assign(socket, display: "members")}
+    {:noreply, assign(socket, display: "privates")}
   end
 
   def handle_event("show-chat", _params, socket) do
@@ -111,7 +108,7 @@ defmodule ChatlagWeb.Live.Chat do
         |> List.first()
       end)
 
-    {:noreply, assign(socket, users: users, all_users: 123, users_in_room: Enum.count(users))}
+    {:noreply, assign(socket, users: users, users_in_room: Enum.count(users))}
   end
 
   defp get_room_users(socket) do
