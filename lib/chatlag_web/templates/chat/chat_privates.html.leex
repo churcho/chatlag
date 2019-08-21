@@ -3,8 +3,11 @@
     <%= gettext("Private chats") %>
   </div>
   <div class="chat_scroll">
+    <%= for r <- @private_rooms do %>
     <div  class="chat-box">
+      <%= r.room %>|
     </div>
     <div class="clear"></div>
+    <% end %>
   </div>
 </div>

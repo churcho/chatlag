@@ -6,13 +6,17 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.Chat.Message
 
   alias Chatlag.Accounts
+  alias Chatlag.Workers.UserState
 
   # alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
     if connected?(socket), do: Chat.subscribe(topic(session.room_id))
 
+    room = Chat.get_room!(session.room_id)
     addUserToRoom(session.user_id, session.room_id)
+
+    UserState.add_user(%{uid: session.user_id, room_id: session.room_id, private: room.is_private})
 
     # for u <- Accounts.list_users() do
     #   addUserToRoom(u.id, session.room_id)
@@ -76,7 +80,8 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("show-privates", _params, socket) do
-    {:noreply, assign(socket, display: "privates")}
+    privates = [%{room: 123}, %{room: 125}]
+    {:noreply, assign(socket, private_rooms: privates, display: "privates")}
   end
 
   def handle_event("show-chat", _params, socket) do
