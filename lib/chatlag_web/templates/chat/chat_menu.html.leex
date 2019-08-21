@@ -1,6 +1,5 @@
 <div class="menu">
-  <div phx-click="show-members" class="menu_icon users"><span class="icon"></span><span class="user_number"><%= @users_in_room %><br>
-      <span class="desktop">משתמשים</span></span>
+  <div phx-click="show-members" class="menu_icon users"><span class="icon"></span><span class="notifications"><%= @users_in_room %>
   </div>
   <div phx-click="show-privates" class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @privates %></span></div>
   <a href="/chat">
