@@ -55,7 +55,7 @@ msgid "Add to Favorites"
 msgstr "הוסף למועדפים"
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:64
+#: lib/chatlag_web/templates/auth/login.html.eex:65
 msgid "As Anonymous"
 msgstr "כניסה אנונימית"
 
@@ -131,12 +131,12 @@ msgid "Edit Room"
 msgstr "עדכון פרטי חדר"
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:47
+#: lib/chatlag_web/templates/auth/login.html.eex:48
 msgid "Age"
 msgstr "גיל"
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:44
+#: lib/chatlag_web/templates/auth/login.html.eex:45
 msgid "nickname"
 msgstr "בחירת כינוי"
 
@@ -145,3 +145,34 @@ msgstr "בחירת כינוי"
 #: lib/chatlag_web/templates/room/new_form.html.eex:29
 msgid "midsize_image"
 msgstr "רקע למסך בינוני"
+
+#, elixir-format
+#: lib/chatlag_web/views/chat_view.ex:113
+msgid "Private Room"
+msgstr "חדר פרטי"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:11
+msgid "Private chat with"
+msgstr "שיחה פרטית עם"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
+msgid "Private chats"
+msgstr "שיחות פרטיות"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:7
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:12
+msgid "Back to room"
+msgstr "חזרה לחדר"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:12
+msgid "close"
+msgstr "סגור שיחה"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:3
+msgid "Participants"
+msgstr "רשימת משתתפים"

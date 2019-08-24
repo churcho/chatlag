@@ -11,18 +11,61 @@ defmodule ChatlagWeb.Live.Chat do
   # alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
-    if connected?(socket), do: Chat.subscribe(topic(session.room_id))
+    if connected?(socket) do
+      Chat.subscribe(topic(session.room_id))
+    end
+
+    room_start()
 
     room = Chat.get_room!(session.room_id)
     addUserToRoom(session.user_id, session.room_id)
 
-    UserState.add_user(%{uid: session.user_id, room_id: session.room_id, private: room.is_private})
+    rid = String.to_integer(session.room_id)
+    uid = session.user_id
+
+    user = Accounts.get_user!(uid)
+
+    if room.is_private do
+      [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
+      u1 = String.to_integer(u1)
+      u2 = String.to_integer(u2)
+      user1 = Accounts.get_user!(u1)
+      user2 = Accounts.get_user!(u2)
+
+      UserState.add_user(%{
+        uid: u1,
+        room_id: rid,
+        private: room.is_private,
+        nickname: user1.nickname,
+        party: user2.nickname
+      })
+
+      UserState.add_user(%{
+        uid: u2,
+        room_id: rid,
+        private: room.is_private,
+        nickname: user2.nickname,
+        party: user1.nickname
+      })
+    else
+      u = %{
+        uid: uid,
+        room_id: rid,
+        private: room.is_private,
+        party: nil,
+        nickname: user.nickname
+      }
+
+      UserState.add_user(u)
+    end
+
+    display = get_state(utopic(session.user_id))
 
     # for u <- Accounts.list_users() do
     #   addUserToRoom(u.id, session.room_id)
     # end
 
-    {:ok, fetch(socket, session.room_id, session.user_id)}
+    {:ok, fetch(socket, session.room_id, session.user_id, display)}
   end
 
   def render(assigns) do
@@ -34,17 +77,23 @@ defmodule ChatlagWeb.Live.Chat do
 
     users = get_room_users(socket)
 
+    privates =
+      for r <- UserState.all_rooms(user_id), r.uid == user_id do
+        r
+      end
+
     assign(socket, %{
       display: display,
       max_id: 100,
       privates: 0,
       users: users,
+      private_rooms: privates,
       room: Chatlag.Chat.get_room!(room_id),
       users_in_room: in_room,
       room_id: room_id,
       user_id: user_id,
       room_url: "/chat/#{room_id}",
-      messages: Chat.list_messagese(room_id),
+      messages: Chat.list_messagese(room_id, 10),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
   end
@@ -57,6 +106,26 @@ defmodule ChatlagWeb.Live.Chat do
 
     {:noreply, assign(socket, changeset: changeset)}
   end
+
+  def handle_event("change_room", room_id, socket) do
+    {:noreply, fetch(socket, room_id, get_user(socket))}
+  end
+
+  def handle_event("close_room", _room_id, socket) do
+    {:noreply, socket}
+  end
+
+  # def handle_event("master_room", "", socket) do
+  #   uid = get_user(socket)
+  #   room_id = 43
+  #   privates =
+  #     for r <- UserState.all_rooms(uid), r.uid == uid, !r.party do
+  #       r
+  #     end
+
+  #     # IO.inspect(privates, label: "***master")
+  #   {:noreply, fetch(socket, room_id, get_user(socket))}
+  # end
 
   def handle_event("send_message", %{"message" => params}, socket) do
     case Chat.create_message(params) do
@@ -76,11 +145,27 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("show-members", _params, socket) do
-    {:noreply, assign(socket, display: "members")}
+    uid = get_user(socket)
+    rid = get_room_id(socket)
+    IO.puts("room: #{rid}")
+
+    privates =
+      for r <- UserState.all_rooms(uid) do
+        r
+      end
+
+    {:noreply, assign(socket, users: privates, display: "members")}
   end
 
   def handle_event("show-privates", _params, socket) do
-    privates = [%{room: 123}, %{room: 125}]
+    uid = get_user(socket)
+
+    # TBD
+    privates =
+      for r <- UserState.all_rooms(uid), r.uid == uid do
+        r
+      end
+
     {:noreply, assign(socket, private_rooms: privates, display: "privates")}
   end
 
@@ -93,7 +178,6 @@ defmodule ChatlagWeb.Live.Chat do
     me = params["me"]
 
     room_id = ChatlagWeb.ChatView.private_room(me, uid)
-
     Chat.subscribe(topic(room_id))
     {:noreply, fetch(socket, room_id, get_user(socket), "chat")}
   end
@@ -161,5 +245,36 @@ defmodule ChatlagWeb.Live.Chat do
 
   defp topic(room_id) do
     "Chatlag:#{room_id}"
+  end
+
+  defp room_start do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  defp add(topic) do
+    Agent.update(__MODULE__, fn state ->
+      Map.put(state, topic, "chat")
+    end)
+  end
+
+  defp get_state(topic) do
+    stt =
+      Agent.get(__MODULE__, fn state ->
+        Map.get(state, topic)
+      end)
+
+    if stt == nil do
+      add(topic)
+    end
+  end
+
+  defp set_state(topic, pos) do
+    Agent.update(__MODULE__, fn state ->
+      Map.put(state, topic, pos)
+    end)
+  end
+
+  defp utopic(uid) do
+    "ustate_#{uid}"
   end
 end

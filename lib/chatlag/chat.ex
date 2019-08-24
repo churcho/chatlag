@@ -138,10 +138,17 @@ defmodule Chatlag.Chat do
       [%Message{}, ...]
 
   """
-  def list_messagese(room_id) do
-    Message
-    |> where(room_id: ^room_id)
-    |> Repo.all()
+  def list_messagese(room_id, l \\ nil) do
+    case l do
+      nil ->
+      Message
+      |> where(room_id: ^room_id)
+      |> Repo.all()
+      _ ->
+        Message
+        |> where(room_id: ^room_id)
+        |> Repo.all()
+    end
   end
 
   @doc """

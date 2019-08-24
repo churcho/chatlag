@@ -33,17 +33,6 @@ defmodule ChatlagWeb.Live.Lobby do
         )
       )
 
-    # cnt = Enum.count(rooms)
-
-    # rr =
-    #   if rem(cnt, 2) == 1 do
-    #     rr ++ %{id: nil}
-    #   end
-
-    # if rem(cnt, 2) == 1 do
-    #   rooms = rooms ++ %{id: nil}
-    # end
-
     rest_rooms = Enum.chunk_every(rooms, 2)
 
     assign(socket, %{
@@ -65,7 +54,7 @@ defmodule ChatlagWeb.Live.Lobby do
   end
 
   def handle_info(
-        %{event: "presence_diff", payload: payload},
+        %{event: "presence_diff", payload: _payload},
         socket
       ) do
     # users =

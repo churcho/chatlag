@@ -17,6 +17,22 @@ defmodule ChatlagWeb.ChatController do
 
   def chat(conn, %{"id" => room_id}) do
     user_id = get_session(conn, :user_id)
+    room = Chat.get_room!(room_id)
+
+    if room.title =~ ~r/room_(\d+)_(\d+)/ do
+      [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
+
+      u1 = String.to_integer(u1)
+      u2 = String.to_integer(u2)
+
+      valid = user_id == u1 or user_id == u2
+
+      if !valid do
+        conn
+        |> redirect(to: "/")
+        |> halt
+      end
+    end
 
     Phoenix.LiveView.Controller.live_render(
       conn,
@@ -26,9 +42,20 @@ defmodule ChatlagWeb.ChatController do
   end
 
   def create_room(conn, %{"u1" => id1, "u2" => id2}) do
-    room_id = ChatlagWeb.ChatView.private_room(id1, id2)
+    user_id = get_session(conn, :user_id)
 
-    conn
-    |> redirect(to: Routes.chat_path(conn, :chat, room_id))
+    valid = user_id == String.to_integer(id1) or user_id == String.to_integer(id2)
+
+    case valid do
+      true ->
+        room_id = ChatlagWeb.ChatView.private_room(id1, id2)
+
+        conn
+        |> redirect(to: Routes.chat_path(conn, :chat, room_id))
+
+      false ->
+        conn
+        |> redirect(to: "/")
+    end
   end
 end

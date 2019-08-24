@@ -2,6 +2,20 @@ body {
   direction: rtl;
   text-align: right !important; }
 
+.box {
+  border: 1px solid;
+  padding: 1px;
+  border-radius: 0.5em; }
+
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn {
+  line-height: 0.8 !important; }
+
+.chat_alert_private {
+  margin: 1.7em auto 2em auto;
+  background-color: #FFeEF7;
+  /* text-align: center; */
+  width: 95%; }
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
