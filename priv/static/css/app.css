@@ -3,9 +3,7 @@ body {
   text-align: right !important; }
 
 .box {
-  border: 1px solid;
-  padding: 1px;
-  border-radius: 0.5em; }
+  padding: 1px; }
 
 .btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn {
   line-height: 0.8 !important; }

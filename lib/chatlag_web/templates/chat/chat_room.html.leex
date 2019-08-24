@@ -1,16 +1,15 @@
 <div class="chat">
   <%= if @room.is_private do %>
-    <div class="chat_box_1 chat_alert_private">
-      <%= for r <- @private_rooms do %>
-        <%= if r.party do %>
-          <%= if r.room_id == @room.id do %>
-          <button class="btn active btn-primary btn-sm"><%= r.party %></button>
-          <% else  %>
-          <button class="box btn-link btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= r.party %></button>
-          <% end %>
-        <% else %>
-              <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button>
-        <% end %>
+    <div style="padding-bottom: 0.3em" class="chat_box chat_alert_private">
+      <%= for r <- @private_rooms, !r.party do %>
+        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button>
+      <% end %>
+      <%= for r <- @private_rooms, r.party, r.room_id == @room.id do %>
+          <button class="btn btn-primary active btn-sm"><%= r.party %></button>
+      <% end %>
+      <%= gettext("   ") %>
+      <%= for r <- @private_rooms, r.party, r.room_id != @room.id do %>
+          <button class="btn btn-outline-info btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= r.party %></button>
       <% end %>
     </div>
   <% else %>

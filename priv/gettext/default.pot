@@ -162,7 +162,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_privates.html.leex:7
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:12
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:5
 msgid "Back to room"
 msgstr ""
 
@@ -174,4 +174,14 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_users.html.leex:3
 msgid "Participants"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:11
+msgid "more chats"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:7
+msgid "private chat"
 msgstr ""

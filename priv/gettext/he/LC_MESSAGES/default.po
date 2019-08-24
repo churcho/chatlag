@@ -163,7 +163,7 @@ msgstr "שיחות פרטיות"
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_privates.html.leex:7
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:12
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:5
 msgid "Back to room"
 msgstr "חזרה לחדר"
 
@@ -176,3 +176,13 @@ msgstr "סגור שיחה"
 #: lib/chatlag_web/templates/chat/chat_users.html.leex:3
 msgid "Participants"
 msgstr "רשימת משתתפים"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:11
+msgid "more chats"
+msgstr "עוד..."
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:7
+msgid "private chat"
+msgstr "שיחה פרטית"
