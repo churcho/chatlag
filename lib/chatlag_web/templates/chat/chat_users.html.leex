@@ -3,6 +3,9 @@
     <%= gettext("Participants") %>
   </div>
   <div class="chat_scroll">
+  <%= for r <- @private_rooms, !r.party do %>
+        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button>
+      <% end %>
     <%= for u <- @users do %>
       <%= if u.uid != @user_id and u.room_id == String.to_integer(@room_id) do %>
         <div  class="chat-box">

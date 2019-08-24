@@ -146,9 +146,7 @@ defmodule ChatlagWeb.Live.Chat do
 
   def handle_event("show-members", _params, socket) do
     uid = get_user(socket)
-    rid = get_room_id(socket)
-    IO.puts("room: #{rid}")
-
+    # rid = get_room_id(socket)
     privates =
       for r <- UserState.all_rooms(uid) do
         r

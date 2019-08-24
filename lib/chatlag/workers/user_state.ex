@@ -28,6 +28,35 @@ defmodule Chatlag.Workers.UserState do
   end
 
   def handle_cast({:add_user, user}, state) do
+    # IO.inspect(user, label: "***user**")
+    # IO.inspect(state, label: "***Before **")
+
+    state =
+      case user.private do
+        true ->
+          state
+
+        false ->
+          tmp =
+            for s <- state, s.uid == user.uid, !s.private do
+              s
+            end
+
+          first = Enum.at(tmp, 0)
+
+          case first do
+            nil ->
+              state
+
+            _ ->
+              for s <- state, s != first do
+                s
+              end
+          end
+      end
+
+    # IO.inspect(state, label: "***After **")
+
     r = Enum.find(state, nil, fn u -> user == u end)
 
     case r do
