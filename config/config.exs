@@ -38,6 +38,10 @@ config :chatlag, ChatlagWeb.Endpoint,
     signing_salt: "gPHQm6yxSF6JzQHAMS0Y1QRsIsJ19rzI"
   ]
 
+config :mnesia,
+  # Notice the single quotes
+  dir: '.mnesia/#{Mix.env()}/#{node()}'
+
 config :scrivener_html,
   routes_helper: Chatlag.Router.Helpers,
   # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.

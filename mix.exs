@@ -51,6 +51,7 @@ defmodule Chatlag.MixProject do
       {:bamboo, "~> 1.3"},
       {:scrivener_ecto, "~> 2.0"},
       {:scrivener_html, "~> 1.8"},
+      {:memento, "~> 0.3.1"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

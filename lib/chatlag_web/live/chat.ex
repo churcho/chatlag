@@ -195,6 +195,7 @@ defmodule ChatlagWeb.Live.Chat do
         |> List.first()
       end)
 
+      IO.inspect(users, label: "****** Users *******")
     {:noreply, assign(socket, users: users, users_in_room: Enum.count(users))}
   end
 
