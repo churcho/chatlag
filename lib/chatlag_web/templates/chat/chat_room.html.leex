@@ -17,7 +17,8 @@
       <%= @room.attached %>
     </div>
   <% end %>
-  <div class="chat_scroll">
+  <div class="chat_scroll" id="chatscroll">
+
     <%= for msg <- @messages do %>
       <div class="chat_massage massage01">
         <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
@@ -41,7 +42,8 @@
             <div class="clear"></div>
         </div>
         <% end %>
-        </div>
+
+  </div>
         <div class="chat_input">
             <div class="input_box">
                 <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
@@ -56,3 +58,35 @@
       </div>
     </div>
   </div>
+
+
+<script>
+
+const targetNode = document.getElementById("chatscroll")
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  targetNode.scrollTop = targetNode.scrollHeight
+});
+// Options for the observer (which mutations to observe)
+let config = { attributes: true, childList: true, subtree: true };
+// Callback function to execute when mutations are observed
+var callback = function(mutationsList, observer) {
+  for(var mutation of mutationsList) {
+    if (mutation.type == 'childList') {
+      diff = targetNode.scrollHeight - targetNode.scrollTop
+      if (diff < 800) {
+        targetNode.scrollTop = targetNode.scrollHeight
+      }
+    }
+  }
+};
+// Create an observer instance linked to the callback function
+var observer = new MutationObserver(callback);
+// Start observing the target node for configured mutations
+observer.observe(targetNode, config);
+
+
+
+
+</script>
