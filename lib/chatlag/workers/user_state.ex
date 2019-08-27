@@ -170,7 +170,7 @@ defmodule Chatlag.Workers.UserState do
   def handle_cast({:add_user, user}, state) do
     uu = user_exists(user)
 
-    IO.inspect(uu, label: "*************")
+    # IO.inspect(uu, label: "*************")
 
     state =
       case Enum.count(uu) do
@@ -212,7 +212,7 @@ defmodule Chatlag.Workers.UserState do
   end
 
   defp user_exists(user) do
-    Memento.start()
+    # Memento.start()
     guards =
       case user.private do
         true ->
