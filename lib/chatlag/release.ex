@@ -28,7 +28,7 @@ defmodule Chatlag.Release do
     Memento.Schema.create(nodes)
     Memento.start()
 
-    # Memento.Table.create!(RoomStatus, disc_copies: nodes)
+    Memento.Table.create!(RoomStatus, disc_copies: nodes)
     Memento.Table.create!(RoomStatus)
   end
 end
