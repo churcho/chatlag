@@ -1,14 +1,13 @@
 <div class="chat">
   <div class="chat_box chat_alert">
-    <%= gettext("Private chats") %>  
+    <%= gettext("Private chats") %> 
   </div>
   <div class="chat_scroll">
-    <%= for r <- @private_rooms, !r.party do %>
-      <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button> 
+      <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button> 
       <div class="clear"></div>
-    <% end %>
     <%= for r <- @private_rooms, r.party do %>
-      <button class="btn btn-secondary btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= r.party %></button> 
+      <% party = if @user_id == r.party_id do getUserNickname(r.user_id) else r.party end  %>
+      <button class="btn btn-secondary btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= party %></button> 
       <button class="btn btn-link btn-sm" phx-click="close_room" phx-value="<%= r.room_id %>"><%= gettext("close") %></button> 
       <div class="clear"></div>
     <% end %>

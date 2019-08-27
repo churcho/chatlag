@@ -34,7 +34,7 @@ body * {
 
 .display-table {
     width: 100%;
-    height: 100%;
+    height: 108.8%;
     display: table;
 }
 
@@ -47,12 +47,12 @@ body * {
 
 .header,
 .footer {
-    width: 20em;
-    height: 2em;
+    /* width: 20em; */
+    /* height: 2em; */
     color: white;
-    margin: 1em auto;
+    /* margin: 1em auto; */
     text-align: center;
-    padding: 0.2em;
+    /* padding: 0.2em; */
     font-size: small !important;
 }
 
@@ -139,6 +139,7 @@ body * {
     float: right;
     max-width: 42em;
     margin-right: 1em;
+    overflow-wrap: break-word;
 }
 
 .massage_box:before {
@@ -152,6 +153,10 @@ body * {
     transform: rotate(-45deg);
     right: 4.2em;
     top: 0.25em;
+    overflow-wrap: break-word;
+}
+.massage_box.me:before {
+    border-bottom: 0.6em solid #caeeca;
 }
 
 .massage_footer {
@@ -370,7 +375,7 @@ body * {
 
 .menu_icon {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    padding: 0.7em 0;
+    padding: 0.2em 0;
     text-align: center;
     color: #08dfab;
     cursor: pointer;
@@ -498,8 +503,8 @@ body * {
         height: 3em;
     }
     .chat {
-        width: 92%;
-        max-width: 92%;
+        width: 96%;
+        max-width: 96%;
         margin: 0 auto 0 auto;
         float: none;
         border-radius: 1em;
@@ -527,6 +532,9 @@ body * {
         transform: rotate(-45deg);
         right: 3.2em;
         top: 0.5em;
+    }
+    .massage_box.me:before {
+        border-bottom: 1em solid #caeeca;
     }
     .menu {
         float: none;
@@ -608,6 +616,8 @@ body * {
         float: none;
         margin-right: auto;
         margin-top: 0.3em;
+        float: left;
+        display: inline;
     }
     .social_icon .icon:before {
         margin-right: auto;

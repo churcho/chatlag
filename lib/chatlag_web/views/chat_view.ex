@@ -14,6 +14,7 @@ defmodule ChatlagWeb.ChatView do
   alias Chatlag.Repo
 
   alias Chatlag.Chat.Room
+  alias Chatlag.RoomStatus
 
   def getRoomBg(id) do
     room = Chat.get_room!(id)
@@ -51,6 +52,39 @@ defmodule ChatlagWeb.ChatView do
     else
       "/images/male.png"
     end
+  end
+
+  def getRoomParty(room_id, me) do
+    q = [
+      {:==, :room_id, room_id},
+      {:==, :private, true}
+    ]
+
+    a =
+      Memento.transaction!(fn ->
+        Memento.Query.select(RoomStatus, q)
+      end)
+
+    a1 = Enum.at(a, 0)
+
+    case Enum.count(a) do
+      0 ->
+        ""
+
+      _ ->
+        getUserNickname(me, a1.user_id, a1.party_id)
+    end
+  end
+
+  def getUserNickname(me, uid, pid) do
+    u =
+      if me == pid do
+        uid
+      else
+        pid
+      end
+
+    getUserNickname(u)
   end
 
   def getUserNickname(uid) do

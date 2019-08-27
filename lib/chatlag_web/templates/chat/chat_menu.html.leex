@@ -6,7 +6,7 @@
     <div class="menu_icon home"><span class="icon"></span></div>
   </a>
   <div   class="menu_icon goreply"><span class="icon"></span></div>
-  <div class="menu_icon mail"><span class="icon"></span></div>
+  <div phx-click="show-whoin" class="menu_icon mail"><span class="icon"></span></div>
   <div  class="menu_icon share"><span class="icon"> </span>
     <div class="massage_social sub-menu hidden">
       <a target="_blank" href="<%= shareMessage(@room_url, :facebook, "") %>" class="social_icon twitter" title="טוויטר"><i class="fab fa-facebook"></i></a>

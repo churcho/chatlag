@@ -1,15 +1,12 @@
 <div class="chat">
   <%= if @room.is_private do %>
     <div style="padding-bottom: 0.3em" class="chat_box chat_alert_private">
-      <%= for r <- @private_rooms, !r.party do %>
-        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button>
-      <% end %>
+        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button>
       <%= for r <- @private_rooms, r.party, r.room_id == @room.id do %>
-          <button class="btn btn-primary active btn-sm"><%= r.party %></button>
+          <button class="btn btn-primary active btn-sm"><%= getRoomParty(@room.id, @user_id) %></button>
       <% end %>
-      <%= gettext("   ") %>
       <%= for r <- @private_rooms, r.party, r.room_id != @room.id do %>
-          <button class="btn btn-outline-info btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= r.party %></button>
+          <button class="btn btn-outline-info btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= getUserNickname(@user_id, r.user_id, r.party_id) %></button>
       <% end %>
     </div>
   <% else %>
@@ -46,7 +43,7 @@
   </div>
         <div class="chat_input">
             <div class="input_box">
-                <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :send_message, autocomplete: :off] %>
+                <%= f = form_for @changeset, "#", [phx_submit: :send_message, autocomplete: :off] %>
                     <%= hidden_input f, :username %>
                     <%= hidden_input f, :room_id %>
                     <%= hidden_input f, :user_id %>

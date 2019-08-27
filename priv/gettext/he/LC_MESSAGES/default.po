@@ -147,12 +147,12 @@ msgid "midsize_image"
 msgstr "רקע למסך בינוני"
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:113
+#: lib/chatlag_web/views/chat_view.ex:146
 msgid "Private Room"
 msgstr "חדר פרטי"
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:11
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:13
 msgid "Private chat with"
 msgstr "שיחה פרטית עם"
 
@@ -162,13 +162,15 @@ msgid "Private chats"
 msgstr "שיחות פרטיות"
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:7
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
 #: lib/chatlag_web/templates/chat/chat_room.html.leex:5
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:6
+#: lib/chatlag_web/templates/chat/tmp.html.leex:5
 msgid "Back to room"
 msgstr "חזרה לחדר"
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:12
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:11
 msgid "close"
 msgstr "סגור שיחה"
 
@@ -178,11 +180,11 @@ msgid "Participants"
 msgstr "רשימת משתתפים"
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:11
-msgid "more chats"
-msgstr "עוד..."
+#: lib/chatlag_web/templates/chat/tmp.html.leex:10
+msgid "   "
+msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:7
-msgid "private chat"
-msgstr "שיחה פרטית"
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:9
+msgid "private chat with "
+msgstr "שיחה פרטית עם"

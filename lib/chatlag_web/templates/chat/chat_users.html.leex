@@ -3,14 +3,13 @@
     <%= gettext("Participants") %>
   </div>
   <div class="chat_scroll">
-  <%= for r <- @private_rooms, !r.party do %>
-        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= gettext("Back to room") %></button>
-      <% end %>
-    <%= for u <- @users do %>
-      <%= if u.uid != @user_id and u.room_id == String.to_integer(@room_id) do %>
+  <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button> 
+      <div class="clear"></div>
+    <%= for u <- @private_rooms do %>
+      <%= if u.user_id != @user_id do %>
         <div  class="chat-box">
-          <a href="/room/create/<%= @user_id %>/<%= u.uid%>">
-          <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(u.uid) %>" />
+          <a href="/room/create/<%= @user_id %>/<%= u.user_id%>">
+          <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
           <%= gettext("Private chat with") %> <%= u.nickname %>
           </a>
       </div>

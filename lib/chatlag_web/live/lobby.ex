@@ -53,21 +53,7 @@ defmodule ChatlagWeb.Live.Lobby do
     ChatlagWeb.ChatView.render("lobby.html", assigns)
   end
 
-  def handle_info(
-        %{event: "presence_diff", payload: _payload},
-        socket
-      ) do
-    # users =
-    #   Presence.list(topic(get_room_id(socket)))
-    #   |> Enum.map(fn {_user_id, data} ->
-    #     data[:metas]
-    #     |> List.first()
-    #   end)
-
-    {:noreply, socket}
-  end
-
   defp topic(room_id) do
-    "Chatlag:#{room_id}"
+    "Chatlag-members:#{room_id}"
   end
 end
