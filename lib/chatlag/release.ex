@@ -1,6 +1,8 @@
 defmodule Chatlag.Release do
   @app :chatlag
 
+  alias Chatlag.RoomStatus
+
   def migrate do
     for repo <- repos() do
       {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true))
@@ -16,5 +18,16 @@ defmodule Chatlag.Release do
   defp repos do
     Application.load(@app)
     Application.fetch_env!(@app, :ecto_repos)
+  end
+
+  def credb do
+    nodes = [node()]
+
+    # Create the schema
+    Memento.stop()
+    Memento.Schema.create(nodes)
+    Memento.start()
+
+    Memento.Table.create!(RoomStatus, disc_copies: nodes)
   end
 end

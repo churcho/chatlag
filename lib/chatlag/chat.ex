@@ -234,8 +234,6 @@ defmodule Chatlag.Chat do
   end
 
   defp notify_subs({:ok, result}, event) do
-    IO.inspect(result, label: "======================")
-    IO.inspect(event, label: "======================")
     Phoenix.PubSub.broadcast(
       Chatlag.PubSub,
       "Chatlag-msg:#{result.room_id}",

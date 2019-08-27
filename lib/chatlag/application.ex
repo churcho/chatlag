@@ -13,7 +13,7 @@ defmodule Chatlag.Application do
       # Start the endpoint when the application starts
       ChatlagWeb.Endpoint,
       ChatlagWeb.Presence,
-      Chatlag.Workers.UserState
+      Chatlag.Workers.UserState,
       # Starts a worker by calling: Chatlag.Worker.start_link(arg)
       # {Chatlag.Worker, arg},
     ]
