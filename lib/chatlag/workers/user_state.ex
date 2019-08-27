@@ -13,6 +13,7 @@ defmodule Chatlag.Workers.UserState do
   end
 
   def del_user(user) do
+    ########### TODO 
     GenServer.cast(__MODULE__, {:del_user, user})
   end
 
@@ -42,6 +43,7 @@ defmodule Chatlag.Workers.UserState do
   def handle_call({:close_private_room, room_id}, _from, state) do
     room_id = String.to_integer(room_id)
     IO.inspect(room_id, label: "Close room")
+
     query = [
       {:==, :room_id, room_id},
       {:==, :private, true}
@@ -84,8 +86,6 @@ defmodule Chatlag.Workers.UserState do
       end)
 
     all = Enum.concat(a1, a2)
-    # IO.puts("I am #{user_id}")
-    # IO.inspect(all, label: "My private chat *************************")
 
     newRecs = []
 
@@ -170,6 +170,8 @@ defmodule Chatlag.Workers.UserState do
   def handle_cast({:add_user, user}, state) do
     uu = user_exists(user)
 
+    # IO.inspect(uu, label: "*************")
+
     state =
       case Enum.count(uu) do
         0 ->
@@ -209,16 +211,8 @@ defmodule Chatlag.Workers.UserState do
     {:noreply, state}
   end
 
-  def handle_cast({:del_user, user}, state) do
-    n = Enum.find_index(state, fn u -> u == user end)
-
-    case n do
-      nil -> {:noreplay, state}
-      _ -> {:noreplay, Enum.drop(state, n)}
-    end
-  end
-
   defp user_exists(user) do
+    # Memento.start()
     guards =
       case user.private do
         true ->
@@ -239,5 +233,6 @@ defmodule Chatlag.Workers.UserState do
     Memento.transaction!(fn ->
       Memento.Query.select(RoomStatus, guards)
     end)
+
   end
 end
