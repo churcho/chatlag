@@ -84,8 +84,8 @@ defmodule Chatlag.Workers.UserState do
       end)
 
     all = Enum.concat(a1, a2)
-    IO.puts("I am #{user_id}")
-    IO.inspect(all, label: "My private chat *************************")
+    # IO.puts("I am #{user_id}")
+    # IO.inspect(all, label: "My private chat *************************")
 
     newRecs = []
 

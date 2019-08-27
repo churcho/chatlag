@@ -13,6 +13,13 @@ defmodule ChatlagWeb.Live.Chat do
   # alias ChatlagWeb.Router.Helpers, as: Routes
 
   def mount(session, socket) do
+    # nodes = [node()]
+
+    # # Create the schema
+    # Memento.stop()
+    # Memento.Schema.create(nodes)
+    Memento.start()
+
     if connected?(socket) do
       Chat.subscribe(topic(session.room_id))
     end
