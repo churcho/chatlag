@@ -294,7 +294,6 @@ body * {
     /* box-shadow: 0.3em -0.3em 0.3em rgba(0,0,0,0.2); */
     position: relative;
     z-index: 2;
-    /* margin-top: 0.3em; */
 }
 
 .input_box {
@@ -494,6 +493,7 @@ body * {
         margin: 0;
         padding: 0;
         box-shadow: none;
+        min-height: 100%;
     }
     .header,
     .footer {
@@ -510,7 +510,8 @@ body * {
         float: none;
         border-radius: 1em;
         overflow: hidden;
-        background-color: #f6f6fc;
+        /* background-color: #f6f6fc; */
+        background-color: blue;
         padding-bottom: 6.35em;
     }
     .chat_scroll {
@@ -640,3 +641,62 @@ body * {
         font-size: 0.7em;
     }
 }
+
+@media screen and (max-width: 550px) {
+    .chat_input {
+        margin-top: -1%;
+    }
+}
+
+/* ===========need change ========= */
+/* @media screen and (min-width: 992px) and (max-height: 800px) {
+    .chat_input {
+        margin-top: -1%;
+    }
+}
+@media screen and (min-width: 992px) and (max-height: 750px) {
+    .chat_input {
+        margin-top: -10%;
+    }
+}
+@media screen and (min-width: 992px) and (max-height: 700px) {
+    .chat_input {
+        margin-top: -2%;
+    }
+}
+@media screen and (max-width: 1160px) {
+    .chat_input {
+        margin-top: -43%;
+    }
+}
+@media screen and (max-width: 992px) {
+    .chat_input {
+        margin-top: -6%;
+    }
+}
+@media screen and (max-width: 992px) and (orientation: landscape) {
+    .chat_input {
+        margin-top: -6%;
+    }
+     */
+     /* ===========Fixed ========= */
+         
+@media screen and (max-height: 1024px) {
+    .chat_input {
+        margin-top: -3%;
+    }
+    .page {
+        padding-bottom: 9.7em;
+    }
+}
+@media screen and (max-height: 1080px) {
+    .chat_input {
+        margin-top: -1%;
+    }
+    }
+    @media screen and (max-height: 740px) {
+    .chat_input {
+        margin-top: -1%;
+    }
+}
+    

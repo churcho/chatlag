@@ -19,11 +19,15 @@ defmodule ChatlagWeb.Live.Chat do
     # # Create the schema
     # Memento.stop()
     # Memento.Schema.create(nodes)
+    rid = String.to_integer(session.room_id)
+    uid = session.user_id
+
     Memento.start()
 
     if connected?(socket) do
       Chat.subscribe(topic(session.room_id))
       Chat.subscribe(@lo_topic)
+      Chat.subscribe("msg_#{uid}")
     end
 
     room_start()
@@ -32,10 +36,24 @@ defmodule ChatlagWeb.Live.Chat do
 
     addUserToRoom(session.user_id, session.room_id)
 
-    rid = String.to_integer(session.room_id)
-    uid = session.user_id
-
     user = Accounts.get_user!(uid)
+
+    party_id =
+      case room.is_private do
+        true ->
+          [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
+          u1 = String.to_integer(u1)
+          u2 = String.to_integer(u2)
+
+          if uid == u1 do
+            u2
+          else
+            u1
+          end
+
+        false ->
+          nil
+      end
 
     if room.is_private do
       [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
@@ -75,7 +93,8 @@ defmodule ChatlagWeb.Live.Chat do
 
     display = get_state(utopic(session.user_id))
 
-    {:ok, fetch(socket, session.room_id, session.user_id, display)}
+    socket = fetch(socket, session.room_id, session.user_id, display)
+    {:ok, assign(socket, %{is_private: room.is_private, party_id: party_id})}
   end
 
   def render(assigns) do
@@ -87,6 +106,8 @@ defmodule ChatlagWeb.Live.Chat do
 
     users = get_room_users(socket)
 
+    # push_msgs = [];
+
     privates = UserState.my_private_chats(user_id)
 
     [rid] = UserState.my_last_room(user_id)
@@ -95,6 +116,7 @@ defmodule ChatlagWeb.Live.Chat do
       display: display,
       max_id: 100,
       privates: 0,
+      msgmsg: "",
       users: users,
       private_rooms: privates,
       room: Chatlag.Chat.get_room!(room_id),
@@ -131,13 +153,43 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, assign(socket, private_rooms: privates, display: "privates")}
   end
 
+  # ===========================================================================
+  # def handle_event("send_message", %{"message" => params}, socket) do
+  # ===========================================================================
   def handle_event("send_message", %{"message" => params}, socket) do
     case Chat.create_message(params) do
       {:ok, message} ->
+        if is_room_private(socket) do
+          party_id = get_party_id(socket)
+
+          Phoenix.PubSub.broadcast(
+            Chatlag.PubSub,
+            "msg_#{party_id}",
+            {[:push_msg, message.room_id, party_id], "you have private call"}
+          )
+        end
+
         {:noreply, fetch(socket, message.room_id, get_user(socket), get_room_display(socket))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+  # ===========================================================================
+  # def handle_info({[:push_msg, room_id, user_id], message}, socket) do
+  # ===========================================================================
+  def handle_info({[:push_msg, room_id, user_id], _message}, socket) do
+    me = get_user(socket)
+
+    IO.puts("if #{me} == #{user_id} and #{room_id} != #{get_room_id(socket)}")
+
+    rid = String.to_integer(get_room_id(socket))
+
+    if me == user_id && room_id != rid do
+      {:noreply, assign(socket, %{msgmsg: ""})}
+    else
+      {:noreply, socket}
     end
   end
 
@@ -214,12 +266,13 @@ defmodule ChatlagWeb.Live.Chat do
   #                  presence_diff
   # ========================================================================================
   def handle_info(
-        %{event: "presence_diff", payload: _payload},
+        %{event: "presence_diff", payload: payload},
         socket
       ) do
     users = get_room_users(socket)
-
-    IO.inspect(users, label: "****** Users *******")
+    me = get_user(socket)
+    IO.inspect(payload, label: "***[#{me}]*** payload *******")
+    IO.inspect(users, label: "***[#{me}]*** Users *******")
     {:noreply, assign(socket, users: users, users_in_room: Enum.count(users))}
   end
 
@@ -236,9 +289,19 @@ defmodule ChatlagWeb.Live.Chat do
     |> Map.get(:user_id)
   end
 
+  defp get_party_id(socket) do
+    socket.assigns
+    |> Map.get(:party_id)
+  end
+
   defp get_room_id(socket) do
     socket.assigns
     |> Map.get(:room_id)
+  end
+
+  defp is_room_private(socket) do
+    socket.assigns
+    |> Map.get(:is_private)
   end
 
   defp get_room_display(socket) do

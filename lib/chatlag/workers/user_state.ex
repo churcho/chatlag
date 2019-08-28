@@ -246,7 +246,7 @@ defmodule Chatlag.Workers.UserState do
 
     Enum.each(uu, fn u ->
       Memento.transaction!(fn ->
-        res = Memento.Query.delete(RoomStatus, u.id)
+        Memento.Query.delete(RoomStatus, u.id)
       end)
     end)
 
@@ -261,7 +261,7 @@ defmodule Chatlag.Workers.UserState do
 
     Enum.each(uu, fn u ->
       Memento.transaction!(fn ->
-        res = Memento.Query.delete(RoomStatus, u.id)
+        Memento.Query.delete(RoomStatus, u.id)
       end)
     end)
 
