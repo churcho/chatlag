@@ -509,8 +509,8 @@ body * {
         float: none;
         border-radius: 1em;
         overflow: hidden;
-        /* background-color: #f6f6fc; */
-        background-color: blue;
+        background-color: #f6f6fc;
+        /* background-color: blue; */
         padding-bottom: 6.35em;
     }
     .chat_scroll {
