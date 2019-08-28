@@ -13,6 +13,6 @@ defmodule ChatlagWeb.DisplayImage do
   end
 
   def default_url(:primary, _room) do
-    "http://placehold.it/350x200"
+    ""
   end
 end

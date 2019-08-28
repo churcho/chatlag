@@ -9,6 +9,7 @@ defmodule Chatlag.Chat do
   alias Chatlag.Chat.Room
   alias Chatlag.Chat.Message
 
+
   def subscribe(topic) do
     Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
   end
@@ -54,7 +55,7 @@ defmodule Chatlag.Chat do
       nil
   """
   def get_room_by_title(title) do
-    Room |> where(title: ^title) |> Repo.one
+    Room |> where(title: ^title) |> Repo.one()
   end
 
   @doc """
@@ -141,9 +142,10 @@ defmodule Chatlag.Chat do
   def list_messagese(room_id, l \\ nil) do
     case l do
       nil ->
-      Message
-      |> where(room_id: ^room_id)
-      |> Repo.all()
+        Message
+        |> where(room_id: ^room_id)
+        |> Repo.all()
+
       _ ->
         Message
         |> where(room_id: ^room_id)
@@ -246,4 +248,6 @@ defmodule Chatlag.Chat do
   defp notify_subs({:error, reason}, _event) do
     {:error, reason}
   end
+
+  
 end

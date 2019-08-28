@@ -34,5 +34,6 @@ defmodule Chatlag.Accounts.User do
       :password_hash
     ])
     |> validate_required([:nickname, :age, :gender])
+    |> validate_length(:nickname, max: 18)
   end
 end

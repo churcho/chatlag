@@ -11,6 +11,7 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.Workers.UserState
 
   # alias ChatlagWeb.Router.Helpers, as: Routes
+  @lo_topic "Chatlag-logout"
 
   def mount(session, socket) do
     # nodes = [node()]
@@ -22,11 +23,13 @@ defmodule ChatlagWeb.Live.Chat do
 
     if connected?(socket) do
       Chat.subscribe(topic(session.room_id))
+      Chat.subscribe(@lo_topic)
     end
 
     room_start()
 
     room = Chat.get_room!(session.room_id)
+
     addUserToRoom(session.user_id, session.room_id)
 
     rid = String.to_integer(session.room_id)
@@ -71,10 +74,6 @@ defmodule ChatlagWeb.Live.Chat do
     end
 
     display = get_state(utopic(session.user_id))
-
-    # for u <- Accounts.list_users() do
-    #   addUserToRoom(u.id, session.room_id)
-    # end
 
     {:ok, fetch(socket, session.room_id, session.user_id, display)}
   end
@@ -142,13 +141,6 @@ defmodule ChatlagWeb.Live.Chat do
     end
   end
 
-  def handle_event("add-user", _params, socket) do
-    next_id = get_next_id(socket)
-    addUserToRoom(next_id, get_room_id(socket))
-
-    {:noreply, assign(socket, max_id: next_id + 1)}
-  end
-
   def handle_event("show-members", _params, socket) do
     [rid] = UserState.my_last_room(get_user(socket))
 
@@ -171,6 +163,9 @@ defmodule ChatlagWeb.Live.Chat do
     uu = Memento.transaction!(fn -> Memento.Query.all(RoomStatus) end)
 
     IO.inspect(uu, label: "****** UU *******")
+    users = get_room_users(socket)
+
+    IO.inspect(users, label: "****** Users *******")
 
     {:noreply, socket}
   end
@@ -180,8 +175,6 @@ defmodule ChatlagWeb.Live.Chat do
     [rid] = UserState.my_last_room(get_user(socket))
 
     privates = UserState.my_private_chats(uid)
-
-    IO.inspect(privates, label: "*****Privates***")
 
     {:noreply, assign(socket, last_room_id: rid, private_rooms: privates, display: "privates")}
   end
@@ -199,22 +192,34 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, fetch(socket, room_id, get_user(socket), "chat")}
   end
 
+  @spec handle_info(
+          {Chatlag.Chat, [...], any} | %{event: <<_::104>>, payload: any},
+          Phoenix.LiveView.Socket.t()
+        ) :: {:noreply, any}
   def handle_info({Chat, [:message, _event_type], _message}, socket) do
     {:noreply, fetch(socket, get_room_id(socket), get_user(socket), get_room_display(socket))}
   end
 
+  def handle_info({:user_logedout, user_id}, socket) do
+    me = get_user(socket)
+
+    if me == user_id do
+      {:stop, socket}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  # ========================================================================================
+  #                  presence_diff
+  # ========================================================================================
   def handle_info(
         %{event: "presence_diff", payload: _payload},
         socket
       ) do
-    users =
-      Presence.list(topic(get_room_id(socket)))
-      |> Enum.map(fn {_user_id, data} ->
-        data[:metas]
-        |> List.first()
-      end)
+    users = get_room_users(socket)
 
-    # IO.inspect(users, label: "****** Users *******")
+    IO.inspect(users, label: "****** Users *******")
     {:noreply, assign(socket, users: users, users_in_room: Enum.count(users))}
   end
 
@@ -229,11 +234,6 @@ defmodule ChatlagWeb.Live.Chat do
   defp get_user(socket) do
     socket.assigns
     |> Map.get(:user_id)
-  end
-
-  defp get_next_id(socket) do
-    socket.assigns
-    |> Map.get(:max_id)
   end
 
   defp get_room_id(socket) do
@@ -261,10 +261,6 @@ defmodule ChatlagWeb.Live.Chat do
     )
   end
 
-  defp topic(room_id) do
-    "Chatlag-msg:#{room_id}"
-  end
-
   defp room_start do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
@@ -284,6 +280,10 @@ defmodule ChatlagWeb.Live.Chat do
     if stt == nil do
       add(topic)
     end
+  end
+
+  defp topic(room_id) do
+    "Chatlag-msg:#{room_id}"
   end
 
   defp utopic(uid) do

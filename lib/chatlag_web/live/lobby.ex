@@ -5,24 +5,29 @@ defmodule ChatlagWeb.Live.Lobby do
   alias Chatlag.Repo
 
   alias Chatlag.Chat.Room
-  alias Chatlag.Chat
 
-  # alias ChatlagWeb.Presence
+  alias Chatlag.RoomStatus
+
+
 
   def mount(_session, socket) do
-    # |> where(on_front: true)
-    all_rooms = Repo.all(Room)
-
     if connected?(socket) do
-      Enum.each(all_rooms, fn room ->
-        Chat.subscribe(topic(room.id))
-      end)
     end
 
-    {:ok, fetch(socket)}
-  end
+    all_rooms =
+      Repo.all(
+        from(r in Room,
+          select: %{id: r.id},
+          where: r.is_private == false,
+          order_by: r.id
+        )
+      )
 
-  def fetch(socket) do
+    rooms_count =
+      Enum.reduce(all_rooms, %{}, fn r, acc ->
+        Map.put(acc, "room-#{r.id}", users_in_room(r.id))
+      end)
+
     rooms =
       Repo.all(
         from(r in Room,
@@ -35,17 +40,24 @@ defmodule ChatlagWeb.Live.Lobby do
 
     rest_rooms = Enum.chunk_every(rooms, 2)
 
+    top_rooms =
+      Repo.all(
+        from(r in Room,
+          select: %{id: r.id, title: r.title, slogen: r.slogen},
+          where: r.on_front == true,
+          where: r.is_private == false,
+          order_by: r.id
+        )
+      )
+
+    {:ok, fetch(socket, top_rooms, rest_rooms, rooms_count)}
+  end
+
+  def fetch(socket, top_rooms, rest_rooms, rooms_count) do
     assign(socket, %{
-      top_rooms:
-        Repo.all(
-          from(r in Room,
-            select: %{id: r.id, title: r.title, slogen: r.slogen},
-            where: r.on_front == true,
-            where: r.is_private == false,
-            order_by: r.id
-          )
-        ),
-      rest_rooms: rest_rooms
+      top_rooms: top_rooms,
+      rest_rooms: rest_rooms,
+      rooms_count: rooms_count
     })
   end
 
@@ -53,7 +65,17 @@ defmodule ChatlagWeb.Live.Lobby do
     ChatlagWeb.ChatView.render("lobby.html", assigns)
   end
 
-  defp topic(room_id) do
-    "Chatlag-members:#{room_id}"
+ 
+  defp users_in_room(room_id) do
+    q = [
+      {:==, :room_id, room_id}
+    ]
+
+    users =
+      Memento.transaction!(fn ->
+        Memento.Query.select(RoomStatus, q)
+      end)
+
+    Enum.count(users)
   end
 end

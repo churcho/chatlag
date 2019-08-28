@@ -14,6 +14,7 @@ defmodule Chatlag.Application do
       ChatlagWeb.Endpoint,
       ChatlagWeb.Presence,
       Chatlag.Workers.UserState,
+      Chatlag.Workers.RoomState
       # Starts a worker by calling: Chatlag.Worker.start_link(arg)
       # {Chatlag.Worker, arg},
     ]

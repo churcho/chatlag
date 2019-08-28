@@ -12,7 +12,13 @@
 						<input type="text" class="input-search" max-length="50" placeholder="חפש צ'אט" title="חפש צ'אט" tabindex="1"/>
 						<button type="submit" class="submit-search" title="חפש צ'אט" tabindex="2"></button>
 					</form>
-					<div class="social"> <a class="link social-link" title="טוויטר" tabindex="3"><img class="social-img" alt="טוויטר" src="/images/twitter.jpg"/></a> <a class="link social-link" title="פייסבוק" tabindex="4"><img class="social-img" alt="פייסבוק" src="/images/fb.jpg"/></a> <a class="link social-link" title="וואטסאפ" tabindex="5"><img class="social-img" alt="וואטסאפ" src="/images/whatsapp.jpg"/></a> </div>
+					<div class="social"> 
+					<a href="/logout" class="link social-link" title="התנתקות" tabindex="3"><img class="social-img" alt="התנתקות" src="/images/shutdown.png"/></a> 
+					|
+					<a class="link social-link" title="טוויטר" tabindex="3"><img class="social-img" alt="טוויטר" src="/images/twitter.jpg"/></a> 
+					<a class="link social-link" title="פייסבוק" tabindex="4"><img class="social-img" alt="פייסבוק" src="/images/fb.jpg"/></a> 
+					<a class="link social-link" title="וואטסאפ" tabindex="5"><img class="social-img" alt="וואטסאפ" src="/images/whatsapp.jpg"/></a> 
+					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="border"></div>
@@ -42,7 +48,7 @@
 								<h4 class="leading-chat-title"><%= room.title %></h4>
 								<div class="leading-chat-content">
 									<p class="leading-chat-desc"><%= room.slogen %></p>
-									<p class="leading-online green"><span class="online-users">130</span> משתמשים <span class="online" lang="en">online</span></p>
+									<p class="leading-online green"><span class="online-users"><%= @rooms_count["room-#{room.id}"] %></span> משתמשים <span class="online" lang="en">online</span></p>
 								</div>
 								<div class="leading-chat-button">כנסו עכשיו</div>
 							</div>

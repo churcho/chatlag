@@ -2,10 +2,24 @@ defmodule Chatlag.Workers.UserState do
   use GenServer
 
   alias Chatlag.RoomStatus
+  alias Chatlag.Repo
+
+  alias Chatlag.Chat.Room
+  alias ChatlagWeb.Presence
+
+  @lo_topic "Chatlag-logout"
 
   # API
   def start_link(_state) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  end
+
+  def user_logedin(user_id) do
+    GenServer.cast(__MODULE__, {:user_logedin, user_id})
+  end
+
+  def user_logout(user_id) do
+    GenServer.cast(__MODULE__, {:user_logout, user_id})
   end
 
   def add_user(user) do
@@ -35,14 +49,11 @@ defmodule Chatlag.Workers.UserState do
 
   # CALLBACKS
   def init(state) do
-    IO.puts("Worker started")
-
     {:ok, state}
   end
 
   def handle_call({:close_private_room, room_id}, _from, state) do
     room_id = String.to_integer(room_id)
-    IO.inspect(room_id, label: "Close room")
 
     query = [
       {:==, :room_id, room_id},
@@ -57,7 +68,6 @@ defmodule Chatlag.Workers.UserState do
     for r <- all do
       Memento.transaction!(fn ->
         Memento.Query.delete(RoomStatus, r.id)
-        IO.puts("delete room #{r.id}")
       end)
     end
 
@@ -130,6 +140,7 @@ defmodule Chatlag.Workers.UserState do
     {:reply, res, state}
   end
 
+  # ============================================================
   def handle_call({:all_rooms, room_id}, _from, _state) do
     guards =
       case room_id do
@@ -167,10 +178,13 @@ defmodule Chatlag.Workers.UserState do
     {:reply, newRecs, newRecs}
   end
 
+  def handle_cast({:user_logedin, _user_id}, state) do
+    {:noreply, state}
+  end
+
+  # ============================================================
   def handle_cast({:add_user, user}, state) do
     uu = user_exists(user)
-
-    # IO.inspect(uu, label: "*************")
 
     state =
       case Enum.count(uu) do
@@ -211,6 +225,51 @@ defmodule Chatlag.Workers.UserState do
     {:noreply, state}
   end
 
+  # =============================================================
+  # def handle_cast({:user_logout, user_id}, state) do
+  # =============================================================
+  def handle_cast({:user_logout, user_id}, state) do
+    all_rooms = Repo.all(Room)
+
+    Enum.each(all_rooms, fn room ->
+      Presence.untrack(self(), topic(room.id), user_id)
+    end)
+
+    q = [
+      {:==, :user_id, user_id}
+    ]
+
+    uu =
+      Memento.transaction!(fn ->
+        Memento.Query.select(RoomStatus, q)
+      end)
+
+    Enum.each(uu, fn u ->
+      Memento.transaction!(fn ->
+        res = Memento.Query.delete(RoomStatus, u.id)
+      end)
+    end)
+
+    q = [
+      {:==, :party_id, user_id}
+    ]
+
+    uu =
+      Memento.transaction!(fn ->
+        Memento.Query.select(RoomStatus, q)
+      end)
+
+    Enum.each(uu, fn u ->
+      Memento.transaction!(fn ->
+        res = Memento.Query.delete(RoomStatus, u.id)
+      end)
+    end)
+
+    Phoenix.PubSub.broadcast(Chatlag.PubSub, @lo_topic, {:user_logedout, user_id})
+
+    {:noreply, state}
+  end
+
   defp user_exists(user) do
     # Memento.start()
     guards =
@@ -226,6 +285,7 @@ defmodule Chatlag.Workers.UserState do
         _ ->
           [
             {:==, :user_id, user.user_id},
+            ## not private
             {:!=, :private, true}
           ]
       end
@@ -233,6 +293,9 @@ defmodule Chatlag.Workers.UserState do
     Memento.transaction!(fn ->
       Memento.Query.select(RoomStatus, guards)
     end)
+  end
 
+  defp topic(room_id) do
+    "Chatlag-msg:#{room_id}"
   end
 end
