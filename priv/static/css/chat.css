@@ -641,11 +641,7 @@ body * {
     }
 }
 
-@media screen and (max-width: 550px) {
-    .chat_input {
-        margin-top: -1%;
-    }
-}
+
 
 /* ===========need change ========= */
 /* @media screen and (min-width: 992px) and (max-height: 800px) {
@@ -680,37 +676,43 @@ body * {
      */
      /* ===========Fixed ========= */
    
-     
-@media screen and (max-height: 1024px) {
-    .chat_input {
-        margin-top: -3%;
+   /*
+     @media screen and (max-height: 1024px) {
+        .chat_input {
+            margin-top: -3%;
+        }
+        .page {
+            padding-bottom: 9.7em;
+        }
+        .display-table {
+            height: 100%;
+        }
     }
-    .page {
-        padding-bottom: 9.7em;
+    @media screen and (max-height: 1080px) {
+        .chat_input {
+            margin-top: -1%;
+        }
+           .display-table {
+            height: 129%;
+        }
+     }
+     @media screen and (max-height: 740px) {
+        .display-table {
+            height: 140%;
+        }
     }
-    .display-table {
-        height: 100%;
+        @media screen and (max-height: 400px) {
+        .chat_input {
+            margin-top: -2%;
+        }
+        .display-table {
+            height: 100%;
+        }
     }
-}
-@media screen and (max-height: 1080px) {
-    .chat_input {
-        margin-top: -1%;
+        
+    @media screen and (max-width: 550px) {
+        .chat_input {
+            margin-top: -1%;
+        }
     }
-       .display-table {
-        height: 129%;
-    }
- }
- @media screen and (max-height: 740px) {
-    .display-table {
-        height: 140%;
-    }
-}
-    @media screen and (max-height: 740px) {
-    .chat_input {
-        margin-top: -1%;
-    }
-    .display-table {
-        height: 140%;
-    }
-}
-    
+    */
