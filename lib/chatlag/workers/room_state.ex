@@ -10,8 +10,6 @@ defmodule Chatlag.Workers.RoomState do
 
   # CALLBACKS
   def init(state) do
-    IO.puts("Room Worker started")
-
     {:ok, state}
   end
 end
