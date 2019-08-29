@@ -15,6 +15,11 @@
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/chat.css") %>" />
 </head>
 
+<style>
+.xs {
+        font-size: small;
+    }
+</style>
 <body>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>

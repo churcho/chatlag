@@ -1,9 +1,9 @@
 <div class="chat">
   <%= if @room.is_private do %>
-    <div style="padding-bottom: 0.3em" class="chat_box chat_alert_private">
-        <button class="btn btn-link btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button>
+    <div style="padding-bottom: 0.3em" class="chat_box chat_alert">
+        <button class="btn btn-link btn-sm xs" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button>
       <%= for r <- @private_rooms, r.party, r.room_id == @room.id do %>
-          <button class="btn btn-primary active btn-sm"><%= getRoomParty(@room.id, @user_id) %></button>
+          <button class="btn btn-primary active btn-sm xs"><%= getRoomParty(@room.id, @user_id) %></button>
       <% end %>
       <%= for r <- @private_rooms, r.party, r.room_id != @room.id do %>
           <button class="btn btn-outline-info btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= getUserNickname(@user_id, r.user_id, r.party_id) %></button>
