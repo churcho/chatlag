@@ -6,7 +6,8 @@ defmodule ChatlagWeb.AuthController do
 
   alias Chatlag.Workers.UserState
 
-  plug :put_layout, "chat.html" when action in [:login, :create]
+  plug :put_layout, "chat.html" when action in [:create]
+  plug :put_layout, "login.html" when action in [:login]
 
   def login(conn, _params) do
     ip = to_string(:inet_parse.ntoa(conn.remote_ip))
