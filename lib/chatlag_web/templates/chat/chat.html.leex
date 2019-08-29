@@ -7,7 +7,7 @@
   }
    body {
        background: url(<%= getRoomBg(@room.id) %>);
-       background-color: <%= @room.bg_color || "white" %> !important;
+       background-color: <%= @room.bg_color || "#56e4f0" %> !important;
        background-repeat: no-repeat;
    }
   
@@ -17,7 +17,7 @@
     body {
         background:  url(<%= getRoomMidsizeBg(@room.id) %>);
         background-repeat: no-repeat;
-        background-color: <%= @room.bg_color || "white" %> !important;
+        background-color: <%= @room.bg_color || "#56e4f0" %> !important;
     }
    }
   
@@ -26,7 +26,7 @@
     body {
         background:  url(<%= getRoomSmallBg(@room.id) %>);
         background-repeat: no-repeat;
-        background-color: <%= @room.bg_color || "white" %> !important;
+        background-color: <%= @room.bg_color || "#56e4f0" %> !important;
     }
    }
 </style>
