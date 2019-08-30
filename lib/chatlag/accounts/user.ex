@@ -53,6 +53,7 @@ defmodule Chatlag.Accounts.User do
 
     usr = users |> Map.get(user)
 
+    IO.inspect(usr, label: "**** Validate online")
     case usr do
       nil ->
         false

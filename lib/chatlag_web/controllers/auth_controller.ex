@@ -80,6 +80,7 @@ defmodule ChatlagWeb.AuthController do
       _ ->
         # עדכן פרטים 
         user = Accounts.get_user!(Enum.at(user, 0).id)
+        IO.inspect(user, label: "Update it")
         Accounts.update_user(user, user_parems)
     end
   end
