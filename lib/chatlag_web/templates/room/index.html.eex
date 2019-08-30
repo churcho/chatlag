@@ -19,7 +19,9 @@
 
       <td class="btn-sm">
           <%= link raw("<i class='fas fa-eye'></i>"), to: Routes.chat_path(@conn, :chat, room) %> &nbsp;
+          <%= if !room.is_private do %>
           <%= link raw("<i class='far fa-edit'></i>"), to: Routes.room_path(@conn, :edit, room) %>&nbsp;
+          <% end %>
           <%= link raw("<i class='fas fa-trash-alt'></i>"), to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: gettext("Are you sure?")] %>
         </td>
     </tr>
