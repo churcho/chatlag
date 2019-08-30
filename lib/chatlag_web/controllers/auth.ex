@@ -1,6 +1,7 @@
 defmodule Chatlag.Auth do
   use ChatlagWeb, :controller
   import Plug.Conn
+  alias ChatlagWeb.Presence
 
   def init(opts) do
     opts
@@ -11,6 +12,17 @@ defmodule Chatlag.Auth do
 
     if user_id do
       user = user_id && Chatlag.Accounts.get_user!(user_id)
+
+      Presence.track(
+        self(),
+        "chatlag",
+        user.nickname,
+        %{
+          user_id: user_id,
+          nickname: user.nickname
+        }
+      )
+
       assign(conn, :current_user, user)
     else
       conn = put_session(conn, :old_path, conn.request_path)

@@ -1,8 +1,11 @@
 defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
 
+  alias Chatlag.Repo
   alias Chatlag.Accounts
   alias Chatlag.Accounts.User
+
+  import Ecto.Query, only: [from: 2]
 
   alias Chatlag.Workers.UserState
 
@@ -17,8 +20,9 @@ defmodule ChatlagWeb.AuthController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.create_user(user_params) do
+    case get_or_create_user(user_params) do
       {:ok, user} ->
+        IO.puts("-------------------->>> Getting user #{user.id}")
         old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index)
 
         conn
@@ -44,5 +48,29 @@ defmodule ChatlagWeb.AuthController do
     conn
     |> configure_session(drop: true)
     |> redirect(to: "/login")
+  end
+
+  defp get_or_create_user(user_parems) do
+    %{"ip_address" => ip_address, "nickname" => nickname} = user_parems
+
+    user =
+      Repo.all(
+        from(u in User,
+          select: %{id: u.id},
+          limit: 1,
+          where: u.ip_address == ^ip_address,
+          where: u.nickname == ^nickname
+        )
+      )
+
+    case user do
+      [] ->
+        Accounts.create_user(user_parems)
+
+      _ ->
+        # עדכן פרטים 
+        user = Accounts.get_user!(Enum.at(user, 0).id)
+        Accounts.update_user(user, user_parems)
+    end
   end
 end

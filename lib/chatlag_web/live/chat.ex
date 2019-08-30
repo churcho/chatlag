@@ -38,14 +38,14 @@ defmodule ChatlagWeb.Live.Chat do
       end
 
     addUserToRoom(session.user_id, session.room_id)
-    
+
     if connected?(socket) do
       # IO.puts("****[#{uid}]***[#{rid}]**********Mount************************")
       Chat.subscribe(topic(session.room_id))
       Chat.subscribe(@lo_topic)
       Chat.subscribe("msg_#{uid}")
       Chat.subscribe("prvt_#{uid}")
-      
+
       user = Accounts.get_user!(uid)
       publish_user_updated()
 
@@ -211,6 +211,12 @@ defmodule ChatlagWeb.Live.Chat do
 
     IO.inspect(users, label: "****** Users *******")
 
+    users =
+      Presence.list("chatlag")
+      
+
+    IO.inspect(users, label: "****** 2users  *******")
+
     uu = Memento.transaction!(fn -> Memento.Query.all(RoomStatus) end)
 
     IO.inspect(uu, label: "****** UU *******")
@@ -345,6 +351,17 @@ defmodule ChatlagWeb.Live.Chat do
   defp addUserToRoom(user_id, room_id) do
     user = Accounts.get_user!(user_id)
 
+
+    Presence.track(
+        self(),
+        "chatlag",
+        user.nickname,
+        %{
+          user_id: user_id,
+          nickname: user.nickname
+        }
+      )
+      
     Presence.track(
       self(),
       topic(room_id),

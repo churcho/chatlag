@@ -1,6 +1,7 @@
 defmodule Chatlag.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias ChatlagWeb.Presence
 
   schema "users" do
     field :age, :integer, null: false
@@ -35,5 +36,29 @@ defmodule Chatlag.Accounts.User do
     ])
     |> validate_required([:nickname, :age, :gender])
     |> validate_length(:nickname, max: 18)
+    |> validate_online(:nickname)
+  end
+
+  def validate_online(changeset, field, options \\ []) do
+    validate_change(changeset, field, fn _, nickname ->
+      case user_exists(nickname) do
+        false -> []
+        true -> [{field, options[:message] || "Nickname already taken"}]
+      end
+    end)
+  end
+
+  defp user_exists(user) do
+    users = Presence.list("chatlag")
+
+    usr = users |> Map.get(user)
+
+    case usr do
+      nil ->
+        false
+
+      _ ->
+        true
+    end
   end
 end
