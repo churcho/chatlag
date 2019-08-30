@@ -13,10 +13,9 @@ defmodule ChatlagWeb.Live.Lobby do
   def mount(_session, socket) do
     if connected?(socket) do
       IO.puts("subscribe *****************************************************8")
+      Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
     end
 
-    IO.puts("Lobby subscribe ***********************************************************")
-    Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
 
     all_rooms =
       Repo.all(

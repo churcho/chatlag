@@ -3,6 +3,7 @@ defmodule ChatlagWeb.AuthController do
 
   alias Chatlag.Repo
   alias Chatlag.Accounts
+  alias ChatlagWeb.Presence
   alias Chatlag.Accounts.User
 
   import Ecto.Query, only: [from: 2]
@@ -22,8 +23,17 @@ defmodule ChatlagWeb.AuthController do
   def create(conn, %{"user" => user_params}) do
     case get_or_create_user(user_params) do
       {:ok, user} ->
-        IO.puts("-------------------->>> Getting user #{user.id}")
         old_path = get_session(conn, :old_path) || Routes.chat_path(conn, :index)
+
+        Presence.track(
+          self(),
+          "chatlag",
+          user.nickname,
+          %{
+            user_id: user.id,
+            nickname: user.nickname
+          }
+        )
 
         conn
         |> assign(:current_user, user)
