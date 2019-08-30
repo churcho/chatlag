@@ -8,11 +8,15 @@ defmodule ChatlagWeb.Live.Lobby do
 
   alias Chatlag.RoomStatus
 
-
+  @topic "users_updated"
 
   def mount(_session, socket) do
     if connected?(socket) do
+      IO.puts("subscribe *****************************************************8")
     end
+
+    IO.puts("Lobby subscribe ***********************************************************")
+    Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
 
     all_rooms =
       Repo.all(
@@ -65,7 +69,11 @@ defmodule ChatlagWeb.Live.Lobby do
     ChatlagWeb.ChatView.render("lobby.html", assigns)
   end
 
- 
+  def handle_info(:user_updated, socket) do
+    IO.puts("*************************************************Updated ")
+    {:noreply, socket}
+  end
+
   defp users_in_room(room_id) do
     q = [
       {:==, :room_id, room_id}
