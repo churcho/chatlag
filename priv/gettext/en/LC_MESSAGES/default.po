@@ -33,7 +33,7 @@ msgid "On front"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:28
+#: lib/chatlag_web/templates/layout/admin.html.eex:29
 msgid "Rooms"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgid "Add to Favorites"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:112
+#: lib/chatlag_web/templates/auth/login.html.eex:115
 msgid "As Anonymous"
 msgstr ""
 
@@ -102,8 +102,6 @@ msgid "Back"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/pow/registration/new.html.eex:22
-#: lib/chatlag_web/templates/pow/session/new.html.eex:16
 #: lib/chatlag_web/templates/room/form.html.eex:41
 #: lib/chatlag_web/templates/room/new_form.html.eex:35
 msgid "Save"
@@ -181,11 +179,31 @@ msgid "Participants"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/pow/session/new.html.eex:15
+#: lib/chatlag_web/templates/pow/registration/new.html.eex:1
+#: lib/chatlag_web/templates/pow/registration/new.html.eex:22
+#: lib/chatlag_web/templates/pow/session/new.html.eex:19
 msgid "Register"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/pow/registration/new.html.eex:21
+#: lib/chatlag_web/templates/pow/session/new.html.eex:1
+#: lib/chatlag_web/templates/pow/session/new.html.eex:20
 msgid "Sign in"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:28
+msgid "Lobby"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:34
+msgid "Logout"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/pow/registration/new.html.eex:17
+#: lib/chatlag_web/templates/pow/session/new.html.eex:14
+msgid "admin"
 msgstr ""

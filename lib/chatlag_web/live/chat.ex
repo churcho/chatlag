@@ -280,7 +280,7 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   # ================================================================
-  def handle_info({:private_msg, uid, rid}, socket) do
+  def handle_info({:private_msg, uid, _rid}, socket) do
     # ================================================================
     me = get_user(socket)
 

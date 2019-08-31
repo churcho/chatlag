@@ -14,10 +14,28 @@ defmodule ChatlagWeb.AuthController do
   plug :put_layout, "login.html" when action in [:login]
 
   def login(conn, _params) do
-    ip = to_string(:inet_parse.ntoa(conn.remote_ip))
+    # user_id = get_session(conn, :user_id)
+    user_id = case Pow.Plug.current_user(conn) do
+      nil ->
+        get_session(conn, :user_id)
+      _ ->
+        Pow.Plug.current_user(conn).id
+    end
 
-    changeset = Accounts.change_user(%User{})
-    render(conn, "login.html", changeset: changeset, ip: ip)
+    if user_id do
+      user = Accounts.get_user!(user_id)
+      conn = assign(conn, :current_user, user)
+
+      conn
+      |> put_session(:user_id, user.id)
+      |> redirect(to: "/")
+      |> halt
+    else
+      ip = to_string(:inet_parse.ntoa(conn.remote_ip))
+
+      changeset = Accounts.change_user(%User{})
+      render(conn, "login.html", changeset: changeset, ip: ip)
+    end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -43,6 +61,7 @@ defmodule ChatlagWeb.AuthController do
         |> redirect(to: old_path)
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
         ip = to_string(:inet_parse.ntoa(conn.remote_ip))
         render(conn, "login.html", changeset: changeset, ip: ip)
     end
@@ -80,7 +99,6 @@ defmodule ChatlagWeb.AuthController do
       _ ->
         # עדכן פרטים 
         user = Accounts.get_user!(Enum.at(user, 0).id)
-        IO.inspect(user, label: "Update it")
         Accounts.update_user(user, user_parems)
     end
   end

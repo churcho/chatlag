@@ -23,24 +23,40 @@ defmodule Chatlag.Accounts.User do
 
   @doc false
   def changeset(user, attrs) do
-    user
-    |> cast(attrs, [
-      :nickname,
-      :full_name,
-      :email,
-      :role,
-      :age,
-      :gender,
-      :ip_address,
-      :is_loggedin,
-      :suspend_at,
-      :password_hash
-    ])
-    |> validate_required([:nickname, :age, :gender])
-    |> pow_changeset(attrs)
-    |> validate_length(:nickname, max: 18)
-    |> validate_online(:nickname)
-    |> unique_constraint(:email) 
+    case Map.get(attrs, "email") do
+      nil ->
+        user
+        |> cast(attrs, [
+          :nickname,
+          :full_name,
+          :role,
+          :age,
+          :gender,
+          :ip_address,
+          :suspend_at,
+          :password_hash
+        ])
+        |> validate_required([:nickname, :age, :gender])
+        |> validate_length(:nickname, max: 18)
+        |> validate_online(:nickname)
+
+      _ ->
+        user
+        |> cast(attrs, [
+          :nickname,
+          :full_name,
+          :email,
+          :role,
+          :age,
+          :gender,
+          :ip_address,
+          :is_loggedin,
+          :suspend_at,
+          :password_hash
+        ])
+        |> pow_changeset(attrs)
+        |> unique_constraint(:email)
+    end
   end
 
   def validate_online(changeset, field, options \\ []) do
