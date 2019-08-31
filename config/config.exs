@@ -32,6 +32,12 @@ config :phoenix, :json_library, Jason
 #   translate_error_function: &Chatlag.ErrorHelpers.translate_error/1
 # ]
 
+# POW auth
+config :chatlag, :pow,
+  user: Chatlag.Accounts.User,
+  repo: Chatlag.Repo,
+  web_module: ChatlagWeb
+
 # live view
 config :chatlag, ChatlagWeb.Endpoint,
   live_view: [

@@ -1,14 +1,16 @@
 defmodule Chatlag.Accounts.User do
   use Ecto.Schema
-  import Ecto.Changeset
+
   alias ChatlagWeb.Presence
+  import Ecto.Changeset
+
+  use Pow.Ecto.Schema,
+    password_min_length: 5
 
   schema "users" do
+    pow_user_fields()
     field :age, :integer, null: false
     field :full_name, :string, null: true
-    field :email, :string, null: true
-    field :password_hash, :string, null: true
-    field :password, :string, null: true, virtual: true
     field :gender, :string, null: false
     field :ip_address, :string, null: true
     field :role, :string, null: false
@@ -35,8 +37,10 @@ defmodule Chatlag.Accounts.User do
       :password_hash
     ])
     |> validate_required([:nickname, :age, :gender])
+    |> pow_changeset(attrs)
     |> validate_length(:nickname, max: 18)
     |> validate_online(:nickname)
+    |> unique_constraint(:email) 
   end
 
   def validate_online(changeset, field, options \\ []) do
@@ -53,7 +57,6 @@ defmodule Chatlag.Accounts.User do
 
     usr = users |> Map.get(user)
 
-    IO.inspect(usr, label: "**** Validate online")
     case usr do
       nil ->
         false

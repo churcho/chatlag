@@ -2,7 +2,15 @@
 	<div class="container-fluid" id="fluid1">
 		<div class="row header" id="row1">
 			<div class="col-lg-12">
+			<%= if @current_user do %>
+				<div class="header-logo"> 
+				<a href="/admin">
+					<img class="img-logo" src="/images/header-logo.png" alt="Chatlag"/> <span class="txt-logo english" lang="en">Chatlag</span> 
+				</a>
+				</div>
+			<% else %>
 				<div class="header-logo"> <img class="img-logo" src="/images/header-logo.png" alt="Chatlag"/> <span class="txt-logo english" lang="en">Chatlag</span> </div>
+			<% end %>
 				<div class="header-main">
 					<h1 class="main-title">פורטל הצאטים <span class="regular">הגדול בארץ</span></h1>
 					<h2 class="second-title">עשרות נושאים בכל תחומי החיים</h2>

@@ -10,7 +10,7 @@ defmodule ChatlagWeb.Live.Lobby do
 
   @topic "users_updated"
 
-  def mount(_session, socket) do
+  def mount(session, socket) do
     if connected?(socket) do
       IO.puts("subscribe *****************************************************8")
       Phoenix.PubSub.subscribe(Chatlag.PubSub, @topic)
@@ -53,6 +53,7 @@ defmodule ChatlagWeb.Live.Lobby do
         )
       )
 
+      socket = assign(socket, %{current_user: session.current_user})
     {:ok, fetch(socket, top_rooms, rest_rooms, rooms_count)}
   end
 

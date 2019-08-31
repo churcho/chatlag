@@ -46,5 +46,6 @@ defmodule ChatlagWeb.Endpoint do
     key: "_chatlag_key",
     signing_salt: "4suET4zQ"
 
+  plug Pow.Plug.Session, otp_app: :chatlag
   plug ChatlagWeb.Router
 end

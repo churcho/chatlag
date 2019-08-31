@@ -1,6 +1,7 @@
 #     mix run priv/repo/mnesia.exs
 
 alias Chatlag.RoomStatus
+alias Chatlag.PrivateStatus
 
 nodes = [ node() ]
 
@@ -10,8 +11,8 @@ Memento.Schema.create(nodes)
 Memento.start
 
 
-# Memento.Table.create!(RoomStatus, disc_copies: nodes)
-Memento.Table.create!(RoomStatus)
+Memento.Table.create!(RoomStatus, disc_copies: nodes)
+Memento.Table.create!(PrivateStatus, disc_copies: nodes)
 # Memento.transaction! fn ->
 #   Memento.Query.write(%RoomStatus{room_id: 12, user_id: 3, nickname: "Sarah Molton"})
 # end
