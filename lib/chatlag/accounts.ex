@@ -7,6 +7,8 @@ defmodule Chatlag.Accounts do
   alias Chatlag.Repo
 
   alias Chatlag.Accounts.User
+  alias Chatlag.Workers.Cache
+
 
   @doc """
   Returns the list of users.
@@ -35,7 +37,18 @@ defmodule Chatlag.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    case Cache.get_user(id) do
+      %User{} = user -> user
+      _ -> get_user_from_db(id)
+    end
+  end
+
+  defp get_user_from_db(id) do
+    user = Repo.get!(User, id)
+    Cache.put_user(id, user)
+    user
+  end
 
   @doc """
   Creates a user.

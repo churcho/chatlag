@@ -8,7 +8,7 @@ defmodule Chatlag.Chat do
 
   alias Chatlag.Chat.Room
   alias Chatlag.Chat.Message
-
+  alias Chatlag.Workers.Cache
 
   def subscribe(topic) do
     Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
@@ -41,7 +41,18 @@ defmodule Chatlag.Chat do
       ** (Ecto.NoResultsError)
 
   """
-  def get_room!(id), do: Repo.get!(Room, id)
+  def get_room!(id) do
+    case Cache.get_room(id) do
+      %Room{} = room -> room
+      _ -> get_room_from_db(id)
+    end
+  end
+
+  defp get_room_from_db(id) do
+    room = Repo.get!(Room, id)
+    Cache.put_room(id, room)
+    room
+  end
 
   @doc """
   Gets a single room by title.
@@ -248,6 +259,4 @@ defmodule Chatlag.Chat do
   defp notify_subs({:error, reason}, _event) do
     {:error, reason}
   end
-
-  
 end

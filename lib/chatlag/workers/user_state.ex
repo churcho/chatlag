@@ -11,7 +11,6 @@ defmodule Chatlag.Workers.UserState do
 
   # API
   def start_link(_state) do
-    Chatlag.PrivateMsg.start_link
     Chatlag.PrivateMsg.reset
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
@@ -29,7 +28,7 @@ defmodule Chatlag.Workers.UserState do
   end
 
   def del_user(user) do
-    ########### TODO 
+    ########### TODO
     GenServer.cast(__MODULE__, {:del_user, user})
   end
 

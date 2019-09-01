@@ -1,65 +1,73 @@
 defmodule Chatlag.PrivateMsg do
-  def start_link do
-    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  alias Chatlag.PrivateStatus
+
+  def reset do
+    :ok
   end
 
-  def add(user) do
-    Agent.update(__MODULE__, fn state ->
-      Map.put(state, user, 1)
+  def add_private(uid, rid, nickname) do
+    q = [
+      {:==, :room_id, rid},
+      {:==, :party_id, uid}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    case res do
+      [] ->
+        Memento.transaction!(fn ->
+          Memento.Query.write(%PrivateStatus{
+            room_id: rid,
+            party_id: uid,
+            nickname: nickname
+          })
+        end)
+
+      _ ->
+        res
+    end
+  end
+
+  def privates(uid) do
+    q = [
+      {:==, :party_id, uid}
+    ]
+
+    Memento.transaction!(fn ->
+      Memento.Query.select(PrivateStatus, q)
     end)
   end
 
-  def reset do
-    Agent.update(__MODULE__, fn _state -> %{} end)
+  def private_count(uid) do
+    privates(uid)
+    |> Enum.count()
   end
 
-  def private_count(user) do
-    user = "#{user}"
+  def sub_private(uid, rid) do
+    q = [
+      {:==, :room_id, rid},
+      {:==, :party_id, uid}
+    ]
 
-    count =
-      Agent.get(__MODULE__, fn state ->
-        Map.get(state, user)
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
       end)
 
-    case count do
-      nil ->
-        0
+    case res do
+      [] ->
+        res
 
       _ ->
-        count
-    end
-  end
-
-  def add_private(user) do
-    # IO.puts("*********** Adding to #{user}")
-    user = "#{user}"
-
-    case private_count(user) do
-      0 ->
-        add(user)
-
-      _ ->
-        Agent.update(__MODULE__, fn state ->
-          count = Map.get(state, user)
-          Map.put(state, user, count + 1)
-        end)
-    end
-  end
-
-  def sub_private(user) do
-    # IO.puts("*********** Sbtract from #{user}")
-    user = "#{user}"
-    if !private_count(user), do: add(user)
-
-    case private_count(user) do
-      0 ->
-        :ok
-
-      _ ->
-        Agent.update(__MODULE__, fn state ->
-          count = Map.get(state, user)
-          Map.put(state, user, count - 1)
-        end)
+        for r <- res do
+          Memento.transaction!(fn ->
+            IO.puts("Delete #{r.id}")
+            Memento.Query.delete(PrivateStatus, r.id)
+          end)
+        end
     end
   end
 end
