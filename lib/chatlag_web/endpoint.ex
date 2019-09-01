@@ -15,7 +15,7 @@ defmodule ChatlagWeb.Endpoint do
     at: "/",
     from: :chatlag,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt loaderio-5980ce70be18710c0e56246588187354.txt)
 
   plug Plug.Static, at: "/uploads", from: Path.expand('./uploads'), gzip: false
 
