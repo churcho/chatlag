@@ -1,14 +1,19 @@
 <div class="chat">
   <div class="chat_box chat_alert">
-    <%= gettext("Private chats") %> 
+    <%= gettext("Private chats") %>  <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button>
   </div>
   <div class="chat_scroll">
-      <button class="box btn-primary btn-sm" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button> 
-      <div class="clear"></div>
-    <%= for p <- @private_rooms do %>
-      <button class="btn btn-secondary btn-sm" phx-click="change_room" phx-value="<%= p.room_id %>"><%= p.nickname %></button> 
-      <button class="btn btn-link btn-sm" phx-click="close_room" phx-value="<%= p.room_id %>"><%= gettext("close") %></button> 
-      <div class="clear"></div>
-    <% end %>
+    <table class="table">
+      <tbody>
+        <%= for p <- @private_rooms do %>
+          <tr>
+            <td class="pointer" phx-click="change_room" phx-value="<%= p.room_id %>">
+              <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(p.party_id) %>" /> <%= p.nickname %>
+              </td>
+            <td class="pointer" phx-click="close_room" phx-value="<%= p.room_id %>">X</td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

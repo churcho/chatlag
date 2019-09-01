@@ -129,8 +129,8 @@ body * {
 }
 
 .profile_picture {
-    width: 3em;
-    height: 3em;
+    width: 2em;
+    height: 2em;
     border-radius: 50%;
     float: right;
 }

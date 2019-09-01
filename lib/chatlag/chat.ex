@@ -100,6 +100,16 @@ defmodule Chatlag.Chat do
 
   """
   def update_room(%Room{} = room, attrs) do
+    case update_room_to_db(room, attrs) do
+      {:ok, room} = resp ->
+        Cache.put_room(to_string(room.id), room)
+        resp
+
+      error ->
+        error
+    end
+  end
+    def update_room_to_db(%Room{} = room, attrs) do
     room
     |> Room.changeset(attrs)
     |> Repo.update()
@@ -123,6 +133,7 @@ defmodule Chatlag.Chat do
     #   from m in Message,
     #   where: m.room_id = rid
     # )
+    Cache.delete_room(room.id)
     Repo.delete(room)
   end
 

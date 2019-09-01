@@ -4,11 +4,10 @@ defmodule Chatlag.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Chatlag.Repo
 
+  alias Chatlag.Repo
   alias Chatlag.Accounts.User
   alias Chatlag.Workers.Cache
-
 
   @doc """
   Returns the list of users.
@@ -81,6 +80,17 @@ defmodule Chatlag.Accounts do
 
   """
   def update_user(%User{} = user, attrs) do
+    case update_user_to_db(user, attrs) do
+      {:ok, user} = resp ->
+        Cache.put_user(to_string(user.id), user)
+        resp
+
+      error ->
+        error
+    end
+  end
+
+  def update_user_to_db(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
     |> Repo.update()
@@ -99,6 +109,7 @@ defmodule Chatlag.Accounts do
 
   """
   def delete_user(%User{} = user) do
+    Cache.delete_user(user.id)
     Repo.delete(user)
   end
 
