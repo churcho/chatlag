@@ -8,6 +8,8 @@ defmodule Chatlag.Accounts do
   alias Chatlag.Repo
   alias Chatlag.Accounts.User
   alias Chatlag.Workers.Cache
+  alias ChatlagWeb.Presence
+  @all_users_topic "chatlag"
 
   @doc """
   Returns the list of users.
@@ -124,5 +126,16 @@ defmodule Chatlag.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def is_online?(user_id) do
+    users =
+      Presence.list(@all_users_topic)
+      |> Enum.map(fn {_user_id, data} ->
+        data[:metas]
+        |> List.first()
+      end)
+
+    Enum.find(users, fn u -> u.user_id == user_id end)
   end
 end

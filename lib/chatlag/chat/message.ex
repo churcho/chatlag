@@ -19,6 +19,6 @@ defmodule Chatlag.Chat.Message do
     message
     |> cast(attrs, [:content, :reply_to, :user_id, :room_id, :media_type])
     |> cast_attachments(attrs, [:media])
-    |> validate_required([:content, :user_id, :room_id])
+    |> validate_required([:user_id, :room_id])
   end
 end

@@ -146,30 +146,8 @@ msgid "midsize_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:147
+#: lib/chatlag_web/views/chat_view.ex:150
 msgid "Private Room"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:13
-msgid "Private chat with"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
-msgid "Private chats"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:4
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:6
-msgid "Back to room"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:11
-msgid "close"
 msgstr ""
 
 #, elixir-format
@@ -205,4 +183,14 @@ msgstr ""
 #: lib/chatlag_web/templates/pow/registration/new.html.eex:17
 #: lib/chatlag_web/templates/pow/session/new.html.eex:14
 msgid "admin"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
+msgid "privates"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
+msgid "waiting"
 msgstr ""

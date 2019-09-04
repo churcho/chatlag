@@ -9,8 +9,8 @@
       display: inline;
   }
    body {
-       background: url(<%= getRoomBg(@room.id) %>);
-       background-color: <%= @room.bg_color || "#56e4f0" %> !important;
+       background: url(<%= getRoomBg(@room_id) %>);
+       background-color: <%= bg_color(@room_id) || "#56e4f0" %> !important;
        background-repeat: no-repeat;
    }
   
@@ -18,18 +18,18 @@
   
    @media screen and (max-width: 1260px) {
     body {
-        background:  url(<%= getRoomMidsizeBg(@room.id) %>);
+        background:  url(<%= getRoomMidsizeBg(@room_id) %>);
         background-repeat: no-repeat;
-        background-color: <%= @room.bg_color || "#56e4f0" %> !important;
+        background-color: <%= bg_color(@room_id) || "#56e4f0" %> !important;
     }
    }
   
   
    @media screen and (max-width: 992px) {
     body {
-        background:  url(<%= getRoomSmallBg(@room.id) %>);
+        background:  url(<%= getRoomSmallBg(@room_id) %>);
         background-repeat: no-repeat;
-        background-color: <%= @room.bg_color || "#56e4f0" %> !important;
+        background-color: <%= bg_color(@room_id) || "#56e4f0" %> !important;
     }
    }
 </style>
@@ -55,3 +55,5 @@
   </div>
 </div>
 </div>
+
+

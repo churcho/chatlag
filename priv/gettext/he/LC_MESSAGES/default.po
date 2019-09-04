@@ -147,31 +147,9 @@ msgid "midsize_image"
 msgstr "רקע למסך בינוני"
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:147
+#: lib/chatlag_web/views/chat_view.ex:150
 msgid "Private Room"
 msgstr "חדר פרטי"
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:13
-msgid "Private chat with"
-msgstr "שיחה פרטית עם"
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
-msgid "Private chats"
-msgstr "שיחות פרטיות"
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:4
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:6
-msgid "Back to room"
-msgstr "חזרה לחדר"
-
-#, elixir-format
-#: lib/chatlag_web/templates/chat/chat_privates.html.leex:11
-msgid "close"
-msgstr "סגור שיחה"
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_users.html.leex:3
@@ -207,3 +185,13 @@ msgstr "יציאה מהמערכת"
 #: lib/chatlag_web/templates/pow/session/new.html.eex:14
 msgid "admin"
 msgstr "מנהל מערכת"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
+msgid "privates"
+msgstr "שיחות פרטיות"
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
+msgid "waiting"
+msgstr "ממתינות"

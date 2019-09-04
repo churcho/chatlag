@@ -16,6 +16,9 @@ defmodule ChatlagWeb.ChatView do
   alias Chatlag.Chat.Room
   alias Chatlag.RoomStatus
 
+  def is_online?(user_id) do
+    Accounts.is_online?(user_id)
+  end
   def getRoomBg(id) do
     room = Chat.get_room!(id)
 
@@ -155,5 +158,15 @@ defmodule ChatlagWeb.ChatView do
       end
 
     room.id
+  end
+
+  def bg_color(id) do
+    room = Chat.get_room!(id)
+    room.bg_color
+  end
+
+  def attached(id) do
+    room = Chat.get_room!(id)
+    room.attached
   end
 end

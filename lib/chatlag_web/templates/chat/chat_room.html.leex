@@ -1,24 +1,30 @@
 <div class="chat">
-  <%= if @room.is_private do %>
-    <div style="padding-bottom: 0.3em" class="chat_box chat_alert">
-        <button class="btn btn-link btn-sm xs" phx-click="change_room" phx-value="<%= @last_room_id %>"><%= gettext("Back to room") %></button>
-      <%= for r <- @private_rooms, r.party, r.room_id == @room.id do %>
-          <button class="btn btn-primary active btn-sm xs"><%= getRoomParty(@room.id, @user_id) %></button>
-      <% end %>
-      <%= for r <- @private_rooms, r.party, r.room_id != @room.id do %>
-          <button class="btn btn-outline-info btn-sm" phx-click="change_room" phx-value="<%= r.room_id %>"><%= getUserNickname(@user_id, r.user_id, r.party_id) %></button>
-      <% end %>
-    </div>
+  <%= if @is_private do %>
+
+      <div class="chat_box upper_box">
+          <h2 class="private_massages_title">
+          שיחה פרטית 
+          <span class="light-green xs"> <%= getUserNickname(@party_id) %> </span>
+          <span phx-click="show_privates" class="pointer dark-green">ממתינות</span> 
+          </h2>
+            <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
+						<div class="clear"></div>
+			</div>
+
+
   <% else %>
     <div class="chat_box chat_alert">
-      <%= @room.attached %>
+      <%= attached(@room_id) %>
     </div>
   <% end %>
   <div class="chat_scroll" id="chatscroll">
-
     <%= for msg <- @messages do %>
       <div class="chat_massage massage01">
-        <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+        <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id do %>
+        <img  class="profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+        <% else %>
+          <img phx-click="private_room" phx-value="<%= msg.user_id %>" class="pointer profile_picture" alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+        <% end %>
           <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
                 <%= msg.content %>
                 <div class="massage_footer">
@@ -39,16 +45,13 @@
             <div class="clear"></div>
         </div>
         <% end %>
-        <%= @msgmsg %>
   </div>
         <div class="chat_input">
             <div class="input_box">
                 <%= f = form_for @changeset, "#", [phx_submit: :send_message, autocomplete: :off] %>
-                    <%= hidden_input f, :username %>
                     <%= hidden_input f, :room_id %>
                     <%= hidden_input f, :user_id %>
-
-                    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
+          <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
           <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
         </form>
         <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
@@ -56,34 +59,3 @@
     </div>
   </div>
 
-
-<script>
-
-const targetNode = document.getElementById("chatscroll")
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  targetNode.scrollTop = targetNode.scrollHeight
-});
-// Options for the observer (which mutations to observe)
-let config = { attributes: true, childList: true, subtree: true };
-// Callback function to execute when mutations are observed
-var callback = function(mutationsList, observer) {
-  for(var mutation of mutationsList) {
-    if (mutation.type == 'childList') {
-      diff = targetNode.scrollHeight - targetNode.scrollTop
-      if (diff < 800) {
-        targetNode.scrollTop = targetNode.scrollHeight
-      }
-    }
-  }
-};
-// Create an observer instance linked to the callback function
-var observer = new MutationObserver(callback);
-// Start observing the target node for configured mutations
-observer.observe(targetNode, config);
-
-
-
-
-</script>
