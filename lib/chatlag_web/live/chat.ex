@@ -19,7 +19,7 @@ defmodule ChatlagWeb.Live.Chat do
       Chat.subscribe("msg_#{user_id}")
       Chat.subscribe(topic(room_id))
     else
-      IO.inspect(session, label: "** ================== not Conected")
+      # IO.inspect(session, label: "** ================== not Conected")
     end
 
     socket =
@@ -147,8 +147,6 @@ defmodule ChatlagWeb.Live.Chat do
     me = get_user_id(socket)
     rid = get_room_id(socket)
 
-    IO.inspect("Push: #{party_id} #{room_id} #{user_id} I am #{me} in rid #{rid}")
-
     if me == user_id and rid == room_id do
       PrivateMsg.sub_private(user_id, room_id, party_id)
     end
@@ -204,8 +202,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("show_whoin", _params, socket) do
-    IO.inspect(get_room_users(get_last_room_id(socket)))
-
     users =
       Presence.list(@all_users_topic)
       |> Enum.map(fn {_user_id, data} ->

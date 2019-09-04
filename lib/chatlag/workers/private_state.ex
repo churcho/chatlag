@@ -23,7 +23,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def privates_list(party_id) do
-    IO.puts("Prv count for : #{party_id}")
 
     q = [
       {:==, :party_id, party_id}
@@ -35,17 +34,12 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def private_count(party_id) do
-    cnt =
       privates_list(party_id)
       |> Enum.count()
 
-    IO.puts("Find: #{party_id} #{cnt}")
-
-    cnt
   end
 
   def add_private(party_id, room_id, user_id) do
-    IO.inspect("Add: #{party_id} #{room_id} #{user_id}")
 
     q = [
       {:==, :room_id, room_id},
@@ -57,8 +51,6 @@ defmodule Chatlag.PrivateMsg do
       Memento.transaction!(fn ->
         Memento.Query.select(PrivateStatus, q)
       end)
-
-    IO.inspect(res, label: "** find: ")
 
     case res do
       [] ->
@@ -75,8 +67,7 @@ defmodule Chatlag.PrivateMsg do
     end
   end
 
-  def sub_private(party_id, room_id, user_id) do
-    IO.inspect("++++ Sub: [#{party_id}] [#{room_id}] [#{user_id}]")
+  def sub_private(_party_id, room_id, user_id) do
     q = [
       {:==, :room_id, room_id},
       {:==, :party_id, user_id}
