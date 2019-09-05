@@ -8,6 +8,7 @@ defmodule ChatlagWeb.Live.Chat do
   # @lo_topic "Chatlag-logout"
 
   @all_users_topic "chatlag"
+  @payload_topic "chatlag-payload"
   def mount(session, socket) do
     # ==================================================
 
@@ -16,6 +17,7 @@ defmodule ChatlagWeb.Live.Chat do
 
     if connected?(socket) do
       addUserToRoom(user_id, room_id)
+      Chat.subscribe(@payload_topic)
       Chat.subscribe("msg_#{user_id}")
       Chat.subscribe(topic(room_id))
     else
@@ -143,7 +145,6 @@ defmodule ChatlagWeb.Live.Chat do
   # def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket)
   # ===================================================================
   def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket) do
-
     me = get_user_id(socket)
     rid = get_room_id(socket)
 
@@ -195,8 +196,8 @@ defmodule ChatlagWeb.Live.Chat do
   def handle_event("close_private_room", user_id, socket) do
     user_id = String.to_integer(user_id)
     IO.inspect(user_id, label: "close private room")
-    me = get_user_id(socket)
-    room_id = ChatlagWeb.ChatView.private_room(user_id, me)
+    # me = get_user_id(socket)
+    # room_id = ChatlagWeb.ChatView.private_room(user_id, me)
 
     {:noreply, socket}
   end
@@ -243,13 +244,35 @@ defmodule ChatlagWeb.Live.Chat do
     )
   end
 
+  def handle_info({:room_user_changed}, socket) do
+    IO.puts("chat Changed++++++++++++++++++")
+
+    user_id =
+      socket.assigns
+      |> Map.get(:user_id)
+
+    room_id =
+      socket.assigns
+      |> Map.get(:room_id)
+
+    {:noreply, fetch(socket, room_id, user_id)}
+  end
+
   # ========================================================================================
   #                  presence_diff
   # ========================================================================================
   def handle_info(
-        %{event: "presence_diff", payload: _payload},
+        %{event: "presence_diff", payload: payload},
         socket
       ) do
+    IO.inspect(payload, label: "=====>>> Changed  ")
+
+    Phoenix.PubSub.broadcast(
+      Chatlag.PubSub,
+      @payload_topic,
+      {:room_user_changed}
+    )
+
     room_id = get_room_id(socket)
 
     {:noreply,

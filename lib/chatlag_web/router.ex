@@ -34,6 +34,7 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser]
 
     get "/", ChatController, :index
+    get "/lobby", LobbyController, :index
     get "/chat", ChatController, :index
     get "/login", AuthController, :login
     get "/logout", AuthController, :logout
