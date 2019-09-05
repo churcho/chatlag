@@ -1,144 +1,133 @@
-<style> 
-    body {
-        background-color: green;
-        background: none;
-    }
-    .hidden {
-        display: none;
-    }
-    .login {
-        padding: 2em;
-    }
-    .xs {
-        font-size: small;
-    }
-    .pad-bottom {
-        padding-bottom: 3em;
-    }
-    .space {
-        padding-left: 1em;
-    }
-    #add-fav {
-        cursor: pointer;
-    }
-    .elip {
-        border-radius: 50%;
-        background-color: #08dfab;
-        color: black;
-        position: absolute;
-        <%# top: .1em; %>
-        right: 6.9em;
-        padding: 0.3em 0.4em 0.3em 0.4em;
-        font-size: 0.5em;
-    }
-    .center {
-        position: absolute;
-        top: 1.5em;
-        right: 3.9em;
-        padding: 0.3em 0.4em 0.3em 0.4em;
-        font-size: 0.6em;
-
-    }
+<style>
+  body {
+      background-color: green;
+      background: none;
+  }
+  .hidden {
+      display: none;
+  }
+  .login {
+      padding: 2em;
+  }
+  .xs {
+      font-size: small;
+  }
+  .pad-bottom {
+      padding-bottom: 3em;
+  }
+  .space {
+      padding-left: 1em;
+  }
+  #add-fav {
+      cursor: pointer;
+  }
+  .elip {
+      border-radius: 50%;
+      background-color: #08dfab;
+      color: black;
+      position: absolute;
+      <%# top: .1em; %>
+      right: 6.9em;
+      padding: 0.3em 0.4em 0.3em 0.4em;
+      font-size: 0.5em;
+  }
+  .center {
+      position: absolute;
+      top: 1.5em;
+      right: 3.9em;
+      padding: 0.3em 0.4em 0.3em 0.4em;
+      font-size: 0.6em;
+  
+  }
 </style>
-
-
 <div class="page">
-    <div class="display-table">
-        <div class="table-cell">
-            <div class="header"></div>
-            <div class="main login">
-
-
-                <div class="row pad-bottom">
-                    <div class="col-sm-12 col-md-12">
-                        
-                        <div class="row">
-                            <div class="pad-bottom pad-top col-md-12">
-                                <h6 class="xs" id="add-fav">
-                                    <img class="space" alt="" src="<%= Routes.static_path(@conn, "/images/star.png") %>" />
-                                    <%= gettext("Add to Favorites") %> 
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="row"> 
-                            
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                <a href="/"><img alt="Logo" src="<%= Routes.static_path(@conn, "/images/Logo_with_name.png") %>" /></a>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="elip"><%= getUsers() %></div>
-                                    <div class="center xs">    משתמשים אונליין </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
-                                        <div class="alert-info" role="alert">
-                                            <%= if f.errors[:gender] do %>
-                                                חובה לבחור מגדר
-                                            <% end %>
-                                            <%= if f.errors[:nickname] do %>
-                                                <%= if f.errors[:gender] do %>
-                                                    |
-                                                <% end %>
-                                                לא נבחר כינוי/כינוי תפוס/כינוי ארוך מדי
-                                            <% end %>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <%= hidden_input f, :ip_address, value: @ip %>
-                                                <%= text_input f, :nickname, placeholder: gettext("nickname") %>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <%= gettext("Age") %>:
-                                                    <%= select f, :age, 12..120 %>
-                                            </div>
-                                        </div>
-
-                                        <span class="hidden">
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="user[gender]" id="r-male" value="M">xxx
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="user[gender]" id="r-female" value="F">yyy
-                                        </div>
-                                        </span>
-
-                                        <a href="#"> <img id="id-female" width="70" src="/images/female.png"> </a>
-                                        <a href="#"> <img id="id-male" width="70" src="/images/male.png"> </a>
-
-
-
-                                        <div class="col-lg-12"></div>
-                                        <%= PBF.submit f, gettext("As Anonymous"), class: "btn-primary"%>
-                                            <% end %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="display-table">
+    <div class="table-cell">
+      <div class="header"></div>
+      <div class="main login">
+        <div class="row pad-bottom">
+          <div class="col-sm-12 col-md-12">
+            <div class="row">
+              <div class="pad-bottom pad-top col-md-12">
+                <h6 class="xs" id="add-fav">
+                  <img class="space" alt="" src="<%= Routes.static_path(@conn, "/images/star.png") %>" />
+                  <%= gettext("Add to Favorites") %>
+                </h6>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="col-md-12">
+                  <a href="/"><img alt="Logo" src="<%= Routes.static_path(@conn, "/images/Logo_with_name.png") %>" /></a>
+                </div>
+                <div class="col-md-12">
+                  <div class="elip"><%= getUsers() %></div>
+                  <div class="center xs">    משתמשים אונליין </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
+                  <div class="alert-info" role="alert">
+                    <%= if f.errors[:gender] do %>
+                      חובה לבחור מגדר
+                    <% end %>
+                    <%= if f.errors[:nickname] do %>
+                      <%= if f.errors[:gender] do %>
+                        |
+                      <% end %>
+                      לא נבחר כינוי/כינוי תפוס/כינוי ארוך מדי
+                    <% end %>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <%= hidden_input f, :ip_address, value: @ip %>
+                      <%= text_input f, :nickname, placeholder: gettext("nickname") %>
+                    </div>
+                    <div class="col-lg-12">
+                      <%= gettext("Age") %>:
+                      <%= select f, :age, 12..120 %>
+                    </div>
+                  </div>
+                  <span class="xhidden">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="user[gender]" id="r-male" value="M">xxx
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="user[gender]" id="r-female" value="F">yyy
+                    </div>
+                  </span>
+                  <a href="#"> <img id="id-female" width="70" src="/images/female.png"> </a>
+                  <a href="#"> <img id="id-male" width="70" src="/images/male.png"> </a>
+                  <div class="col-lg-12"></div>
+                  <%= PBF.submit f, gettext("As Anonymous"), class: "btn-primary"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="pad-bottom"></div>
-    <div class="pad-bottom"></div>
-    <div class="pad-bottom"></div>
-
-    <script>
-    $(document).ready(function(){
-        $("#id-male").click(function(){
-            $("#r-female").prop('checked', false);
-            $("#r-male").prop('checked', true);
-        });
-        $("#id-female").click(function(){
-            $("#r-male").prop('checked', false);
-            $("#r-female").prop('checked', true);
-        });
-
-        $("#add-fav").click(function(){
-            alert("לחצו Ctrl+D על מנת להוסיף למועדפים")
-        })
-    });
-    </script>
+  </div>
+</div>
+<div class="pad-bottom"></div>
+<div class="pad-bottom"></div>
+<div class="pad-bottom"></div>
+<script>
+  $(document).ready(function(){
+      $("#id-male").click(function(){
+          console.log("male")
+          $("#r-female").prop('checked', false);
+          $("#r-male").prop('checked', true);
+      });
+      $("#id-female").click(function(){
+          console.log("female")
+          $("#r-male").prop('checked', false);
+          $("#r-female").prop('checked', true);
+      });
+  
+      $("#add-fav").click(function(){
+          alert("לחצו Ctrl+D על מנת להוסיף למועדפים")
+      })
+  });
+</script>

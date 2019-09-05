@@ -23,6 +23,7 @@ defmodule Chatlag.Accounts.User do
 
   @doc false
   def changeset(user, attrs) do
+    IO.inspect(attrs, label: "Checking....")
     case Map.get(attrs, "email") do
       nil ->
         user

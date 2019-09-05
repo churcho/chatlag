@@ -23,7 +23,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def privates_list(party_id) do
-
     q = [
       {:==, :party_id, party_id}
     ]
@@ -34,12 +33,13 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def private_count(party_id) do
-      privates_list(party_id)
-      |> Enum.count()
-
+    privates_list(party_id)
+    |> Enum.filter(fn %PrivateStatus{count: c} = _x -> c > 0 end)
+    |> Enum.count()
   end
 
   def add_private(party_id, room_id, user_id) do
+    IO.puts("Adding msg from #{party_id} to #{user_id}")
 
     q = [
       {:==, :room_id, room_id},
@@ -52,25 +52,64 @@ defmodule Chatlag.PrivateMsg do
         Memento.Query.select(PrivateStatus, q)
       end)
 
+    IO.inspect(res, label: "add")
+
     case res do
       [] ->
         Memento.transaction!(fn ->
           Memento.Query.write(%PrivateStatus{
             room_id: room_id,
             party_id: party_id,
-            user_id: user_id
+            user_id: user_id,
+            count: 1
           })
         end)
 
       _ ->
-        res
+        for r <- res do
+          Memento.transaction!(fn ->
+            r = Map.put(r, :count, 1)
+            Memento.Query.write(r)
+          end)
+        end
     end
   end
 
-  def sub_private(_party_id, room_id, user_id) do
+  def sub_private(party_id, room_id, user_id) do
+    IO.puts("Subtract msg from #{party_id} to #{user_id}")
+
     q = [
       {:==, :room_id, room_id},
-      {:==, :party_id, user_id}
+      {:==, :party_id, user_id},
+      {:==, :user_id, party_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    IO.inspect(res, label: "sub")
+
+    case res do
+      [] ->
+        res
+
+      _ ->
+        for r <- res do
+          Memento.transaction!(fn ->
+            r = Map.put(r, :count, 0)
+            Memento.Query.write(r)
+          end)
+        end
+    end
+  end
+
+  def is_blocked(party_id, user_id) do
+    q = [
+      {:==, :party_id, party_id},
+      {:==, :user_id, user_id},
+      {:==, :blocked, 1}
     ]
 
     res =
@@ -80,14 +119,24 @@ defmodule Chatlag.PrivateMsg do
 
     case res do
       [] ->
-        res
+        q = [
+          {:==, :party_id, user_id},
+          {:==, :user_id, party_id},
+          {:==, :blocked, 1}
+        ]
+
+        res =
+          Memento.transaction!(fn ->
+            Memento.Query.select(PrivateStatus, q)
+          end)
+
+        case res do
+          [] -> false
+          _ -> true
+        end
 
       _ ->
-        for r <- res do
-          Memento.transaction!(fn ->
-            Memento.Query.delete(PrivateStatus, r.id)
-          end)
-        end
+        true
     end
   end
 end

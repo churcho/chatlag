@@ -70,9 +70,12 @@ defmodule ChatlagWeb.Live.Chat do
         room.id
       end
 
-    party_id = get_party_id(room_id, user_id)
+      display = get_display(socket, display)
+      party_id = get_party_id(room_id, user_id)
 
-    PrivateMsg.sub_private(party_id, room_id, user_id)
+    if (party_id != nil && display == "chat") do
+      PrivateMsg.sub_private(party_id, room_id, user_id)
+    end
 
     assign(socket, %{
       users_in_room: get_users_in_room(last_room_id),

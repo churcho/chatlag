@@ -1,7 +1,7 @@
 <div class="chat">
   <div class="chat_box upper_box">
-          <h2 class="private_massages_title"><%= gettext("privates") %>  <span class="dark-green"> <%= gettext("waiting") %> </span> </h2>
-            <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
+    <h2 class="private_massages_title"><%= gettext("privates") %>  <span class="dark-green"> <%= gettext("waiting") %> </span> </h2>
+    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
 						<div class="clear"></div>
   </div>
   <div class="chat_scroll">
@@ -9,16 +9,16 @@
         <table class="table table-sm">
           <tbody>
             <%= for u <- @privates_list do  %>
-              <tr class="pointer">
+              <tr class='pointer <%= if u.count > 0, do: "active-chat", else: "" %> '>
                 <td phx-click="private_room" phx-value="<%= u.user_id %>" >
-                <img class="profile_picture" alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
-                <%= getUserNickname(u.user_id) %> 
-                </td>
-                <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
-                <td class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i class="fas fa-ban"></i></td>
-              </tr>
-            <% end %>
-          </tbody>
-      </table>
+                <img class='profile_picture ' alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
+    <%= getUserNickname(u.user_id) %>
+  </td>
+  <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
+  <td class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i class="fas fa-ban"></i></td>
+</tr>
+<% end %>
+</tbody>
+</table>
 </div>
 </div>

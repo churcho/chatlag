@@ -8,8 +8,6 @@ defmodule ChatlagWeb.AuthController do
 
   import Ecto.Query, only: [from: 2]
 
-  alias Chatlag.Workers.UserState
-
   plug :put_layout, "chat.html" when action in [:create]
   plug :put_layout, "login.html" when action in [:login]
 
@@ -71,7 +69,7 @@ defmodule ChatlagWeb.AuthController do
     user_id = get_session(conn, :user_id)
 
     if user_id do
-      UserState.user_logout(user_id)
+      # UserState.user_logout(user_id)
     end
 
     conn
@@ -97,7 +95,7 @@ defmodule ChatlagWeb.AuthController do
         Accounts.create_user(user_parems)
 
       _ ->
-        # עדכן פרטים 
+        # עדכן פרטים
         user = Accounts.get_user!(Enum.at(user, 0).id)
         Accounts.update_user(user, user_parems)
     end
