@@ -223,7 +223,14 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, socket}
   end
 
-  def handle_event("show_whoin", _params, socket) do
+  def handle_event("send_letter", _params, socket) do
+    user_id = get_user_id(socket)
+    room_id = get_room_id(socket)
+
+    {:noreply, fetch(socket, room_id, user_id, "chat")}
+  end
+
+    def handle_event("show_whoin", _params, socket) do
     users =
       Presence.list(@all_users_topic)
       |> Enum.map(fn {_user_id, data} ->

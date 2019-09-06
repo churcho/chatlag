@@ -46,6 +46,8 @@
             <%= render "chat_users.html", assigns %>
           <% "privates" -> %>
             <%= render "chat_privates.html", assigns %>
+          <% "letter" -> %>
+            <%= render "letter.html", assigns %>
           <% _ -> %>
             <%= render "chat_room.html", assigns %>
         <% end %>

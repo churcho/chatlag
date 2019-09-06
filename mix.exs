@@ -48,11 +48,11 @@ defmodule Chatlag.MixProject do
       {:arc_ecto, "~> 0.11.2"},
       {:slugger, "~> 0.3"},
       {:timex, "~> 3.5"},
-      {:bamboo, "~> 1.3"},
       {:pow, "~> 1.0.13"},
       {:scrivener_ecto, "~> 2.0"},
       {:scrivener_html, "~> 1.8"},
       {:memento, "~> 0.3.1"},
+      {:bamboo, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

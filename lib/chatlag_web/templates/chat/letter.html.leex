@@ -1,0 +1,32 @@
+<div class="chat">
+  <div class="chat_box upper_box">
+    <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Letter") %> </span> </h2>
+    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
+    <div class="clear"></div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        <img class="img-logo" src="/images/logo-big.png" alt="Chatlag"/>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6>צור קשר</h6>
+      </div>
+      <%= form_for :email_form, "/contact", fn f ->  %>
+      <%= label f, :email %>
+      <%= text_input f, :email %>
+      <br>
+      <%= label f, :message %>
+      <%= textarea f, :message, rows: "3" %>
+      <br>
+      <%= submit "Send Message" %>
+    <% end %>
+  </div>
+</div>
+</div>

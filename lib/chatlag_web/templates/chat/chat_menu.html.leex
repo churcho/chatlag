@@ -8,7 +8,7 @@
   <div phx-click="show_members" class="menu_icon users"><span class="icon"></span><span class="notifications"><%= @users_in_room %>
     </div>
     <div phx-click="show_privates" class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @privates %></span></div>
-    <div phx-click="show_whoin" class="menu_icon mail"><span class="icon"></span></div>
+    <div phx-click="send_letter" class="menu_icon mail"><span class="icon"></span></div>
     <div  class="menu_icon share"><span class="icon"> </span>
       <div class="massage_social sub-menu hidden">
         <a target="_blank" href="<%= shareMessage(@room_url, :facebook, "") %>" class="social_icon twitter" title="טוויטר"><i class="fab fa-facebook"></i></a>
