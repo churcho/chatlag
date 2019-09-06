@@ -11,7 +11,7 @@
             <%= for u <- @privates_list do  %>
               <tr class='pointer <%= if u.count > 0, do: "active-chat", else: "" %> '>
                 <td phx-click="private_room" phx-value="<%= u.user_id %>" >
-                <img class='profile_picture' alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
+                <img class='small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>' alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
     <%= getUserNickname(u.user_id) %>
   </td>
   <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>

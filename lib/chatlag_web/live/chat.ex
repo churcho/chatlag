@@ -127,6 +127,9 @@ defmodule ChatlagWeb.Live.Chat do
             )
 
             PrivateMsg.add_private(party_id, room_id, user_id)
+            # inform me about this private chat too
+            PrivateMsg.add_private(user_id, room_id, party_id)
+            PrivateMsg.sub_private(user_id, room_id, party_id)
           end
 
           {:noreply, fetch(socket, room_id, user_id)}

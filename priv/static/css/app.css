@@ -17,6 +17,13 @@ body {
 .active-chat {
   color: #05b489; }
 
+.active-image {
+  border: 1px solid green; }
+
+.small-profile {
+  width: 2em !important;
+  height: 2em !important; }
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
