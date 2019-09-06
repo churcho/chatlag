@@ -32,3 +32,10 @@ body {
 	width: 2em !important;
 	height: 2em !important;
 }
+
+.msg_reply {
+	margin: 0 !important;
+	padding: 0.4em !important;
+	box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
+	border-right: 2px solid green;
+}

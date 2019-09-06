@@ -38,7 +38,7 @@ defmodule ChatlagWeb.AuthController do
 
   def create(conn, %{"user" => user_params}) do
 
-    IO.inspect(user_params, label: "User")
+    # IO.inspect(user_params, label: "User")
     case get_or_create_user(user_params) do
       {:ok, user} ->
         old_path = get_session(conn, :old_path) || Routes.lobby_path(conn, :index)

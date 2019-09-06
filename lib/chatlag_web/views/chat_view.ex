@@ -169,4 +169,14 @@ defmodule ChatlagWeb.ChatView do
     room = Chat.get_room!(id)
     room.attached
   end
+
+  def msg_content(msg_id) do
+    msg = Chat.get_message!(msg_id)
+    msg.content
+  end
+  def msg_nickname(msg_id) do
+    msg = Chat.get_message!(msg_id)
+    user = Accounts.get_user!(msg.user_id)
+    user.nickname
+  end
 end

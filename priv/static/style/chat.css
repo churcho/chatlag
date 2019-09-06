@@ -73,7 +73,7 @@ body * {
 }
 .chat_box {
 	background-color: white;
-	box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2);
+	/* box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); */
 	padding: 0.1em 1em 0.1em 1em;
 	border-radius: 0.3em;
 	font-size: 0.75em;

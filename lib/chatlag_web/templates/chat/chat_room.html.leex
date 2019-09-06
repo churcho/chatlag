@@ -13,11 +13,20 @@
 
   <% else %>
     <div class="chat_box chat_alert">
-      <%= attached(@room_id) %>
+      <%= attached(@room_id) %> 
     </div>
   <% end %>
   <div class="chat_scroll" id="chatscroll">
     <%= for msg <- @messages do %>
+        <%= if msg.reply_to && msg.reply_to > 0 do %>
+          <div class="chat_massage ">
+            <div class="chat_box massage_box msg_reply">
+            <span class="massage_footer username"> <%= msg_nickname(msg.reply_to) %> </span>
+              <%= msg_content(msg.reply_to) %>
+            </div>
+          </div>            
+          <div class="clear"></div>
+        <% end %>
       <div class="chat_massage massage01">
         <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id do %>
         <img  class='profile_picture <%= if is_online?(msg.user_id), do: "active-image", else: "offline" %>' alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
@@ -30,7 +39,11 @@
                     <div class="massage_meta">
                         <span class="username"><%= getUserNickname(msg.user_id) %></span>
                         <span class="usertime"><%= showDate(msg.updated_at) %></span>
-                        <a class="reply">הגב</a>
+                        <a class="reply">
+                        <span phx-click="msg_reply" phx-value="<%= msg.id %>">
+                        הגב
+                        </span>
+                        </a>
                     <div class="massage_social">
                         <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>" class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
                         <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>" class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
@@ -44,12 +57,27 @@
             <div class="clear"></div>
         </div>
         <% end %>
+              <%= if @reply_to > 0 do %>
+                <div class="chat_box   msg_reply">
+                  <span class="massage_footer username"> <%= msg_nickname(@reply_to) %> </span>
+                <div class="clear"></div>
+                  <%= msg_content(@reply_to) %>
+                </div>
+                <div class="clear"></div>
+              <% end %>
+
+
+        
   </div>
         <div class="chat_input">
             <div class="input_box">
+
                 <%= f = form_for @changeset, "#", [phx_submit: :send_message, autocomplete: :off] %>
+                    
                     <%= hidden_input f, :room_id %>
                     <%= hidden_input f, :user_id %>
+                    <%= hidden_input f, :reply_to, value: @reply_to %>
+
           <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
           <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
         </form>

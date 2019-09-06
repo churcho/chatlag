@@ -26,7 +26,8 @@ defmodule ChatlagWeb.Live.Chat do
 
     socket =
       assign(socket, %{
-        privates: 0
+        privates: 0,
+        reply_to: 0
       })
 
     {:ok, fetch(socket, room_id, user_id)}
@@ -106,6 +107,17 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, fetch(socket, room_id, user_id)}
   end
 
+  def handle_event("msg_reply", params, socket) do
+    reply_to = String.to_integer(params)
+
+    me = get_user_id(socket)
+    rid = get_room_id(socket)
+
+    socket = fetch(socket, rid, me)
+
+    {:noreply, assign(socket, reply_to: reply_to)}
+  end
+
   # ===========================================================================
   # def handle_event(send_message, %{"message" => params}, socket) do
   # ===========================================================================
@@ -132,8 +144,9 @@ defmodule ChatlagWeb.Live.Chat do
             PrivateMsg.sub_private(user_id, room_id, party_id)
           end
 
-          {:noreply, fetch(socket, room_id, user_id)}
-
+          socket = fetch(socket, room_id, user_id)
+          {:noreply, assign(socket, reply_to: 0)}
+      
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, changeset: changeset)}
 
@@ -143,8 +156,9 @@ defmodule ChatlagWeb.Live.Chat do
     else
       {:noreply, socket}
     end
+    socket = fetch(socket, room_id, user_id)
+    {:noreply, assign(socket, reply_to: 0)}
 
-    {:noreply, fetch(socket, room_id, user_id)}
   end
 
   # ===================================================================
@@ -157,6 +171,7 @@ defmodule ChatlagWeb.Live.Chat do
     if me == user_id and rid == room_id do
       PrivateMsg.sub_private(user_id, room_id, party_id)
     end
+
 
     {:noreply, fetch(socket, rid, me)}
   end
@@ -251,7 +266,7 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({:room_user_changed}, socket) do
-    IO.puts("chat Changed++++++++++++++++++")
+    # IO.puts("chat Changed++++++++++++++++++")
 
     user_id =
       socket.assigns
@@ -271,7 +286,7 @@ defmodule ChatlagWeb.Live.Chat do
         %{event: "presence_diff", payload: payload},
         socket
       ) do
-    IO.inspect(payload, label: "=====>>> Changed  ")
+    # IO.inspect(payload, label: "=====>>> Changed  ")
 
     Phoenix.PubSub.broadcast(
       Chatlag.PubSub,
