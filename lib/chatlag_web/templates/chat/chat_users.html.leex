@@ -15,7 +15,7 @@
                 <%= u.nickname %>
                 </td>
                 <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
-                <td class="" phx-click="close_private_room" phx-value="<%= u.user_id %>"><i class="fa fa-times"></i></td>
+                <td class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i class="fas fa-ban"></i></td>
               </tr>
             <% end %>
           </tbody>

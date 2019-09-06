@@ -32,11 +32,13 @@ defmodule ChatlagWeb.AuthController do
       ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 
       changeset = Accounts.change_user(%User{})
-      render(conn, "login.html", changeset: changeset, ip: ip)
+      render(conn, "login.html", changeset: changeset, ip: ip, online: 100, token: get_csrf_token())
     end
   end
 
   def create(conn, %{"user" => user_params}) do
+
+    IO.inspect(user_params, label: "User")
     case get_or_create_user(user_params) do
       {:ok, user} ->
         old_path = get_session(conn, :old_path) || Routes.lobby_path(conn, :index)
@@ -64,7 +66,7 @@ defmodule ChatlagWeb.AuthController do
         render(conn, "login.html", changeset: changeset, ip: ip)
     end
   end
-
+  
   def logout(conn, _) do
     user_id = get_session(conn, :user_id)
 

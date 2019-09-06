@@ -5,7 +5,6 @@
           <h2 class="private_massages_title">
           שיחה פרטית 
           <span class="light-green xs"> <%= getUserNickname(@party_id) %> </span>
-          <span phx-click="show_privates" class="pointer dark-green">ממתינות</span> 
           </h2>
             <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
 						<div class="clear"></div>
@@ -54,7 +53,8 @@
           <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה"/>
           <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span class="icon"></span></button>
         </form>
-        <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
+							<a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a>
+              <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
       </div>
     </div>
   </div>
