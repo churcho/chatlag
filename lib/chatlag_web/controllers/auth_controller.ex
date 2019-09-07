@@ -2,9 +2,9 @@ defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
 
   alias Chatlag.Repo
-  alias Chatlag.Accounts
+  alias Chatlag.Users
   alias ChatlagWeb.Presence
-  alias Chatlag.Accounts.User
+  alias Chatlag.Users.User
 
   import Ecto.Query, only: [from: 2]
 
@@ -21,7 +21,7 @@ defmodule ChatlagWeb.AuthController do
     end
 
     if user_id do
-      user = Accounts.get_user!(user_id)
+      user = Users.get_user!(user_id)
       conn = assign(conn, :current_user, user)
 
       conn
@@ -31,7 +31,7 @@ defmodule ChatlagWeb.AuthController do
     else
       ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 
-      changeset = Accounts.change_user(%User{})
+      changeset = Users.change_user(%User{})
       render(conn, "login.html", changeset: changeset, ip: ip, online: 100, token: get_csrf_token())
     end
   end
@@ -94,12 +94,12 @@ defmodule ChatlagWeb.AuthController do
 
     case user do
       [] ->
-        Accounts.create_user(user_parems)
+        Users.create_user(user_parems)
 
       _ ->
         # עדכן פרטים
-        user = Accounts.get_user!(Enum.at(user, 0).id)
-        Accounts.update_user(user, user_parems)
+        user = Users.get_user!(Enum.at(user, 0).id)
+        Users.update_user(user, user_parems)
     end
   end
 

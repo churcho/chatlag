@@ -29,6 +29,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mime" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mimerl" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/oauth2" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/oauther" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/parse_trans" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_bootstrap_form" />
@@ -42,6 +43,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_crypto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/postgrex" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/pow" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/pow_assent" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/scrivener" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/scrivener_ecto" />
@@ -125,5 +127,8 @@
     <orderEntry type="library" name="pow_assent" level="project" />
     <orderEntry type="library" name="certifi" level="project" />
     <orderEntry type="library" name="ssl_verify_fun" level="project" />
+    <orderEntry type="library" name="oauther" level="project" />
+    <orderEntry type="library" name="mint" level="project" />
+    <orderEntry type="library" name="castore" level="project" />
   </component>
 </module>

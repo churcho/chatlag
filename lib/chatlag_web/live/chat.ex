@@ -1,7 +1,7 @@
 defmodule ChatlagWeb.Live.Chat do
   use Phoenix.LiveView
   alias ChatlagWeb.Presence
-  alias Chatlag.{Accounts, Chat, PrivateMsg}
+  alias Chatlag.{Users, Chat, PrivateMsg}
   alias Chatlag.Chat.Message
 
   # alias ChatlagWeb.Router.Helpers, as: Routes
@@ -227,7 +227,7 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = get_user_id(socket)
     room_id = get_room_id(socket)
 
-    {:noreply, fetch(socket, room_id, user_id, "letter")}
+    {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
 
     def handle_event("show_whoin", _params, socket) do
@@ -248,7 +248,7 @@ defmodule ChatlagWeb.Live.Chat do
   # defp addUserToRoom(user_id, room_id) do
   # ===========================================================================
   defp addUserToRoom(user_id, room_id) do
-    user = Accounts.get_user!(user_id)
+    user = Users.get_user!(user_id)
 
     Presence.track(
       self(),
@@ -342,7 +342,7 @@ defmodule ChatlagWeb.Live.Chat do
       end
 
     case display do
-      nil -> "letter"
+      nil -> "chat"
       _ -> display
     end
   end

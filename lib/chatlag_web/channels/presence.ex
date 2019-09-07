@@ -54,7 +54,7 @@ defmodule ChatlagWeb.Presence do
   to include any additional information. For example:
 
       def fetch(_topic, entries) do
-        users = entries |> Map.keys() |> Accounts.get_users_map(entries)
+        users = entries |> Map.keys() |> Users.get_users_map(entries)
         # => %{"123" => %{name: "User 123"}, "456" => %{name: nil}}
 
         for {key, %{metas: metas}} <- entries, into: %{} do

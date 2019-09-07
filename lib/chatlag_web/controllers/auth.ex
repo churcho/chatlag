@@ -11,7 +11,7 @@ defmodule Chatlag.Auth do
     user_id = get_session(conn, :user_id)
 
     if user_id do
-      user = user_id && Chatlag.Accounts.get_user!(user_id)
+      user = user_id && Chatlag.Users.get_user!(user_id)
 
       Presence.track(
         self(),

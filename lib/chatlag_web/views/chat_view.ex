@@ -7,7 +7,7 @@ defmodule ChatlagWeb.ChatView do
   alias ChatlagWeb.DisplayImage
   alias ChatlagWeb.DisplayIcon
 
-  alias Chatlag.Accounts
+  alias Chatlag.Users
 
   alias Chatlag.Chat
 
@@ -17,7 +17,7 @@ defmodule ChatlagWeb.ChatView do
   alias Chatlag.RoomStatus
 
   def is_online?(user_id) do
-    Accounts.is_online?(user_id)
+    Users.is_online?(user_id)
   end
   def getRoomBg(id) do
     room = Chat.get_room!(id)
@@ -48,7 +48,7 @@ defmodule ChatlagWeb.ChatView do
   end
 
   def getUserIcon(uid) do
-    user = Accounts.get_user!(uid)
+    user = Users.get_user!(uid)
 
     if user.gender == "F" do
       "/images/female.png"
@@ -91,7 +91,7 @@ defmodule ChatlagWeb.ChatView do
   end
 
   def getUserNickname(uid) do
-    user = Accounts.get_user!(uid)
+    user = Users.get_user!(uid)
     user.nickname
   end
 
@@ -176,7 +176,7 @@ defmodule ChatlagWeb.ChatView do
   end
   def msg_nickname(msg_id) do
     msg = Chat.get_message!(msg_id)
-    user = Accounts.get_user!(msg.user_id)
+    user = Users.get_user!(msg.user_id)
     user.nickname
   end
 end

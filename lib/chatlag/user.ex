@@ -1,12 +1,12 @@
-defmodule Chatlag.Accounts do
+defmodule Chatlag.Users do
   @moduledoc """
-  The Accounts context.
+  The Users context.
   """
 
   import Ecto.Query, warn: false
 
   alias Chatlag.Repo
-  alias Chatlag.Accounts.User
+  alias Chatlag.Users.User
   alias Chatlag.Workers.Cache
   alias ChatlagWeb.Presence
   @all_users_topic "chatlag"

@@ -1,4 +1,4 @@
-defmodule Chatlag.Accounts.User do
+defmodule Chatlag.Users.User do
   use Ecto.Schema
 
   alias ChatlagWeb.Presence
@@ -6,6 +6,8 @@ defmodule Chatlag.Accounts.User do
 
   use Pow.Ecto.Schema,
     password_min_length: 5
+
+  use PowAssent.Ecto.Schema
 
   schema "users" do
     pow_user_fields()

@@ -34,7 +34,7 @@ config :phoenix, :json_library, Jason
 
 # POW auth
 config :chatlag, :pow,
-  user: Chatlag.Accounts.User,
+  user: Chatlag.Users.User,
   repo: Chatlag.Repo,
   web_module: ChatlagWeb
 
@@ -52,6 +52,16 @@ config :scrivener_html,
   routes_helper: Chatlag.Router.Helpers,
   # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.
   view_style: :bootstrap_v4
+
+config :chatlag, :pow_assent,
+       providers: [
+         facebook: [
+           client_id: "2451826201767016",
+           client_secret: "2e192463a32f9fd6a5f31a6d956fc510",
+           strategy: PowAssent.Strategy.Facebook
+         ]
+       ]
+
 
 
 # Import environment specific config. This must remain at the bottom
