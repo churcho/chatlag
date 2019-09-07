@@ -59,8 +59,8 @@ config :ueberauth, Ueberauth,
        ]
 #TBD
 config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
-       client_id: "1252013821632454",
-       client_secret: "a4218f158c0dae666941eb9409dfe306"
+       client_id: "2451826201767016",
+       client_secret: "2e192463a32f9fd6a5f31a6d956fc510"
 
 
 # Import environment specific config. This must remain at the bottom
