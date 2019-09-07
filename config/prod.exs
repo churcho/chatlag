@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :chatlag, ChatlagWeb.Endpoint,
-  url: [host: "vilearn.com"],
+  url: [host: "chatlag.co.il"],
   check_origin: ["//localhost", "//127.0.0.1", "//chatlag.co.il", "//*.vilearn.com"],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
