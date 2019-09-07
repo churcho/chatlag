@@ -51,8 +51,6 @@ defmodule ChatlagWeb.Router do
   scope "/auth", ChatlagWeb do
     pipe_through :browser
 
-    get "/:provider", AuthController, :request
-    get "/:provider/callback", AuthController, :callback
   end
   scope "/admin", ChatlagWeb do
     pipe_through [:browser, :admin]
