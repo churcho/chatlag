@@ -107,13 +107,13 @@ defmodule ChatlagWeb.AuthController do
   def request(conn, params) do
     IO.inspect(conn, lebel: "request")
     IO.inspect(params, lebel: "request")
-    render(conn, "index.html")
+    render(conn, "login.html")
   end
 
   def callback(conn, params) do
     IO.inspect(conn, lebel: "request")
     IO.inspect(params, lebel: "callback")
-    render(conn, "index.html")
+    render(conn, "login.html")
   end
 
 end
