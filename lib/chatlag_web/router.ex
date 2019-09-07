@@ -37,6 +37,7 @@ defmodule ChatlagWeb.Router do
 
     get "/", LobbyController, :index
     get "/lobby", LobbyController, :index
+    get "/policy", LobbyController, :index
     get "/chat", LobbyController, :index
     get "/login", AuthController, :login
     get "/logout", AuthController, :logout
