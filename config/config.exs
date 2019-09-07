@@ -56,8 +56,8 @@ config :scrivener_html,
 config :chatlag, :pow_assent,
        providers: [
          facebook: [
-           client_id: "2451826201767016",
-           client_secret: "2e192463a32f9fd6a5f31a6d956fc510",
+           client_id: "743993462706528",
+           client_secret: "f9c14087bb9af75bd2e1eff8845ce4c7",
            strategy: PowAssent.Strategy.Facebook
          ]
        ]
