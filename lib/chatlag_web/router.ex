@@ -48,6 +48,12 @@ defmodule ChatlagWeb.Router do
     get "/room/create/:u1/:u2", ChatController, :create_room
   end
 
+  scope "/auth", ChatlagWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
   scope "/admin", ChatlagWeb do
     pipe_through [:browser, :admin]
 

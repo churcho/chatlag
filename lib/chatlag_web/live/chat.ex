@@ -227,7 +227,7 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = get_user_id(socket)
     room_id = get_room_id(socket)
 
-    {:noreply, fetch(socket, room_id, user_id, "chat")}
+    {:noreply, fetch(socket, room_id, user_id, "letter")}
   end
 
     def handle_event("show_whoin", _params, socket) do
@@ -342,7 +342,7 @@ defmodule ChatlagWeb.Live.Chat do
       end
 
     case display do
-      nil -> "chat"
+      nil -> "letter"
       _ -> display
     end
   end

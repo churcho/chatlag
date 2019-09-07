@@ -20,7 +20,7 @@ defmodule Chatlag.MixProject do
   def application do
     [
       mod: {Chatlag.Application, []},
-      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html, :ueberauth_facebook]
     ]
   end
 
@@ -46,6 +46,7 @@ defmodule Chatlag.MixProject do
       {:jason, "~> 1.0"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.2"},
+        {:ueberauth_facebook, "~> 0.8"},
       {:slugger, "~> 0.3"},
       {:timex, "~> 3.5"},
       {:pow, "~> 1.0.13"},

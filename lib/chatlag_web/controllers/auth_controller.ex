@@ -1,5 +1,6 @@
 defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
+  plug Ueberauth
 
   alias Chatlag.Repo
   alias Chatlag.Accounts
@@ -102,4 +103,17 @@ defmodule ChatlagWeb.AuthController do
         Accounts.update_user(user, user_parems)
     end
   end
+
+  def request(conn, params) do
+    IO.inspect(conn, lebel: "request")
+    IO.inspect(params, lebel: "request")
+    render(conn, "index.html")
+  end
+
+  def callback(conn, params) do
+    IO.inspect(conn, lebel: "request")
+    IO.inspect(params, lebel: "callback")
+    render(conn, "index.html")
+  end
+
 end

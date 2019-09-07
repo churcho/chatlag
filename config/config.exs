@@ -53,6 +53,16 @@ config :scrivener_html,
   # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.
   view_style: :bootstrap_v4
 
+config :ueberauth, Ueberauth,
+       providers: [
+         facebook: {Ueberauth.Strategy.Facebook, []}
+       ]
+#TBD
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+       client_id: "1252013821632454",
+       client_secret: "a4218f158c0dae666941eb9409dfe306"
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
