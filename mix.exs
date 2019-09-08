@@ -39,11 +39,13 @@ defmodule Chatlag.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
+      # {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:phoenix_live_view, "~> 0.1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_bootstrap_form, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      # {:arc, github: "ehayun/arc"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.2"},
       {:slugger, "~> 0.3"},
@@ -54,7 +56,7 @@ defmodule Chatlag.MixProject do
       {:memento, "~> 0.3.1"},
       {:bamboo, "~> 1.3"},
       {:ueberauth_facebook, "~> 0.8"},
-      {:poison, "~> 3.0"},
+      # {:poison, "~> 4.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
