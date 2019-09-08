@@ -1,15 +1,66 @@
 defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
 
+
+
   alias Chatlag.Repo
   alias Chatlag.Users
   alias ChatlagWeb.Presence
   alias Chatlag.Users.User
 
+  plug Ueberauth
+  alias Ueberauth.Strategy.Helpers
+
   import Ecto.Query, only: [from: 2]
 
   plug :put_layout, "chat.html" when action in [:create]
   plug :put_layout, "login.html" when action in [:login]
+
+
+
+  def request(conn, _params) do
+    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
+  end
+
+
+  def callback(
+        %{
+          assigns: %{
+            ueberauth_failure: _fails
+          }
+        } = conn,
+        _params
+      ) do
+    conn
+    |> put_flash(:error, "Failed to authenticate.")
+    |> redirect(to: "/")
+  end
+
+  def callback(
+        %{
+          assigns: %{
+            ueberauth_auth: auth
+          }
+        } = conn,
+        params
+      ) do
+    IO.inspect(auth, label: "**auth")
+    IO.inspect(params, label: "**params")
+    case UserFromAuth.find_or_create(auth) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Successfully authenticated.")
+        |> put_session(:current_user, user)
+        |> configure_session(renew: true)
+        |> redirect(to: "/")
+      {:error, reason} ->
+        conn
+        |> put_flash(:error, reason)
+        |> redirect(to: "/")
+    end
+  end
+
+
 
   def login(conn, _params) do
     # user_id = get_session(conn, :user_id)
@@ -38,7 +89,7 @@ defmodule ChatlagWeb.AuthController do
 
   def create(conn, %{"user" => user_params}) do
 
-     IO.inspect(user_params, label: "User")
+    IO.inspect(user_params, label: "User")
     case get_or_create_user(user_params) do
       {:ok, user} ->
         old_path = get_session(conn, :old_path) || Routes.lobby_path(conn, :index)
@@ -66,7 +117,7 @@ defmodule ChatlagWeb.AuthController do
         render(conn, "login.html", changeset: changeset, ip: ip)
     end
   end
-  
+
   def logout(conn, _) do
     user_id = get_session(conn, :user_id)
 
@@ -84,8 +135,11 @@ defmodule ChatlagWeb.AuthController do
 
     user =
       Repo.all(
-        from(u in User,
-          select: %{id: u.id},
+        from(
+          u in User,
+          select: %{
+            id: u.id
+          },
           limit: 1,
           where: u.ip_address == ^ip_address,
           where: u.nickname == ^nickname

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="he" ng-app="myApp" ng-controller="MyCtrl">
+<html lang="he" ng-app="Chatlag" ng-controller="MyCtrl">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="cache-control" content="max-age=0" />

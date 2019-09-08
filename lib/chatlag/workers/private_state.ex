@@ -39,7 +39,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def add_private(party_id, room_id, user_id) do
-    # IO.puts("Adding msg from #{party_id} to #{user_id}")
 
     q = [
       {:==, :room_id, room_id},
@@ -51,8 +50,6 @@ defmodule Chatlag.PrivateMsg do
       Memento.transaction!(fn ->
         Memento.Query.select(PrivateStatus, q)
       end)
-
-    IO.inspect(res, label: "add")
 
     case res do
       [] ->
@@ -76,7 +73,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def sub_private(party_id, room_id, user_id) do
-    # IO.puts("Subtract msg from #{party_id} to #{user_id}")
 
     q = [
       {:==, :room_id, room_id},
@@ -88,8 +84,6 @@ defmodule Chatlag.PrivateMsg do
       Memento.transaction!(fn ->
         Memento.Query.select(PrivateStatus, q)
       end)
-
-    IO.inspect(res, label: "sub")
 
     case res do
       [] ->

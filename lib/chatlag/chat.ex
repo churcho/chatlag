@@ -109,7 +109,8 @@ defmodule Chatlag.Chat do
         error
     end
   end
-    def update_room_to_db(%Room{} = room, attrs) do
+
+  def update_room_to_db(%Room{} = room, attrs) do
     room
     |> Room.changeset(attrs)
     |> Repo.update()
@@ -162,17 +163,27 @@ defmodule Chatlag.Chat do
 
   """
   def list_messagese(room_id, l \\ nil) do
-    case l do
-      nil ->
-        Message
-        |> where(room_id: ^room_id)
-        |> Repo.all()
+    l = l || 100
+    qry = "SELECT * FROM messagese  where id in (select id from messagese where room_id = #{room_id} order by id desc limit #{l}) order by id"
+    res = Ecto.Adapters.SQL.query!(Repo, qry, [])
 
-      _ ->
-        Message
-        |> where(room_id: ^room_id)
-        |> Repo.all()
-    end
+    cols = Enum.map(res.columns, &String.to_atom(&1))
+
+      Enum.map(res.rows, fn row ->
+        struct(Message, Enum.zip(cols, row))
+      end)
+
+    # case l do
+    #   nil ->
+    #     Message
+    #     |> where(room_id: ^room_id)
+    #     |> Repo.all()
+
+    #   _ ->
+    #     Message
+    #     |> where(room_id: ^room_id)
+    #     |> Repo.all()
+    # end
   end
 
   @doc """

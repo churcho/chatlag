@@ -7,13 +7,11 @@ defmodule Chatlag.Users.User do
   use Pow.Ecto.Schema,
     password_min_length: 5
 
-  use PowAssent.Ecto.Schema
-
   schema "users" do
-    pow_user_fields()
     field :age, :integer, null: false
     field :full_name, :string, null: true
     field :gender, :string, null: false
+    pow_user_fields()
     field :ip_address, :string, null: true
     field :role, :string, null: false
     field :is_loggedin, :boolean, default: false

@@ -20,7 +20,7 @@ defmodule Chatlag.MixProject do
   def application do
     [
       mod: {Chatlag.Application, []},
-      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html, :ueberauth_facebook]
     ]
   end
 
@@ -39,7 +39,7 @@ defmodule Chatlag.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:phoenix_live_view, "~> 0.1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_bootstrap_form, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
@@ -53,9 +53,8 @@ defmodule Chatlag.MixProject do
       {:scrivener_html, "~> 1.8"},
       {:memento, "~> 0.3.1"},
       {:bamboo, "~> 1.3"},
-      {:pow_assent, "~> 0.3.2"},
-      {:certifi, "~> 2.4"},
-      {:ssl_verify_fun, "~> 1.1"},
+      {:ueberauth_facebook, "~> 0.8"},
+      {:poison, "~> 3.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

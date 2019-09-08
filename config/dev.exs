@@ -17,6 +17,12 @@ config :chatlag, Chatlag.Repo,
 # with webpack to recompile .js and .css sources.
 config :chatlag, ChatlagWeb.Endpoint,
   http: [port: 4000],
+  https: [
+    port: 4001,
+    cipher_suite: :strong,
+    certfile: "priv/cert/selfsigned.pem",
+    keyfile: "priv/cert/selfsigned_key.pem"
+  ],
   debug_errors: false,
   code_reloader: true,
   check_origin: false,
@@ -41,6 +47,8 @@ config :chatlag, ChatlagWeb.Endpoint,
 # Note that this task requires Erlang/OTP 20 or later.
 # Run `mix help phx.gen.cert` for more information.
 #
+
+#https://chatlag.co.il/auth/facebook/callback&response_type=code&scope=email&state=edc95c6f906750c4675f6ba4c29ef8ba57d27aee6596af5
 # The `http:` config above can be replaced with:
 #
 #     https: [
@@ -50,6 +58,15 @@ config :chatlag, ChatlagWeb.Endpoint,
 #       certfile: "priv/cert/selfsigned.pem"
 #     ],
 #
+#config :chatlag, ChatlagWeb.Endpoint,
+#       http: [port: 4000],
+#       https: [
+#         port: 4001,
+#         cipher_suite: :strong,
+#         certfile: "priv/cert/selfsigned.pem",
+#         keyfile: "priv/cert/selfsigned_key.pem"
+#       ]
+
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.

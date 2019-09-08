@@ -71,10 +71,10 @@ defmodule ChatlagWeb.Live.Chat do
         room.id
       end
 
-      display = get_display(socket, display)
-      party_id = get_party_id(room_id, user_id)
+    display = get_display(socket, display)
+    party_id = get_party_id(room_id, user_id)
 
-    if (party_id != nil && display == "chat") do
+    if party_id != nil && display == "chat" do
       PrivateMsg.sub_private(party_id, room_id, user_id)
     end
 
@@ -132,21 +132,20 @@ defmodule ChatlagWeb.Live.Chat do
       case Chat.create_message(params) do
         {:ok, _message} ->
           if party_id = get_party_id(room_id, user_id) do
+            PrivateMsg.add_private(party_id, room_id, user_id)
+            # inform me about this private chat too
+            PrivateMsg.add_private(user_id, room_id, party_id)
+
             Phoenix.PubSub.broadcast(
               Chatlag.PubSub,
               "msg_#{party_id}",
               {[:push_msg, party_id, room_id, user_id], ""}
             )
-
-            PrivateMsg.add_private(party_id, room_id, user_id)
-            # inform me about this private chat too
-            PrivateMsg.add_private(user_id, room_id, party_id)
-            PrivateMsg.sub_private(user_id, room_id, party_id)
           end
 
           socket = fetch(socket, room_id, user_id)
           {:noreply, assign(socket, reply_to: 0)}
-      
+
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, changeset: changeset)}
 
@@ -156,22 +155,22 @@ defmodule ChatlagWeb.Live.Chat do
     else
       {:noreply, socket}
     end
+
     socket = fetch(socket, room_id, user_id)
     {:noreply, assign(socket, reply_to: 0)}
-
   end
 
   # ===================================================================
   # def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket)
   # ===================================================================
   def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket) do
+
     me = get_user_id(socket)
     rid = get_room_id(socket)
 
     if me == user_id and rid == room_id do
       PrivateMsg.sub_private(user_id, room_id, party_id)
     end
-
 
     {:noreply, fetch(socket, rid, me)}
   end
@@ -190,8 +189,8 @@ defmodule ChatlagWeb.Live.Chat do
   # ===================================================================
   def handle_event("change_room", room_id, socket) do
     # ===================================================================
-    room_id = String.to_integer(room_id)
     user_id = get_user_id(socket)
+    room_id = String.to_integer(room_id)
 
     {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
@@ -206,6 +205,7 @@ defmodule ChatlagWeb.Live.Chat do
   # ===================================================================
   def handle_event("private_room", party_id, socket) do
     # ===================================================================
+
     party_id = String.to_integer(party_id)
     me = get_user_id(socket)
     room_id = ChatlagWeb.ChatView.private_room(party_id, me)
@@ -227,10 +227,11 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = get_user_id(socket)
     room_id = get_room_id(socket)
 
+
     {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
 
-    def handle_event("show_whoin", _params, socket) do
+  def handle_event("show_whoin", _params, socket) do
     users =
       Presence.list(@all_users_topic)
       |> Enum.map(fn {_user_id, data} ->
@@ -273,7 +274,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({:room_user_changed}, socket) do
-    # IO.puts("chat Changed++++++++++++++++++")
 
     user_id =
       socket.assigns
@@ -293,7 +293,6 @@ defmodule ChatlagWeb.Live.Chat do
         %{event: "presence_diff", payload: payload},
         socket
       ) do
-    # IO.inspect(payload, label: "=====>>> Changed  ")
 
     Phoenix.PubSub.broadcast(
       Chatlag.PubSub,

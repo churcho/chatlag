@@ -41,6 +41,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_crypto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/poison" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/postgrex" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/pow" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/pow_assent" />
@@ -130,5 +131,9 @@
     <orderEntry type="library" name="oauther" level="project" />
     <orderEntry type="library" name="mint" level="project" />
     <orderEntry type="library" name="castore" level="project" />
+    <orderEntry type="library" name="jiffy" level="project" />
+    <orderEntry type="library" name="exjsx" level="project" />
+    <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="jazz" level="project" />
   </component>
 </module>

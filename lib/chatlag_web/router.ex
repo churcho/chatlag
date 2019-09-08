@@ -1,7 +1,6 @@
 defmodule ChatlagWeb.Router do
   use ChatlagWeb, :router
   use Pow.Phoenix.Router
-  use PowAssent.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -29,7 +28,6 @@ defmodule ChatlagWeb.Router do
   scope "/" do
     pipe_through :browser
     pow_routes()
-    pow_assent_routes()
   end
 
   scope "/", ChatlagWeb do
@@ -54,7 +52,11 @@ defmodule ChatlagWeb.Router do
   scope "/auth", ChatlagWeb do
     pipe_through :browser
 
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
+
+
   scope "/admin", ChatlagWeb do
     pipe_through [:browser, :admin]
 

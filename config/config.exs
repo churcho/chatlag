@@ -8,19 +8,29 @@
 use Mix.Config
 
 config :chatlag,
-  ecto_repos: [Chatlag.Repo]
+       ecto_repos: [Chatlag.Repo]
 
 # Configures the endpoint
-config :chatlag, ChatlagWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "SQwMkSIXsaG5JmPNfz3+ZgfyxZE4p/Y47cj/w8FDUg13C4l4gQAmXinYit8XH/6w",
-  render_errors: [view: ChatlagWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Chatlag.PubSub, adapter: Phoenix.PubSub.PG2]
+config :chatlag,
+       ChatlagWeb.Endpoint,
+       url: [
+         host: "localhost"
+       ],
+       secret_key_base: "SQwMkSIXsaG5JmPNfz3+ZgfyxZE4p/Y47cj/w8FDUg13C4l4gQAmXinYit8XH/6w",
+       render_errors: [
+         view: ChatlagWeb.ErrorView,
+         accepts: ~w(html json)
+       ],
+       pubsub: [
+         name: Chatlag.PubSub,
+         adapter: Phoenix.PubSub.PG2
+       ]
 
 # Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+config :logger,
+       :console,
+       format: "$time $metadata[$level] $message\n",
+       metadata: [:request_id]
 
 # locale
 config :chatlag, ChatlagWeb.Gettext, locales: ~w(en he), default_locale: "he"
@@ -33,34 +43,41 @@ config :phoenix, :json_library, Jason
 # ]
 
 # POW auth
-config :chatlag, :pow,
-  user: Chatlag.Users.User,
-  repo: Chatlag.Repo,
-  web_module: ChatlagWeb
+config :chatlag,
+       :pow,
+       user: Chatlag.Users.User,
+       repo: Chatlag.Repo,
+       web_module: ChatlagWeb
 
 # live view
-config :chatlag, ChatlagWeb.Endpoint,
-  live_view: [
-    signing_salt: "gPHQm6yxSF6JzQHAMS0Y1QRsIsJ19rzI"
-  ]
+config :chatlag,
+       ChatlagWeb.Endpoint,
+       live_view: [
+         signing_salt: "gPHQm6yxSF6JzQHAMS0Y1QRsIsJ19rzI"
+       ]
 
 config :mnesia,
-  # Notice the single quotes
-  dir: '.mnesia/#{Mix.env()}/#{node()}'
+       # Notice the single quotes
+       dir: '.mnesia/#{Mix.env()}/#{node()}'
 
 config :scrivener_html,
-  routes_helper: Chatlag.Router.Helpers,
-  # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.
-  view_style: :bootstrap_v4
+       routes_helper: Chatlag.Routerauthc.Helpers,
+         # If you use a single view style everywhere, you can configure it here. See View Styles below for more info.
+       view_style: :bootstrap_v4
 
-config :chatlag, :pow_assent,
+
+config :ueberauth,
+       Ueberauth,
        providers: [
-         facebook: [
-           client_id: "743993462706528",
-           client_secret: "f9c14087bb9af75bd2e1eff8845ce4c7",
-           strategy: PowAssent.Strategy.Facebook
-         ]
+         facebook: {Ueberauth.Strategy.Facebook, []}
        ]
+
+
+config :ueberauth,
+       Ueberauth.Strategy.Facebook.OAuth,
+       client_id: "743993462706528",
+       client_secret: "f9c14087bb9af75bd2e1eff8845ce4c7"
+
 
 
 
