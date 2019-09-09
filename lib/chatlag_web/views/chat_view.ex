@@ -179,8 +179,19 @@ defmodule ChatlagWeb.ChatView do
 
   def msg_nickname(msg_id) do
     msg = Chat.get_message!(msg_id)
-    user = Users.get_user!(msg.user_id)
-    user.nickname
+
+    nick =
+      if msg do
+        user = Users.get_user!(msg.user_id)
+
+        if user do
+          user.nickname
+        else
+          ""
+        end
+      else
+        ""
+      end
   end
 
   defp get_msg_by_reply(reply_to) do
