@@ -34,8 +34,26 @@ body {
 }
 
 .msg_reply {
-	margin: 0 !important;
+	// margin: 0 !important;
+	margin-top: -3rem;
 	padding: 0.4em !important;
 	box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
 	border-right: 2px solid green;
+	overflow-wrap: break-word;
+	width: 95% !important;
+}
+
+.msg_reply_display {
+	padding: 0.2em !important;
+	// box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
+	border-right: 2px solid green;
+	overflow-wrap: break-word;
+	font-size: small;
+	background: white;
+}
+.pull-left {
+	float: left !important;
+}
+.pull-right {
+	float: right !important;
 }

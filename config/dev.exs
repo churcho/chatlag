@@ -48,7 +48,7 @@ config :chatlag, ChatlagWeb.Endpoint,
 # Run `mix help phx.gen.cert` for more information.
 #
 
-#https://chatlag.co.il/auth/facebook/callback&response_type=code&scope=email&state=edc95c6f906750c4675f6ba4c29ef8ba57d27aee6596af5
+# https://chatlag.co.il/auth/facebook/callback&response_type=code&scope=email&state=edc95c6f906750c4675f6ba4c29ef8ba57d27aee6596af5
 # The `http:` config above can be replaced with:
 #
 #     https: [
@@ -58,7 +58,7 @@ config :chatlag, ChatlagWeb.Endpoint,
 #       certfile: "priv/cert/selfsigned.pem"
 #     ],
 #
-#config :chatlag, ChatlagWeb.Endpoint,
+# config :chatlag, ChatlagWeb.Endpoint,
 #       http: [port: 4000],
 #       https: [
 #         port: 4001,
@@ -84,6 +84,8 @@ config :chatlag, ChatlagWeb.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+
+config :chatlag, Chatlag.Mailer, adapter: Bamboo.LocalAdapter
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

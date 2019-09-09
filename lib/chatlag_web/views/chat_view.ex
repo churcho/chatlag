@@ -2,7 +2,7 @@ defmodule ChatlagWeb.ChatView do
   use ChatlagWeb, :view
   use Timex
 
-  import Ecto.Query
+  import Ecto.Query, warn: false
 
   alias ChatlagWeb.DisplayImage
   alias ChatlagWeb.DisplayIcon
@@ -14,11 +14,13 @@ defmodule ChatlagWeb.ChatView do
   alias Chatlag.Repo
 
   alias Chatlag.Chat.Room
+  alias Chatlag.Chat.Message
   alias Chatlag.RoomStatus
 
   def is_online?(user_id) do
     Users.is_online?(user_id)
   end
+
   def getRoomBg(id) do
     room = Chat.get_room!(id)
 
@@ -174,9 +176,18 @@ defmodule ChatlagWeb.ChatView do
     msg = Chat.get_message!(msg_id)
     msg.content
   end
+
   def msg_nickname(msg_id) do
     msg = Chat.get_message!(msg_id)
     user = Users.get_user!(msg.user_id)
     user.nickname
+  end
+
+  defp get_msg_by_reply(reply_to) do
+    Message |> where(reply_to: ^reply_to) |> Repo.all()
+  end
+
+  def msg_by_reply(id) do
+    get_msg_by_reply(id)
   end
 end

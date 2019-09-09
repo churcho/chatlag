@@ -4,6 +4,9 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.{Users, Chat, PrivateMsg}
   alias Chatlag.Chat.Message
 
+  alias Chatlag.Contact
+  alias Chatlag.Emails.ContactForm
+
   # alias ChatlagWeb.Router.Helpers, as: Routes
   # @lo_topic "Chatlag-logout"
 
@@ -20,13 +23,12 @@ defmodule ChatlagWeb.Live.Chat do
       Chat.subscribe(@payload_topic)
       Chat.subscribe("msg_#{user_id}")
       Chat.subscribe(topic(room_id))
-    else
-      # IO.inspect(session, label: "** ================== not Conected")
     end
 
     socket =
       assign(socket, %{
         privates: 0,
+        contact_cs: ContactForm.changeset(),
         reply_to: 0
       })
 
@@ -34,26 +36,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   # ======================================================================================================================================================
-
-  defp get_party_id(room_id, user_id) do
-    room = Chat.get_room!(room_id)
-
-    case room.is_private do
-      false ->
-        nil
-
-      true ->
-        [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
-        u1 = String.to_integer(u1)
-        u2 = String.to_integer(u2)
-
-        if user_id == u1 do
-          u2
-        else
-          u1
-        end
-    end
-  end
 
   def render(assigns) do
     ChatlagWeb.ChatView.render("chat.html", assigns)
@@ -164,7 +146,6 @@ defmodule ChatlagWeb.Live.Chat do
   # def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket)
   # ===================================================================
   def handle_info({[:push_msg, party_id, room_id, user_id], _message}, socket) do
-
     me = get_user_id(socket)
     rid = get_room_id(socket)
 
@@ -192,7 +173,8 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = get_user_id(socket)
     room_id = String.to_integer(room_id)
 
-    {:noreply, fetch(socket, room_id, user_id, "chat")}
+    {:noreply, assign(socket, display: "chat")}
+    # {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
 
   def handle_event("show_privates", _params, socket) do
@@ -223,12 +205,36 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, socket}
   end
 
-  def handle_event("send_letter", _params, socket) do
+  def handle_event("close_reply", _params, socket) do
     user_id = get_user_id(socket)
     room_id = get_room_id(socket)
 
+    {:noreply, assign(socket, reply_to: 0)}
+    # {:noreply, fetch(socket, room_id, user_id)}
+  end
 
-    {:noreply, fetch(socket, room_id, user_id, "chat")}
+  def handle_event("contact_form", _params, socket) do
+    user_id = get_user_id(socket)
+    room_id = get_room_id(socket)
+
+    {:noreply, fetch(socket, room_id, user_id, "letter")}
+  end
+
+  def handle_event("send_letter", %{"contact_form" => params}, socket) do
+    user_id = get_user_id(socket)
+    room_id = get_room_id(socket)
+
+    changeset = ContactForm.changeset(params)
+
+    case ContactForm.send(changeset) do
+      {:ok, contact_form} ->
+        IO.inspect(contact_form)
+        {:noreply, fetch(assign(socket, contact_cs: changeset), room_id, user_id)}
+
+      {:error, changeset} ->
+        IO.inspect(changeset)
+        {:noreply, fetch(assign(socket, contact_cs: changeset), room_id, user_id)}
+    end
   end
 
   def handle_event("show_whoin", _params, socket) do
@@ -274,7 +280,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_info({:room_user_changed}, socket) do
-
     user_id =
       socket.assigns
       |> Map.get(:user_id)
@@ -293,7 +298,6 @@ defmodule ChatlagWeb.Live.Chat do
         %{event: "presence_diff", payload: payload},
         socket
       ) do
-
     Phoenix.PubSub.broadcast(
       Chatlag.PubSub,
       @payload_topic,
@@ -353,6 +357,26 @@ defmodule ChatlagWeb.Live.Chat do
 
       _ ->
         rid
+    end
+  end
+
+  defp get_party_id(room_id, user_id) do
+    room = Chat.get_room!(room_id)
+
+    case room.is_private do
+      false ->
+        nil
+
+      true ->
+        [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
+        u1 = String.to_integer(u1)
+        u2 = String.to_integer(u2)
+
+        if user_id == u1 do
+          u2
+        else
+          u1
+        end
     end
   end
 

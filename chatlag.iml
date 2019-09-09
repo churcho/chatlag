@@ -135,5 +135,6 @@
     <orderEntry type="library" name="exjsx" level="project" />
     <orderEntry type="library" name="json" level="project" />
     <orderEntry type="library" name="jazz" level="project" />
+    <orderEntry type="library" name="poison" level="project" />
   </component>
 </module>

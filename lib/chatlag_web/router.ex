@@ -12,6 +12,10 @@ defmodule ChatlagWeb.Router do
     plug PlugForwardedPeer
   end
 
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   pipeline :admin do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
@@ -55,7 +59,6 @@ defmodule ChatlagWeb.Router do
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
-
 
   scope "/admin", ChatlagWeb do
     pipe_through [:browser, :admin]

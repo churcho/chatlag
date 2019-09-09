@@ -20,7 +20,14 @@ defmodule Chatlag.MixProject do
   def application do
     [
       mod: {Chatlag.Application, []},
-      extra_applications: [:logger, :runtime_tools, :scrivener_ecto, :scrivener_html, :ueberauth_facebook]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :scrivener_ecto,
+        :scrivener_html,
+        :bamboo,
+        :ueberauth_facebook
+      ]
     ]
   end
 

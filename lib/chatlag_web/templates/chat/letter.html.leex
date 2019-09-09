@@ -1,6 +1,6 @@
 <div class="chat">
   <div class="chat_box upper_box">
-    <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Letter") %> </span> </h2>
+    <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Contact us") %> </span> </h2>
     <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
     <div class="clear"></div>
   </div>
@@ -14,19 +14,31 @@
       <div class="col">
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h6>צור קשר</h6>
-      </div>
-      <%= form_for :email_form, "/contact", fn f ->  %>
-      <%= label f, :email %>
-      <%= text_input f, :email %>
-      <br>
-      <%= label f, :message %>
-      <%= textarea f, :message, rows: "3" %>
-      <br>
-      <%= submit "Send Message" %>
+    <div class="col">
+    </div>
+    <%= f = form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
+    <%= if @contact_cs.valid? do %>
+      ההודעה נשלחה בהצלחה
     <% end %>
-  </div>
+    <div class="form-row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="שם מלא" name="contact_form[name]">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="אימייל" name="contact_form[email]">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <textarea class="form-control"  placeholder="הודעה" name="contact_form[message]" ></textarea>
+      </div>
+    </div>
+    <br>
+    <div class="form-row">
+      <div class="col mx-auto">
+        <button class="btn btn-info xs" type="submit">שלחו הודעה</button>
+      </div>
+    </div>
+  </form>
 </div>
 </div>

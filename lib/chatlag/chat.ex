@@ -164,14 +164,19 @@ defmodule Chatlag.Chat do
   """
   def list_messagese(room_id, l \\ nil) do
     l = l || 100
-    qry = "SELECT * FROM messagese  where id in (select id from messagese where room_id = #{room_id} order by id desc limit #{l}) order by id"
+
+    qry =
+      "SELECT * FROM messagese  where id in (select id from messagese where room_id = #{room_id} order by id desc limit #{
+        l
+      }) order by id"
+
     res = Ecto.Adapters.SQL.query!(Repo, qry, [])
 
     cols = Enum.map(res.columns, &String.to_atom(&1))
 
-      Enum.map(res.rows, fn row ->
-        struct(Message, Enum.zip(cols, row))
-      end)
+    Enum.map(res.rows, fn row ->
+      struct(Message, Enum.zip(cols, row))
+    end)
 
     # case l do
     #   nil ->
@@ -201,6 +206,10 @@ defmodule Chatlag.Chat do
 
   """
   def get_message!(id), do: Repo.get!(Message, id)
+
+  def get_msg_by_reply(reply_to) do
+    Message |> where(reply_to: ^reply_to) |> Repo.all()
+  end
 
   @doc """
   Creates a message.
