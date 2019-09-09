@@ -2,7 +2,7 @@ defmodule ChatlagWeb.ChatView do
   use ChatlagWeb, :view
   use Timex
 
-  import Ecto.Query, warn: false
+  import Ecto.Query, warn: true
 
   alias ChatlagWeb.DisplayImage
   alias ChatlagWeb.DisplayIcon
