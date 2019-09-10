@@ -344,6 +344,8 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   defp get_room_users(room_id, me) do
+    IO.puts("get_room_users: #{room_id}, #{me}")
+
     all_users =
       Presence.list(topic(room_id))
       |> Enum.map(fn {_user_id, data} ->
@@ -352,7 +354,7 @@ defmodule ChatlagWeb.Live.Chat do
       end)
 
     Enum.map(all_users, fn elem ->
-      blk = Chatlag.PrivateMsg.is_blocked(elem.user_id, me)
+      blk = PrivateMsg.is_2w_blocked(elem.user_id, me)
       Map.put(elem, :is_blocked, blk)
     end)
   end
