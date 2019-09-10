@@ -33,6 +33,57 @@ defmodule Chatlag.PrivateMsg do
     end)
   end
 
+  def close_private_room(room_id) do
+    q = [
+      {:==, :room_id, room_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    for r <- res do
+      Memento.transaction!(fn ->
+        Memento.Query.delete(PrivateStatus, r.id)
+      end)
+    end
+  end
+
+  def close_private_room(user_id, party_id) do
+    q = [
+      {:==, :party_id, party_id},
+      {:==, :user_id, user_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    for r <- res do
+      Memento.transaction!(fn ->
+        Memento.Query.delete(PrivateStatus, r.id)
+      end)
+    end
+
+    q = [
+      {:==, :party_id, user_id},
+      {:==, :user_id, party_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    for r <- res do
+      Memento.transaction!(fn ->
+        Memento.Query.delete(PrivateStatus, r.id)
+      end)
+    end
+  end
+
   def private_count(party_id) do
     privates_list(party_id)
     |> Enum.filter(fn %PrivateStatus{count: c} = _x -> c > 0 end)

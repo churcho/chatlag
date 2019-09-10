@@ -225,11 +225,12 @@ defmodule ChatlagWeb.Live.Chat do
 
   def handle_event("close_private_room", user_id, socket) do
     user_id = String.to_integer(user_id)
-    IO.inspect(user_id, label: "close private room")
-    # me = get_user_id(socket)
-    # room_id = ChatlagWeb.ChatView.private_room(user_id, me)
+    me = get_user_id(socket)
+    room_id = ChatlagWeb.ChatView.private_room(user_id, me)
+    PrivateMsg.close_private_room(room_id)
+    PrivateMsg.close_private_room(user_id, me)
 
-    {:noreply, socket}
+    {:noreply, fetch(socket, room_id, me)}
   end
 
   def handle_event("close_reply", _params, socket) do
