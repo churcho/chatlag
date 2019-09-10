@@ -24,7 +24,8 @@ defmodule Chatlag.PrivateMsg do
 
   def privates_list(party_id) do
     q = [
-      {:==, :party_id, party_id}
+      {:==, :party_id, party_id},
+      {:>, :room_id, 0}
     ]
 
     Memento.transaction!(fn ->
@@ -39,7 +40,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def add_private(party_id, room_id, user_id) do
-
     q = [
       {:==, :room_id, room_id},
       {:==, :party_id, party_id},
@@ -73,7 +73,6 @@ defmodule Chatlag.PrivateMsg do
   end
 
   def sub_private(party_id, room_id, user_id) do
-
     q = [
       {:==, :room_id, room_id},
       {:==, :party_id, user_id},
@@ -99,11 +98,83 @@ defmodule Chatlag.PrivateMsg do
     end
   end
 
+  def block_user(user_id, party_id) do
+    add_private(party_id, 0, user_id)
+
+    q = [
+      {:==, :party_id, party_id},
+      {:==, :user_id, user_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    case res do
+      [] ->
+        res
+
+      _ ->
+        for r <- res do
+          Memento.transaction!(fn ->
+            r = Map.put(r, :blocked, true)
+            Memento.Query.write(r)
+          end)
+        end
+    end
+  end
+
+  def unblock_user(user_id, party_id) do
+    add_private(party_id, 0, user_id)
+
+    q = [
+      {:==, :party_id, party_id},
+      {:==, :user_id, user_id}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    case res do
+      [] ->
+        res
+
+      _ ->
+        for r <- res do
+          Memento.transaction!(fn ->
+            r = Map.put(r, :blocked, false)
+            Memento.Query.write(r)
+          end)
+        end
+    end
+  end
+
   def is_blocked(party_id, user_id) do
     q = [
       {:==, :party_id, party_id},
       {:==, :user_id, user_id},
-      {:==, :blocked, 1}
+      {:==, :blocked, true}
+    ]
+
+    res =
+      Memento.transaction!(fn ->
+        Memento.Query.select(PrivateStatus, q)
+      end)
+
+    case res do
+      [] -> false
+      _ -> true
+    end
+  end
+
+  def is_2w_blocked(party_id, user_id) do
+    q = [
+      {:==, :party_id, party_id},
+      {:==, :user_id, user_id},
+      {:==, :blocked, true}
     ]
 
     res =
@@ -116,7 +187,7 @@ defmodule Chatlag.PrivateMsg do
         q = [
           {:==, :party_id, user_id},
           {:==, :user_id, party_id},
-          {:==, :blocked, 1}
+          {:==, :blocked, true}
         ]
 
         res =

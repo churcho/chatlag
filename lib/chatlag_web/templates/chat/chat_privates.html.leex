@@ -1,24 +1,36 @@
 <div class="chat">
   <div class="chat_box upper_box">
-    <h2 class="private_massages_title"><%= gettext("privates") %>  <span class="dark-green"> <%= gettext("waiting") %> </span> </h2>
-    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
-						<div class="clear"></div>
+    <h2 class="private_massages_title"><%= gettext("privates") %> <span class="dark-green"> <%= gettext("waiting") %>
+      </span> </h2>
+    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span
+        class="icon"></span></div>
+    <div class="clear"></div>
   </div>
   <div class="chat_scroll">
-      <div class="clear"></div>
-        <table class="table table-sm">
-          <tbody>
-            <%= for u <- @privates_list do  %>
-              <tr class='pointer <%= if u.count > 0, do: "active-chat", else: "" %> '>
-                <td phx-click="private_room" phx-value="<%= u.user_id %>" >
-                <img class='small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>' alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
-    <%= getUserNickname(u.user_id) %>
-  </td>
-  <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
-  <td class="" phx-click="close_private_room" phx-value="<%= u.user_id %>"><i class="fa fa-times"></i></td>
-</tr>
-<% end %>
-</tbody>
-</table>
-</div>
+    <div class="clear"></div>
+    <table class="table table-sm">
+      <tbody>
+        <%= for u <- @privates_list do  %>
+        <tr class='pointer <%= if u.count > 0, do: "active-chat", else: "" %> '>
+          <td phx-click="private_room" phx-value="<%= u.user_id %>">
+            <img
+              class='small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>'
+              alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
+            <%= getUserNickname(u.user_id) %>
+          </td>
+          <%= if is_blocked(@user_id, u.user_id) do %>
+          <td class="" "><i class=" fas fa-lock"></i></td>
+          <% else %>
+          <%= if is_blocked(u.user_id, @user_id) do %>
+          <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="fas fa-unlock"></i></td>
+          <% else %>
+          <td class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
+          <% end %>
+          <% end %>
+          <td class="" phx-click="close_private_room" phx-value="<%= u.user_id %>"><i class="fa fa-times"></i></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

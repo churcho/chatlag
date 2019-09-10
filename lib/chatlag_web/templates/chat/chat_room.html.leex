@@ -20,7 +20,7 @@
     <%= for msg <- @messages do %>
 
     <div class="chat_massage massage01">
-      <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id do %>
+      <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id or is_blocked(@user_id, msg.user_id) do %>
       <img class='profile_picture <%= if is_online?(msg.user_id), do: "active-image", else: "offline" %>' alt="user_pic"
         src="<%= getUserIcon(msg.user_id) %>" />
       <% else %>

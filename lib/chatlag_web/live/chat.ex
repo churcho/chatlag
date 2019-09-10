@@ -61,7 +61,7 @@ defmodule ChatlagWeb.Live.Chat do
     end
 
     assign(socket, %{
-      users_in_room: get_users_in_room(last_room_id),
+      users_in_room: get_users_in_room(last_room_id, user_id),
       privates: PrivateMsg.private_count(user_id),
       privates_list: PrivateMsg.privates_list(user_id),
       user_id: user_id,
@@ -71,7 +71,7 @@ defmodule ChatlagWeb.Live.Chat do
       room_url: "/chat/#{last_room_id}",
       is_private: room.is_private,
       display: get_display(socket, display),
-      users: get_room_users(last_room_id),
+      users: get_room_users(last_room_id, user_id),
       messages: Chat.list_messagese(room_id, 100),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
@@ -109,12 +109,20 @@ defmodule ChatlagWeb.Live.Chat do
     content = params["content"]
 
     len = content |> String.trim() |> String.length()
+    party_id = get_party_id(room_id, user_id)
 
-    if len > 0 do
+    isBlocked =
+      case party_id do
+        nil -> false
+        _ -> PrivateMsg.is_blocked(user_id, party_id)
+      end
+
+    if len > 0 && !isBlocked do
       case Chat.create_message(params) do
         {:ok, _message} ->
           if party_id = get_party_id(room_id, user_id) do
             PrivateMsg.add_private(party_id, room_id, user_id)
+            PrivateMsg.unblock_user(user_id, party_id)
             # inform me about this private chat too
             PrivateMsg.add_private(user_id, room_id, party_id)
 
@@ -170,18 +178,37 @@ defmodule ChatlagWeb.Live.Chat do
   # ===================================================================
   def handle_event("change_room", room_id, socket) do
     # ===================================================================
-    user_id = get_user_id(socket)
-    room_id = String.to_integer(room_id)
+    # user_id = get_user_id(socket)
+    # room_id = String.to_integer(room_id)
 
     {:noreply, assign(socket, display: "chat")}
     # {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
 
   def handle_event("show_privates", _params, socket) do
+    # room_id = get_room_id(socket)
+    # user_id = get_user_id(socket)
+
+    {:noreply, assign(socket, display: "privates")}
+    # {:noreply, fetch(socket, room_id, user_id, "privates")}
+  end
+
+  # ===================================================================
+  def handle_event("ban_party", party_id, socket) do
     room_id = get_room_id(socket)
     user_id = get_user_id(socket)
+    party_id = String.to_integer(party_id)
+    PrivateMsg.block_user(user_id, party_id)
+    {:noreply, fetch(socket, room_id, user_id, "members")}
+  end
 
-    {:noreply, fetch(socket, room_id, user_id, "privates")}
+  # ===================================================================
+  def handle_event("unban_party", party_id, socket) do
+    room_id = get_room_id(socket)
+    user_id = get_user_id(socket)
+    party_id = String.to_integer(party_id)
+    PrivateMsg.unblock_user(user_id, party_id)
+    {:noreply, fetch(socket, room_id, user_id, "members")}
   end
 
   # ===================================================================
@@ -272,6 +299,7 @@ defmodule ChatlagWeb.Live.Chat do
       topic(room_id),
       user_id,
       %{
+        is_blocked: false,
         nickname: user.nickname,
         user_id: user_id,
         room_id: room_id
@@ -304,22 +332,32 @@ defmodule ChatlagWeb.Live.Chat do
       {:room_user_changed}
     )
 
+    user_id = get_user_id(socket)
     room_id = get_room_id(socket)
 
     {:noreply,
-     assign(socket, users: get_room_users(room_id), users_in_room: get_users_in_room(room_id))}
+     assign(socket,
+       users: get_room_users(room_id, user_id),
+       users_in_room: get_users_in_room(room_id, user_id)
+     )}
   end
 
-  defp get_room_users(room_id) do
-    Presence.list(topic(room_id))
-    |> Enum.map(fn {_user_id, data} ->
-      data[:metas]
-      |> List.first()
+  defp get_room_users(room_id, me) do
+    all_users =
+      Presence.list(topic(room_id))
+      |> Enum.map(fn {_user_id, data} ->
+        data[:metas]
+        |> List.first()
+      end)
+
+    Enum.map(all_users, fn elem ->
+      blk = Chatlag.PrivateMsg.is_blocked(elem.user_id, me)
+      Map.put(elem, :is_blocked, blk)
     end)
   end
 
-  def get_users_in_room(room_id) do
-    get_room_users(room_id)
+  def get_users_in_room(room_id, user_id) do
+    get_room_users(room_id, user_id)
     |> Enum.count()
   end
 

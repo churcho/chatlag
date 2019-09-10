@@ -194,6 +194,10 @@ defmodule ChatlagWeb.ChatView do
       end
   end
 
+  def is_blocked(user_id, party_id) do
+    Chatlag.PrivateMsg.is_blocked(user_id, party_id)
+  end
+
   defp get_msg_by_reply(reply_to) do
     Message |> where(reply_to: ^reply_to) |> Repo.all()
   end
