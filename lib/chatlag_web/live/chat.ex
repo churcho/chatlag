@@ -344,7 +344,7 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   defp get_room_users(room_id, me) do
-    IO.puts("get_room_users: #{room_id}, #{me}")
+    # IO.puts("get_room_users: #{room_id}, #{me}")
 
     all_users =
       Presence.list(topic(room_id))

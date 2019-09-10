@@ -23,6 +23,11 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
+config :chatlag, Chatlag.Mailer,
+  adapter: Bamboo.MailgunAdapter,
+  api_key: System.get_env("MAILGUN_API_KEY"),
+  domain: System.get_env("MAILGUN_DOMAIN")
+
 config :chatlag, ChatlagWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
   secret_key_base: secret_key_base
