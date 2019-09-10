@@ -49,16 +49,6 @@ msgid "Title"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:59
-msgid "Add to Favorites"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:115
-msgid "As Anonymous"
-msgstr ""
-
-#, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:13
 #: lib/chatlag_web/templates/room/new_form.html.eex:13
 msgid "Attached"
@@ -130,23 +120,13 @@ msgid "Edit Room"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:95
-msgid "Age"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/auth/login.html.eex:92
-msgid "nickname"
-msgstr ""
-
-#, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:29
 msgid "midsize_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:150
+#: lib/chatlag_web/views/chat_view.ex:152
 msgid "Private Room"
 msgstr ""
 
@@ -193,4 +173,17 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_privates.html.leex:3
 msgid "waiting"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/letter.html.leex:3
+msgid "Contact us"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:9
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:5
+#: lib/chatlag_web/templates/chat/letter.html.leex:5
+msgid "back to room"
 msgstr ""

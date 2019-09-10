@@ -1,7 +1,8 @@
 <div class="chat">
   <div class="chat_box upper_box">
     <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Contact us") %> </span> </h2>
-    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span class="icon"></span></div>
+    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
+      <%= gettext("back to room")%></div>
     <div class="clear"></div>
   </div>
   <div class="container">
@@ -9,7 +10,7 @@
       <div class="col">
       </div>
       <div class="col">
-        <img class="img-logo" src="/images/logo-big.png" alt="Chatlag"/>
+        <img class="img-logo" src="/images/logo-big.png" alt="Chatlag" />
       </div>
       <div class="col">
       </div>
@@ -18,7 +19,7 @@
     </div>
     <%= f = form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
     <%= if @contact_cs.valid? do %>
-      ההודעה נשלחה בהצלחה
+    ההודעה נשלחה בהצלחה
     <% end %>
     <div class="form-row">
       <div class="col">
@@ -30,7 +31,7 @@
     </div>
     <div class="form-row">
       <div class="col">
-        <textarea class="form-control"  placeholder="הודעה" name="contact_form[message]" ></textarea>
+        <textarea class="form-control" placeholder="הודעה" name="contact_form[message]"></textarea>
       </div>
     </div>
     <br>
@@ -39,6 +40,6 @@
         <button class="btn btn-info xs" type="submit">שלחו הודעה</button>
       </div>
     </div>
-  </form>
-</div>
+    </form>
+  </div>
 </div>

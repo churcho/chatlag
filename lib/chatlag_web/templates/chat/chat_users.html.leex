@@ -1,8 +1,8 @@
 <div class="chat">
   <div class="chat_box upper_box">
     <h2 class="private_massages_title"><%= gettext("Participants") %> </h2>
-    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">חזרה<span
-        class="icon"></span></div>
+    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
+      <%= gettext("back to room")%><span class="icon"></span></div>
     <div class="clear"></div>
   </div>
   <div class="chat_scroll">

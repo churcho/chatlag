@@ -159,7 +159,8 @@ body * {
 }
 
 .massage_meta {
-	float: right;
+		overflow-wrap: break-word !important;
+		float: right;
 }
 
 .massage_social {
@@ -591,6 +592,7 @@ body * {
 @media screen and (max-width: 550px) {
 	.massage_meta {
 		float: none;
+		overflow-wrap: break-word !important;
 	}
 	.massage_social {
 		float: none;
