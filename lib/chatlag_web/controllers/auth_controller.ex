@@ -1,9 +1,8 @@
 defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
 
-
-
   alias Chatlag.Repo
+  alias Chatlag.Chat
   alias Chatlag.Users
   alias ChatlagWeb.Presence
   alias Chatlag.Users.User
@@ -13,15 +12,11 @@ defmodule ChatlagWeb.AuthController do
 
   import Ecto.Query, only: [from: 2]
 
-  plug :put_layout, "chat.html" when action in [:create]
-  plug :put_layout, "login.html" when action in [:login]
-
-
+  plug :put_layout, "login.html" when action in [:login, :details, :create]
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
-
 
   def callback(
         %{
@@ -44,15 +39,24 @@ defmodule ChatlagWeb.AuthController do
         } = conn,
         params
       ) do
-    IO.inspect(auth, label: "**auth")
-    IO.inspect(params, label: "**params")
-    case UserFromAuth.find_or_create(auth) do
+    case find_or_create_user(auth) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully authenticated.")
+        |> put_session(:user_id, user.id)
         |> put_session(:current_user, user)
         |> configure_session(renew: true)
         |> redirect(to: "/")
+
+      {:ask_details} ->
+        info = auth.info
+        uid = auth.uid
+
+        conn
+        |> redirect(
+          to: "/details?email=#{info.email}&name=#{info.name}&image=#{info.image}&uid=#{uid}"
+        )
+
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)
@@ -60,16 +64,16 @@ defmodule ChatlagWeb.AuthController do
     end
   end
 
-
-
   def login(conn, _params) do
     # user_id = get_session(conn, :user_id)
-    user_id = case Pow.Plug.current_user(conn) do
-      nil ->
-        get_session(conn, :user_id)
-      _ ->
-        Pow.Plug.current_user(conn).id
-    end
+    user_id =
+      case Pow.Plug.current_user(conn) do
+        nil ->
+          get_session(conn, :user_id)
+
+        _ ->
+          Pow.Plug.current_user(conn).id
+      end
 
     if user_id do
       user = Users.get_user!(user_id)
@@ -83,14 +87,44 @@ defmodule ChatlagWeb.AuthController do
       ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 
       changeset = Users.change_user(%User{})
-      render(conn, "login.html", changeset: changeset, ip: ip, online: 100, token: get_csrf_token())
+
+      render(conn, "login.html",
+        changeset: changeset,
+        ip: ip,
+        online: 100,
+        token: get_csrf_token()
+      )
     end
   end
 
-  def create(conn, %{"user" => user_params}) do
+  def details(conn, params) do
+    ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 
-    IO.inspect(user_params, label: "User")
-    case get_or_create_user(user_params) do
+    changeset = Users.change_user(%User{})
+
+    render(conn, "details.html",
+      changeset: changeset,
+      ip: ip,
+      online: 100,
+      email: params["email"],
+      name: params["name"],
+      image: params["image"],
+      uid: params["uid"],
+      token: get_csrf_token()
+    )
+  end
+
+  def create(conn, %{"user" => params}) do
+    fb = params["fb"] || "0"
+
+    form =
+      if fb == "1" do
+        "details.html"
+      else
+        "login.html"
+      end
+
+    case get_or_create_user(params) do
       {:ok, user} ->
         old_path = get_session(conn, :old_path) || Routes.lobby_path(conn, :index)
 
@@ -106,15 +140,23 @@ defmodule ChatlagWeb.AuthController do
 
         conn
         |> assign(:current_user, user)
+        |> put_session(:current_user, user)
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: old_path)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
         ip = to_string(:inet_parse.ntoa(conn.remote_ip))
-        render(conn, "login.html", changeset: changeset, ip: ip)
+
+        render(conn, form,
+          email: params["email"],
+          name: params["name"],
+          image: params["image"],
+          uid: params["uid"],
+          changeset: changeset,
+          ip: ip
+        )
     end
   end
 
@@ -157,4 +199,17 @@ defmodule ChatlagWeb.AuthController do
     end
   end
 
+  def find_or_create_user(auth) do
+    uid = auth.uid
+
+    user = Users.get_user_by_uid(uid)
+
+    case user do
+      nil ->
+        {:ask_details}
+
+      _ ->
+        {:ok, user}
+    end
+  end
 end

@@ -16,6 +16,8 @@ defmodule Chatlag.Users.User do
     field :role, :string, null: false
     field :is_loggedin, :boolean, default: false
     field :nickname, :string, null: false
+    field :image, :string, null: true
+    field :uid, :string, null: true
     field :suspend_at, :date, null: true
 
     timestamps()
@@ -24,7 +26,8 @@ defmodule Chatlag.Users.User do
   @doc false
   def changeset(user, attrs) do
     IO.inspect(attrs, label: "Checking....")
-    case Map.get(attrs, "email") do
+
+    case Map.get(attrs, "password") do
       nil ->
         user
         |> cast(attrs, [
@@ -35,6 +38,8 @@ defmodule Chatlag.Users.User do
           :gender,
           :ip_address,
           :suspend_at,
+          :uid,
+          :image,
           :password_hash
         ])
         |> validate_required([:nickname, :age, :gender])
@@ -53,6 +58,8 @@ defmodule Chatlag.Users.User do
           :ip_address,
           :is_loggedin,
           :suspend_at,
+          :uid,
+          :image,
           :password_hash
         ])
         |> pow_changeset(attrs)

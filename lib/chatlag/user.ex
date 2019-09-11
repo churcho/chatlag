@@ -98,6 +98,10 @@ defmodule Chatlag.Users do
     |> Repo.update()
   end
 
+  def get_user_by_uid(uid) do
+    User |> where(uid: ^uid) |> Repo.one()
+  end
+
   @doc """
   Deletes a User.
 

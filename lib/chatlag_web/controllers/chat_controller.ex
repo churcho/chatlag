@@ -36,7 +36,6 @@ defmodule ChatlagWeb.ChatController do
       end
     end
 
-    IO.puts("Chat with ")
     Phoenix.LiveView.Controller.live_render(
       conn,
       ChatlagWeb.Live.Chat,

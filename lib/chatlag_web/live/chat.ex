@@ -255,11 +255,9 @@ defmodule ChatlagWeb.Live.Chat do
 
     case ContactForm.send(changeset) do
       {:ok, contact_form} ->
-        IO.inspect(contact_form)
         {:noreply, fetch(assign(socket, contact_cs: changeset), room_id, user_id)}
 
       {:error, changeset} ->
-        IO.inspect(changeset)
         {:noreply, fetch(assign(socket, contact_cs: changeset), room_id, user_id)}
     end
   end
@@ -301,6 +299,7 @@ defmodule ChatlagWeb.Live.Chat do
       %{
         is_blocked: false,
         nickname: user.nickname,
+        age: user.age,
         user_id: user_id,
         room_id: room_id
       }
@@ -343,8 +342,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   defp get_room_users(room_id, me) do
-    # IO.puts("get_room_users: #{room_id}, #{me}")
-
     all_users =
       Presence.list(topic(room_id))
       |> Enum.map(fn {_user_id, data} ->

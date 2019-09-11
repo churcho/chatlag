@@ -3,12 +3,18 @@ defmodule Chatlag.Auth do
   import Plug.Conn
   alias ChatlagWeb.Presence
 
+  # This is the plug login if not already
+
   def init(opts) do
     opts
   end
 
   def call(conn, _opts) do
     user_id = get_session(conn, :user_id)
+    current_user = Pow.Plug.current_user(conn)
+
+    IO.inspect(user_id, label: "*** User id")
+    IO.inspect(current_user, label: "*** User id")
 
     if user_id do
       user = user_id && Chatlag.Users.get_user!(user_id)

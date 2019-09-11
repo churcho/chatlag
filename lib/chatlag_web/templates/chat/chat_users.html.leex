@@ -19,7 +19,7 @@
             <img
               class='small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>'
               alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
-            <%= u.nickname %>
+            <%= u.nickname %> <%= u.age %>
           </td>
           <%= if is_blocked(@user_id, u.user_id) do %>
           <td></td>

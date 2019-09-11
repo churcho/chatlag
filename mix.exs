@@ -65,6 +65,7 @@ defmodule Chatlag.MixProject do
       {:bamboo, "~> 1.3"},
       {:ueberauth_facebook, "~> 0.8"},
       {:poison, "~> 4.0"},
+      {:httpoison, "~> 1.4"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
