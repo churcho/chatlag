@@ -52,9 +52,10 @@ defmodule Chatlag.MixProject do
       {:phoenix_bootstrap_form, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      # {:arc, github: "ehayun/arc"},
-      {:arc, "~> 0.11.0"},
-      {:arc_ecto, "~> 0.11.2"},
+      {:arc, github: "ehayun/arc"},
+      {:arc_ecto, github: "ehayun/arc_ecto"},
+      # {:arc, "~> 0.11.0"},
+      # {:arc_ecto, "~> 0.11.2"},
       {:slugger, "~> 0.3"},
       {:timex, "~> 3.5"},
       {:pow, "~> 1.0.13"},
@@ -63,7 +64,7 @@ defmodule Chatlag.MixProject do
       {:memento, "~> 0.3.1"},
       {:bamboo, "~> 1.3"},
       {:ueberauth_facebook, "~> 0.8"},
-      # {:poison, "~> 4.0"},
+      {:poison, "~> 4.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

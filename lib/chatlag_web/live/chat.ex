@@ -4,7 +4,6 @@ defmodule ChatlagWeb.Live.Chat do
   alias Chatlag.{Users, Chat, PrivateMsg}
   alias Chatlag.Chat.Message
 
-  alias Chatlag.Contact
   alias Chatlag.Emails.ContactForm
 
   # alias ChatlagWeb.Router.Helpers, as: Routes
@@ -176,7 +175,7 @@ defmodule ChatlagWeb.Live.Chat do
   # ===================================================================
   #  change back to main room
   # ===================================================================
-  def handle_event("change_room", room_id, socket) do
+  def handle_event("change_room", _room_id, socket) do
     # ===================================================================
     # user_id = get_user_id(socket)
     # room_id = String.to_integer(room_id)
@@ -234,8 +233,8 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("close_reply", _params, socket) do
-    user_id = get_user_id(socket)
-    room_id = get_room_id(socket)
+    # user_id = get_user_id(socket)
+    # room_id = get_room_id(socket)
 
     {:noreply, assign(socket, reply_to: 0)}
     # {:noreply, fetch(socket, room_id, user_id)}

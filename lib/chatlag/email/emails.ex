@@ -1,7 +1,6 @@
 defmodule Chatlag.Emails do
   import Bamboo.Email
 
-  alias Chatlag.Emails.ContactForm
   # efratzaror2014
   def contact_email(%{email: email, message: message, name: name}) do
     message = message |> String.replace(~r/\n/, "<br>", global: true)

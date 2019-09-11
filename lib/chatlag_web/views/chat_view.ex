@@ -180,18 +180,18 @@ defmodule ChatlagWeb.ChatView do
   def msg_nickname(msg_id) do
     msg = Chat.get_message!(msg_id)
 
-    nick =
-      if msg do
-        user = Users.get_user!(msg.user_id)
+    # nick =
+    if msg do
+      user = Users.get_user!(msg.user_id)
 
-        if user do
-          user.nickname
-        else
-          ""
-        end
+      if user do
+        user.nickname
       else
         ""
       end
+    else
+      ""
+    end
   end
 
   def is_blocked(user_id, party_id) do

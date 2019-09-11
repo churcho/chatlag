@@ -17,7 +17,7 @@
     </div>
     <div class="col">
     </div>
-    <%= f = form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
+    <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
     <%= if @contact_cs.valid? do %>
     ההודעה נשלחה בהצלחה
     <% end %>
