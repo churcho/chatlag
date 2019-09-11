@@ -15,8 +15,8 @@ defmodule ChatlagWeb.Live.Frontpage do
     user_id = session.user_id
 
     Chat.subscribe(@payload_topic)
-    if connected?(socket) do
 
+    if connected?(socket) do
       IO.inspect(session, label: "** ================== Conected")
     end
 
@@ -79,7 +79,8 @@ defmodule ChatlagWeb.Live.Frontpage do
       rooms_count: rooms_count,
       active_chats: active_chats,
       num_in_chats: num_in_chats,
-      num_of_rooms: num_of_rooms
+      num_of_rooms: num_of_rooms,
+      users_count: Repo.one(from p in "users", select: count(p.id))
     )
   end
 
