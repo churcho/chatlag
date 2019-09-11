@@ -30,12 +30,12 @@ config :chatlag, Chatlag.Mailer,
 
 config :chatlag, ChatlagWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
-  https: [
-    port: 9041,
-    cipher_suite: :strong,
-    certfile: "priv/cert/selfsigned.pem",
-    keyfile: "priv/cert/selfsigned_key.pem"
-  ],
+  # https: [
+  #   port: 9041,
+  #   cipher_suite: :strong,
+  #   certfile: "priv/cert/selfsigned.pem",
+  #   keyfile: "priv/cert/selfsigned_key.pem"
+  # ],
   secret_key_base: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
