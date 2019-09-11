@@ -322,7 +322,7 @@ defmodule ChatlagWeb.Live.Chat do
   #                  presence_diff
   # ========================================================================================
   def handle_info(
-        %{event: "presence_diff", payload: payload},
+        %{event: "presence_diff", payload: _payload},
         socket
       ) do
     Phoenix.PubSub.broadcast(

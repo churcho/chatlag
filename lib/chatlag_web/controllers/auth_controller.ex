@@ -2,7 +2,6 @@ defmodule ChatlagWeb.AuthController do
   use ChatlagWeb, :controller
 
   alias Chatlag.Repo
-  alias Chatlag.Chat
   alias Chatlag.Users
   alias ChatlagWeb.Presence
   alias Chatlag.Users.User
@@ -37,7 +36,7 @@ defmodule ChatlagWeb.AuthController do
             ueberauth_auth: auth
           }
         } = conn,
-        params
+        _params
       ) do
     case find_or_create_user(auth) do
       {:ok, user} ->
