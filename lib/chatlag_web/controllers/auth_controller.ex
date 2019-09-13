@@ -76,12 +76,19 @@ defmodule ChatlagWeb.AuthController do
 
     if user_id do
       user = Users.get_user!(user_id)
-      conn = assign(conn, :current_user, user)
 
-      conn
-      |> put_session(:user_id, user.id)
-      |> redirect(to: "/")
-      |> halt
+      if user do
+        conn = assign(conn, :current_user, user)
+
+        conn
+        |> put_session(:user_id, user.id)
+        |> redirect(to: "/")
+        |> halt
+      else
+        conn
+        |> redirect(to: "/logout")
+        |> halt
+      end
     else
       ip = to_string(:inet_parse.ntoa(conn.remote_ip))
 

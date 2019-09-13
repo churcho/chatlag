@@ -7,6 +7,8 @@ defmodule Chatlag.Users.User do
   use Pow.Ecto.Schema,
     password_min_length: 5
 
+  @invalid_nicks ~w(מנהל ADMIN)
+
   schema "users" do
     field :age, :integer, null: false
     field :full_name, :string, null: true
@@ -45,6 +47,7 @@ defmodule Chatlag.Users.User do
         |> validate_required([:nickname, :age, :gender])
         |> validate_length(:nickname, max: 18)
         |> validate_online(:nickname)
+        |> validate_nickname(:nickname)
 
       _ ->
         user
@@ -73,6 +76,20 @@ defmodule Chatlag.Users.User do
       case user_exists(nickname) do
         false -> []
         true -> [{field, options[:message] || "Nickname already taken"}]
+      end
+    end)
+  end
+
+  def validate_nickname(changeset, field, options \\ []) do
+    validate_change(changeset, field, fn _, nickname ->
+      exst =
+        for nc <- String.split(nickname, " ") do
+          Enum.member?(@invalid_nicks, String.upcase(nc))
+        end
+
+      case Enum.member?(exst, true) do
+        false -> []
+        true -> [{field, options[:message] || "Invalid Nickname"}]
       end
     end)
   end
