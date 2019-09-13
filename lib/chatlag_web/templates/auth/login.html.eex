@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="row">
-        <a href="#">
+        <a href="/auth/facebook">
           <div class="col-xs-2" aria-hidden="true"></div>
           <div class="login-facebook col-sm-11 col-xs-8">
             <button class="button fb-blue-back login-facebook-button">

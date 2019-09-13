@@ -50,6 +50,8 @@ defmodule Chatlag.Chat do
       %Room{} = room -> room
       _ -> get_room_from_db(id)
     end
+
+    get_room_from_db(id)
   end
 
   defp get_room_from_db(id) do
