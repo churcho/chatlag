@@ -119,7 +119,7 @@ defmodule ChatlagWeb.AuthController do
       if status_code == 302 do
         {"Location", loc} = Enum.find(headers, fn {key, _val} -> key == "Location" end)
         %HTTPoison.Response{body: body, status_code: status_code} = HTTPoison.get!("#{loc}")
-        iname = "upload/users/#{uid}.jpg"
+        iname = "#{System.cwd()}/upload/users/#{uid}.jpg"
         File.write(iname, body)
         iname
       else
