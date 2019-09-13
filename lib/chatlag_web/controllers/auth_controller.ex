@@ -121,7 +121,7 @@ defmodule ChatlagWeb.AuthController do
         %HTTPoison.Response{body: body, status_code: status_code} = HTTPoison.get!("#{loc}")
         iname = "#{System.cwd()}/uploads/users/#{uid}.jpg"
         File.write(iname, body)
-        "./uploads/users/#{uid}.jpg"
+        "/uploads/users/#{uid}.jpg"
       else
         params["image"]
       end
