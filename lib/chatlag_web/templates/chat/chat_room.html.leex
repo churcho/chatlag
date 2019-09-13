@@ -3,17 +3,33 @@
   <div class="chat_box upper_box">
     <h2 class="private_massages_title">
       שיחה פרטית
-      <span class="light-green xs"> <%= getUserNickname(@party_id) %> </span>
+      <span class="light-green xs">
+        <%= getUserNickname(@party_id) %>
+        <%= if user_suspended(@party_id) do %>
+        (<%= gettext("suspended") %>)
+        <% end %>
+      </span>
     </h2>
     <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
       <%= gettext("back to room")%><span class="icon"></span></div>
+    <%= if is_admin(@user_id) do %>
+    <%= if user_suspended(@party_id) do %>
+    <div phx-click="unsuspend_user" phx-value="<%= @party_id %>" class="pointer button">
+      <%= gettext("Un Suspend")%><span class="icon"></span></div>
+    <% else %>
+    <div phx-click="suspend_user" phx-value="<%= @party_id %>" class="pointer button">
+      <%= gettext("Suspend")%><span class="icon"></span></div>
+    <% end %>
+
+    <% end %>
     <div class="clear"></div>
+
   </div>
 
 
   <% else %>
   <div class="chat_box chat_alert">
-    <%= attached(@room_id) %>
+    <%= raw attached(@room_id) %>
   </div>
   <% end %>
   <div class="chat_scroll" id="chatscroll">
@@ -87,8 +103,26 @@
     <div class="clear"></div>
     <% end %>
 
+    <%= if user_suspended(@user_id, @party_id) do %>
+    <%= if ! get_admin do %>
+    <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם יכולים להשתתף
+      בשיחות
+      בחדרים.
+      הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
+    </h5>
+
+    <% else %>
+    <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room" phx-value="<%= get_admin() %>"
+      class="pointer xs"> אינכם
+      יכולים להשתתף
+      בשיחות בחדרים.
+      הינכם
+      מושעים. תוכלו לפנות למנהל המערכת לפרטים
+    </h5>
+    <% end %>
+    <% else %>
     <div class="input_box">
-      <%= f = form_for @changeset, "#", [phx_submit: :send_message, autocomplete: :off] %>
+      <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
 
       <%= hidden_input f, :room_id %>
       <%= hidden_input f, :user_id %>
@@ -99,8 +133,9 @@
       <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span
           class="icon"></span></button>
       </form>
-      <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a>
+      <!-- <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a> -->
       <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
     </div>
+    <% end %>
   </div>
 </div>

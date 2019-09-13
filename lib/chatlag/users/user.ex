@@ -19,14 +19,13 @@ defmodule Chatlag.Users.User do
     field :image, :string, null: true
     field :uid, :string, null: true
     field :suspend_at, :date, null: true
+    field :suspend_counter, :integer, default: 0
 
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
-    IO.inspect(attrs, label: "Checking....")
-
     case Map.get(attrs, "password") do
       nil ->
         user
@@ -38,6 +37,7 @@ defmodule Chatlag.Users.User do
           :gender,
           :ip_address,
           :suspend_at,
+          :suspend_counter,
           :uid,
           :image,
           :password_hash
@@ -58,6 +58,7 @@ defmodule Chatlag.Users.User do
           :ip_address,
           :is_loggedin,
           :suspend_at,
+          :suspend_counter,
           :uid,
           :image,
           :password_hash

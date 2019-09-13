@@ -9,6 +9,26 @@
     <div class="clear"></div>
     <table class="table table-sm">
       <tbody>
+
+        <%= if user_suspended(@user_id) do %>
+        <%= if ! get_admin do %>
+        <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם יכולים
+          להשתתף
+          בשיחות
+          בחדרים.
+          הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
+        </h5>
+
+        <% else %>
+        <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room" phx-value="<%= get_admin() %>"
+          class="pointer xs"> אינכם
+          יכולים להשתתף
+          בשיחות בחדרים.
+          הינכם
+          מושעים. תוכלו לפנות למנהל המערכת לפרטים
+        </h5>
+        <% end %>
+        <% else %>
         <%= for u <- @users, u.user_id != @user_id do  %>
         <tr class="pointer">
           <%= if is_blocked(@user_id, u.user_id) do %>
@@ -39,6 +59,7 @@
           <% end %>
           <% end %>
         </tr>
+        <% end %>
         <% end %>
       </tbody>
     </table>

@@ -3,6 +3,7 @@ defmodule ChatlagWeb.Live.Chat do
   alias ChatlagWeb.Presence
   alias Chatlag.{Users, Chat, PrivateMsg}
   alias Chatlag.Chat.Message
+  alias Chatlag.Users
 
   alias Chatlag.Emails.ContactForm
 
@@ -17,6 +18,10 @@ defmodule ChatlagWeb.Live.Chat do
     room_id = String.to_integer(session.room_id)
     user_id = session.user_id
 
+    party_id = get_party_id(room_id, user_id)
+
+    user = Users.get_user!(user_id)
+
     if connected?(socket) do
       addUserToRoom(user_id, room_id)
       Chat.subscribe(@payload_topic)
@@ -28,10 +33,45 @@ defmodule ChatlagWeb.Live.Chat do
       assign(socket, %{
         privates: 0,
         contact_cs: ContactForm.changeset(),
-        reply_to: 0
+        reply_to: 0,
+        suspended: user.suspend_at
       })
 
+    if user_suspended(user_id, party_id) do
+      Chat.unsubscribe(@payload_topic)
+      Chat.unsubscribe("msg_#{user_id}")
+      Chat.unsubscribe(topic(room_id))
+    end
+
     {:ok, fetch(socket, room_id, user_id)}
+  end
+
+  def user_suspended(user_id, party_id) do
+    user = Users.get_user!(user_id, true)
+
+    if user.role == "admin" do
+      false
+    else
+      party =
+        case party_id do
+          nil ->
+            party_id
+
+          _ ->
+            p = Users.get_user!(party_id, true)
+            p
+        end
+
+      if user.suspend_at do
+        if party_id && party.role == "admin" do
+          false
+        else
+          true
+        end
+      else
+        false
+      end
+    end
   end
 
   # ======================================================================================================================================================
@@ -59,6 +99,19 @@ defmodule ChatlagWeb.Live.Chat do
       PrivateMsg.sub_private(party_id, room_id, user_id)
     end
 
+    party_suspended =
+      if party_id do
+        party = Users.get_user!(party_id, true)
+
+        if party.suspend_at do
+          true
+        else
+          false
+        end
+      else
+        false
+      end
+
     assign(socket, %{
       users_in_room: get_users_in_room(last_room_id, user_id),
       privates: PrivateMsg.private_count(user_id),
@@ -71,6 +124,7 @@ defmodule ChatlagWeb.Live.Chat do
       is_private: room.is_private,
       display: get_display(socket, display),
       users: get_room_users(last_room_id, user_id),
+      party_suspended: party_suspended,
       messages: Chat.list_messagese(room_id, 100),
       changeset: Chat.change_message(%Message{user_id: user_id, room_id: room_id})
     })
@@ -172,16 +226,38 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, fetch(socket, room_id, user_id, "members")}
   end
 
+  def handle_event("suspend_user", user_id, socket) do
+    user_id
+    |> String.to_integer()
+    |> Users.suspend_user()
+
+    room_id = get_room_id(socket)
+    user_id = get_user_id(socket)
+
+    {:noreply, fetch(socket, room_id, user_id)}
+  end
+
+  def handle_event("unsuspend_user", user_id, socket) do
+    user_id
+    |> String.to_integer()
+    |> Users.unsuspend_user()
+
+    room_id = get_room_id(socket)
+    user_id = get_user_id(socket)
+
+    {:noreply, fetch(socket, room_id, user_id)}
+  end
+
   # ===================================================================
   #  change back to main room
   # ===================================================================
-  def handle_event("change_room", _room_id, socket) do
+  def handle_event("change_room", room_id, socket) do
     # ===================================================================
-    # user_id = get_user_id(socket)
-    # room_id = String.to_integer(room_id)
+    user_id = get_user_id(socket)
+    room_id = String.to_integer(room_id)
 
-    {:noreply, assign(socket, display: "chat")}
-    # {:noreply, fetch(socket, room_id, user_id, "chat")}
+    # {:noreply, assign(socket, display: "chat")}
+    {:noreply, fetch(socket, room_id, user_id, "chat")}
   end
 
   def handle_event("show_privates", _params, socket) do

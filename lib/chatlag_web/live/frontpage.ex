@@ -17,7 +17,7 @@ defmodule ChatlagWeb.Live.Frontpage do
     Chat.subscribe(@payload_topic)
 
     if connected?(socket) do
-      IO.inspect(session, label: "** ================== Conected")
+      # IO.inspect(session, label: "** ================== Conected")
     end
 
     {:ok, fetch(socket, user_id)}
@@ -86,12 +86,10 @@ defmodule ChatlagWeb.Live.Frontpage do
 
   def handle_info({:room_user_changed}, socket) do
     user_id = get_user_id(socket)
-    IO.inspect("#{user_id}", label: "************ room_user_changed")
     {:noreply, fetch(socket, user_id)}
   end
 
   def handle_info(:room_user_changed, socket) do
-    IO.inspect("Changed++++++++++++++++++")
     {:noreply, socket}
   end
 
@@ -99,10 +97,9 @@ defmodule ChatlagWeb.Live.Frontpage do
   #                  presence_diff
   # ========================================================================================
   def handle_info(
-        %{event: "presence_diff", payload: payload},
+        %{event: "presence_diff", payload: _payload},
         socket
       ) do
-    IO.inspect(payload)
     {:noreply, fetch(socket, user_id: get_user_id(socket))}
   end
 

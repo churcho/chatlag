@@ -9,6 +9,7 @@ defmodule Chatlag.Chat.Room do
     field :is_private, :boolean, default: false
     field :slug, :string
     field :attached, :string
+    field :url, :string
     field :bg_color, :string
     field :small_desc, :string
     field :title, :string
@@ -35,6 +36,7 @@ defmodule Chatlag.Chat.Room do
       :bg_color,
       :min_age,
       :attached,
+      :url,
       :slogen
     ])
     |> cast_attachments(attrs, [:bg_image])

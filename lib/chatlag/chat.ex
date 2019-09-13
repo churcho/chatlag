@@ -14,6 +14,10 @@ defmodule Chatlag.Chat do
     Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
   end
 
+  def unsubscribe(topic) do
+    Phoenix.PubSub.unsubscribe(Chatlag.PubSub, topic)
+  end
+
   @doc """
   Returns the list of rooms.
 

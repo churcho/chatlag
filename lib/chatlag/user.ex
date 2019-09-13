@@ -38,10 +38,14 @@ defmodule Chatlag.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id) do
-    case Cache.get_user(id) do
-      %User{} = user -> user
-      _ -> get_user_from_db(id)
+  def get_user!(id, force \\ false) do
+    if force do
+      get_user_from_db(id)
+    else
+      case Cache.get_user(id) do
+        %User{} = user -> user
+        _ -> get_user_from_db(id)
+      end
     end
   end
 
@@ -67,6 +71,37 @@ defmodule Chatlag.Users do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Suspend user.
+
+  ## Examples
+
+      iex> uspent_user(user_id)
+      %User{}
+
+  """
+  def suspend_user(user_id) do
+    user = get_user!(user_id, true)
+
+    if user do
+      cnt = user.suspend_counter + 1
+      now = Timex.now()
+      update_user(user, %{suspend_counter: cnt, suspend_at: now})
+    else
+      user
+    end
+  end
+
+  def unsuspend_user(user_id) do
+    user = get_user!(user_id, true)
+
+    if user do
+      update_user(user, %{suspend_at: nil})
+    else
+      user
+    end
   end
 
   @doc """
@@ -141,5 +176,13 @@ defmodule Chatlag.Users do
       end)
 
     Enum.find(users, fn u -> u.user_id == user_id end)
+  end
+
+  def online_users do
+    Presence.list(@all_users_topic)
+    |> Enum.map(fn {_user_id, data} ->
+      data[:metas]
+      |> List.first()
+    end)
   end
 end

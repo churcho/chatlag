@@ -22,8 +22,6 @@ defmodule Chatlag.Emails.ContactForm do
   def send(changeset) do
     case changeset.valid? do
       true ->
-        IO.inspect(changeset, label: "sending mail***")
-
         changeset.changes
         |> Emails.contact_email()
         |> Mailer.deliver_now()

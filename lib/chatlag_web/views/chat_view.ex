@@ -169,7 +169,12 @@ defmodule ChatlagWeb.ChatView do
 
   def attached(id) do
     room = Chat.get_room!(id)
-    room.attached
+
+    if room.url do
+      "<a href='#{room.url}' target='_blank'>#{room.attached}</a>"
+    else
+      room.attached
+    end
   end
 
   def msg_content(msg_id) do
@@ -204,5 +209,60 @@ defmodule ChatlagWeb.ChatView do
 
   def msg_by_reply(id) do
     get_msg_by_reply(id)
+  end
+
+  def is_admin(user_id) do
+    user = Users.get_user!(user_id, true)
+    user.role == "admin"
+  end
+
+  def get_admin do
+    admin =
+      for u <- Users.online_users() do
+        user = Users.get_user!(u.user_id, true)
+
+        if user.role == "admin" do
+          user.id
+        end
+      end
+
+    if admin do
+      admin |> Enum.filter(& &1) |> List.first()
+    else
+      nil
+    end
+  end
+
+  def user_suspended(user_id) do
+    user = Users.get_user!(user_id, true)
+    user.suspend_at
+  end
+
+  def user_suspended(user_id, party_id) do
+    user = Users.get_user!(user_id, true)
+
+    if user.role == "admin" do
+      false
+    else
+      party =
+        case party_id do
+          nil ->
+            party_id
+
+          _ ->
+            p = Users.get_user!(party_id, true)
+            p
+        end
+
+      if user.suspend_at do
+        if party_id && party.role == "admin" do
+          false
+        else
+          true
+        end
+      else
+        false
+      end
+    end
   end
 end

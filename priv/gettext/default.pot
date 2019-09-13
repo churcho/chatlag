@@ -42,20 +42,20 @@ msgid "Slug"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:11
+#: lib/chatlag_web/templates/room/form.html.eex:10
 #: lib/chatlag_web/templates/room/index.html.eex:6
 #: lib/chatlag_web/templates/room/new_form.html.eex:11
 msgid "Title"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:13
+#: lib/chatlag_web/templates/room/form.html.eex:12
 #: lib/chatlag_web/templates/room/new_form.html.eex:13
 msgid "Attached"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:12
+#: lib/chatlag_web/templates/room/form.html.eex:11
 #: lib/chatlag_web/templates/room/new_form.html.eex:12
 msgid "Slogen"
 msgstr ""
@@ -85,31 +85,31 @@ msgid "small_desc"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:40
+#: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:34
 msgid "Back"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:41
+#: lib/chatlag_web/templates/room/form.html.eex:37
 #: lib/chatlag_web/templates/room/new_form.html.eex:35
 msgid "Save"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:26
+#: lib/chatlag_web/templates/room/form.html.eex:25
 #: lib/chatlag_web/templates/room/new_form.html.eex:25
 msgid "bg_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:33
+#: lib/chatlag_web/templates/room/form.html.eex:31
 #: lib/chatlag_web/templates/room/new_form.html.eex:30
 msgid "bg_small_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:29
+#: lib/chatlag_web/templates/room/form.html.eex:27
 #: lib/chatlag_web/templates/room/new_form.html.eex:26
 msgid "room_icon"
 msgstr ""
@@ -120,7 +120,7 @@ msgid "Edit Room"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/form.html.eex:36
+#: lib/chatlag_web/templates/room/form.html.eex:33
 #: lib/chatlag_web/templates/room/new_form.html.eex:29
 msgid "midsize_image"
 msgstr ""
@@ -182,8 +182,33 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:9
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:14
 #: lib/chatlag_web/templates/chat/chat_users.html.leex:5
 #: lib/chatlag_web/templates/chat/letter.html.leex:5
 msgid "back to room"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:21
+msgid "Suspend"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/form.html.eex:13
+msgid "Url"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/auth/details.html.eex:25
+msgid "first time FB"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:18
+msgid "Un Suspend"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:9
+msgid "suspended"
 msgstr ""
