@@ -5,6 +5,7 @@
 import Config
 
 IO.puts("start...")
+
 database_url =
   System.get_env("DATABASE_URL") ||
     raise """
@@ -30,13 +31,13 @@ config :chatlag, Chatlag.Mailer,
   domain: System.get_env("MAILGUN_DOMAIN")
 
 config :chatlag, ChatlagWeb.Endpoint,
-#  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
+  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9050")],
   https: [
     # :inet6,
-    port: 443,
-    cipher_suite: :strong,
-    keyfile: System.get_env("APP_SSL_KEY_PATH"),
-    certfile: System.get_env("APP_SSL_CERT_PATH")
+    port: 9040
+    # cipher_suite: :strong,
+    # keyfile: System.get_env("APP_SSL_KEY_PATH"),
+    # certfile: System.get_env("APP_SSL_CERT_PATH")
   ],
 
   # https: [
