@@ -108,13 +108,31 @@ defmodule ChatlagWeb.AuthController do
 
     changeset = Users.change_user(%User{})
 
+    image_url = params["image"]
+    uid = params["uid"]
+
+    # save image
+    %HTTPoison.Response{body: body, headers: headers, status_code: status_code} =
+      HTTPoison.get!("#{image_url}")
+
+    image_name =
+      if status_code == 302 do
+        {"Location", loc} = Enum.find(headers, fn {key, _val} -> key == "Location" end)
+        %HTTPoison.Response{body: body, status_code: status_code} = HTTPoison.get!("#{loc}")
+        iname = "upload/users/#{uid}.jpg"
+        File.write(iname, body)
+        iname
+      else
+        params["image"]
+      end
+
     render(conn, "details.html",
       changeset: changeset,
       ip: ip,
       online: 100,
       email: params["email"],
       name: params["name"],
-      image: params["image"],
+      image: image_name,
       uid: params["uid"],
       token: get_csrf_token()
     )
