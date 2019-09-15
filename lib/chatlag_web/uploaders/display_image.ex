@@ -7,7 +7,7 @@ defmodule ChatlagWeb.DisplayImage do
   @acl :public_read
   @versions [:primary]
 
-  def storage_dir(:primary, {_file, room}) do
+  def storage_dir(:primary, {file, room}) do
     slug = room.slug
     "uploads/rooms/bg/#{slug}"
   end

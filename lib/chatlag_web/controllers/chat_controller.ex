@@ -17,6 +17,13 @@ defmodule ChatlagWeb.ChatController do
     )
   end
 
+  def upload(conn, params) do
+    IO.inspect(params, label: "Upload.....")
+
+    conn
+    |> send_resp(200, "")
+  end
+
   def chat(conn, %{"id" => room_id}) do
     user_id = get_session(conn, :user_id)
     room = Chat.get_room!(room_id)
@@ -39,7 +46,7 @@ defmodule ChatlagWeb.ChatController do
     Phoenix.LiveView.Controller.live_render(
       conn,
       ChatlagWeb.Live.Chat,
-      session: %{room_id: room_id, user_id: user_id}
+      session: %{room_id: room_id, user_id: user_id, token: get_csrf_token()}
     )
   end
 

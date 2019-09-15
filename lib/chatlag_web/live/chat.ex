@@ -34,7 +34,9 @@ defmodule ChatlagWeb.Live.Chat do
         privates: 0,
         contact_cs: ContactForm.changeset(),
         reply_to: 0,
-        suspended: user.suspend_at
+        suspended: user.suspend_at,
+        csrf_token: session.token,
+        image: ""
       })
 
     if user_suspended(user_id, party_id) do
@@ -153,6 +155,15 @@ defmodule ChatlagWeb.Live.Chat do
     {:noreply, assign(socket, reply_to: reply_to)}
   end
 
+  def store_media(%Plug.Upload{} = media) do
+    IO.inspect(media, label: "Good file")
+  end
+
+  def store_media(_) do
+    IO.puts("no upload")
+    nil
+  end
+
   # ===========================================================================
   # def handle_event(send_message, %{"message" => params}, socket) do
   # ===========================================================================
@@ -160,6 +171,9 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = String.to_integer(params["user_id"])
     room_id = String.to_integer(params["room_id"])
     content = params["content"]
+    media = params["new_media"] || ''
+
+    store_media(media)
 
     len = content |> String.trim() |> String.length()
     party_id = get_party_id(room_id, user_id)
@@ -170,7 +184,7 @@ defmodule ChatlagWeb.Live.Chat do
         _ -> PrivateMsg.is_blocked(user_id, party_id)
       end
 
-    if len > 0 && !isBlocked do
+    if (media != "" or len > 0) && !isBlocked do
       case Chat.create_message(params) do
         {:ok, _message} ->
           if party_id = get_party_id(room_id, user_id) do
@@ -187,7 +201,7 @@ defmodule ChatlagWeb.Live.Chat do
           end
 
           socket = fetch(socket, room_id, user_id)
-          {:noreply, assign(socket, reply_to: 0)}
+          {:noreply, assign(socket, reply_to: 0, image: "")}
 
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, changeset: changeset)}
@@ -336,6 +350,10 @@ defmodule ChatlagWeb.Live.Chat do
       {:error, changeset} ->
         {:noreply, fetch(assign(socket, contact_cs: changeset), room_id, user_id)}
     end
+  end
+
+  def handle_event("add_image", _params, socket) do
+    {:noreply, assign(socket, image: "image1")}
   end
 
   def handle_event("show_whoin", _params, socket) do

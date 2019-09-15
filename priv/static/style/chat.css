@@ -164,7 +164,8 @@ body * {
 }
 
 .massage_social {
-	display: inline;
+	/* display: inline; */
+	float: left;
 }
 
 .social_icon .icon {
@@ -595,7 +596,7 @@ body * {
 		overflow-wrap: anywhere !important;
 	}
 	.massage_social {
-		float: none;
+		/* float: none; */
 		margin-right: auto;
 		margin-top: 0.3em;
 	}

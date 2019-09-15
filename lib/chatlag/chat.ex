@@ -9,6 +9,7 @@ defmodule Chatlag.Chat do
   alias Chatlag.Chat.Room
   alias Chatlag.Chat.Message
   alias Chatlag.Workers.Cache
+  alias ChatlagWeb.UploadMedia
 
   def subscribe(topic) do
     Phoenix.PubSub.subscribe(Chatlag.PubSub, topic)
@@ -230,10 +231,29 @@ defmodule Chatlag.Chat do
 
   """
   def create_message(attrs \\ %{}) do
-    %Message{}
-    |> Message.changeset(attrs)
-    |> Repo.insert()
-    |> notify_subs([:message, :inserted])
+    msg =
+      %Message{}
+      |> Message.changeset(attrs)
+      |> Repo.insert()
+      |> notify_subs([:message, :inserted])
+
+    # IO.inspect(msg, label: "after create")
+
+    case msg do
+      {:ok, msg} ->
+        case fileSaved = UploadMedia.save_media(msg) do
+          _ ->
+            :error
+
+          _ ->
+            IO.inspect(fileSaved, label: "File saved ")
+        end
+
+      _ ->
+        :error
+    end
+
+    msg
   end
 
   @doc """

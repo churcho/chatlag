@@ -1,37 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>Chatlag</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
-  <link rel="stylesheet" type="text/css"
-  
-
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"/>
-  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
-
-  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/style/chat.css") %>" />
-</head>
-
-<style>
-.xs {
+  <head>
+    <title>Chatlag</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
+    <link rel="stylesheet" type="text/css" <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/style/chat.css") %>" />
+  </head>
+  <style>
+    .xs {
         font-size: small;
     }
-</style>
-<body>
-  
-  
-  <%= render @view_module, @view_template, assigns %>
-  
-  
-  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>
-  
-
-
-
-</body>
-
+  </style>
+  <body>
+    <%= render @view_module, @view_template, assigns %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>
+    <script>
+      jQuery(document).ready(function ($) {
+          let $image = $("#image_file");
+          $("#camera-id").click(function (event) {
+              event.preventDefault();
+              $image.click()
+          });
+      
+      
+          $("#image_file").change(function () {
+      
+              readURL(this);
+      
+          });
+      
+      
+      
+      
+      })
+      
+      function readURL(input) {
+          var reader = new FileReader();
+      
+      
+          $('#image-display').hide()
+          $('#video-display').hide()
+      
+          $('#media_name').val(input.files[0].name)
+          $('#media_size').val(input.files[0].size)
+          $('#media_type').val(input.files[0].type)
+      
+      
+          // check for valid type
+      
+          $type = $('#media_type').val()
+          $size = $('#media_size').val()
+      
+          if ( $type.includes("image") || $type.includes("video") ) {
+      
+              if ($size < 5 * 1024000) {
+                reader.onload = function (e) {
+                  if ($type.includes("image")) {
+                      console.log(e)
+                      $('#upload-image-pic').attr('src', e.target.result);
+                      $('#image-display').show()
+                  } else {
+                      $('#upload-video').attr('src', e.target.result);
+                      $('#upload-video').attr('type', $type);
+                      $('#video-display').show()
+                  }
+                  $('#media_content').val(e.target)
+                }
+      
+                reader.readAsDataURL(input.files[0]);
+              }
+          } else {
+              $('#media_name').val("")
+              $('#media_size').val("")
+              $('#media_type').val("")
+      
+              $('#upload-image-pic').attr('src', '');
+      
+          }
+      }
+          function startUpload(formData) {
+      
+              jQuery.ajax({
+                  type: 'POST',
+                  url: '/img_uploads',
+      
+                  data: formData,
+                  processData: true, //IMPORTANT!
+      
+                  cache: false,
+                  contentType: false,
+      
+      
+      
+                  success: function (data) {
+                      console.log("SUCCESS", data)
+                  },
+      
+                  error: function (data) {
+                      console.error(data);
+                  }
+              })
+          }
+    </script>
+  </body>
 </html>

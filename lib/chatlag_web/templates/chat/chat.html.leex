@@ -1,37 +1,40 @@
 <style>
-.pointer {
-  cursor: pointer;
-}
+  .pointer {
+    cursor: pointer;
+  }
+
   .hidden {
     display: none;
   }
+
   .phx-connected {
-      display: inline;
+    display: inline;
   }
-   body {
-       background: url(<%= getRoomBg(@last_room_id) %>);
-       background-color: <%= bg_color(@last_room_id) || "#56e4f0" %> !important;
-       background-repeat: no-repeat;
-   }
-  
-  
-  
-   @media screen and (max-width: 1260px) {
+
+  body {
+    background: url(<%= getRoomBg(@last_room_id) %>);
+    background-color: <%=bg_color(@last_room_id) || "#56e4f0"%> !important;
+    background-repeat: no-repeat;
+  }
+
+
+
+  @media screen and (max-width: 1260px) {
     body {
-        background:  url(<%= getRoomMidsizeBg(@last_room_id) %>);
-        background-repeat: no-repeat;
-        background-color: <%= bg_color(@last_room_id) || "#56e4f0" %> !important;
+      background: url(<%= getRoomMidsizeBg(@last_room_id) %>);
+      background-repeat: no-repeat;
+      background-color: <%=bg_color(@last_room_id) || "#56e4f0"%> !important;
     }
-   }
-  
-  
-   @media screen and (max-width: 992px) {
+  }
+
+
+  @media screen and (max-width: 992px) {
     body {
-        background:  url(<%= getRoomSmallBg(@last_room_id) %>);
-        background-repeat: no-repeat;
-        background-color: <%= bg_color(@last_room_id) || "#56e4f0" %> !important;
+      background: url(<%= getRoomSmallBg(@last_room_id) %>);
+      background-repeat: no-repeat;
+      background-color: <%=bg_color(@last_room_id) || "#56e4f0"%> !important;
     }
-   }
+  }
 </style>
 <div class="page">
   <div class="display-table">
@@ -40,22 +43,20 @@
       <div class="main">
 
         <%= case @display do %>
-          <% "chat" -> %>
-            <%= render "chat_room.html", assigns %>
-          <% "members" -> %>
-            <%= render "chat_users.html", assigns %>
-          <% "privates" -> %>
-            <%= render "chat_privates.html", assigns %>
-          <% "letter" -> %>
-            <%= render "letter.html", assigns %>
-          <% _ -> %>
-            <%= render "chat_room.html", assigns %>
+        <% "chat" -> %>
+        <%= render "chat_room.html", assigns %>
+        <% "members" -> %>
+        <%= render "chat_users.html", assigns %>
+        <% "privates" -> %>
+        <%= render "chat_privates.html", assigns %>
+        <% "letter" -> %>
+        <%= render "letter.html", assigns %>
+        <% _ -> %>
+        <%= render "chat_room.html", assigns %>
         <% end %>
         <%= render "chat_menu.html", assigns %>
 
+      </div>
     </div>
   </div>
 </div>
-</div>
-
-

@@ -27,26 +27,29 @@ liveSocket.connect()
 const targetNode = document.getElementById("chatscroll")
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    console.log(targetNode)
+document.addEventListener("DOMContentLoaded", function () {
   targetNode.scrollTop = targetNode.scrollHeight
 });
 // Options for the observer (which mutations to observe)
 let config = { attributes: true, childList: true, subtree: true };
 // Callback function to execute when mutations are observed
-var callback = function(mutationsList, observer) {
-  for(var mutation of mutationsList) {
+var callback = function (mutationsList, observer) {
+  for (var mutation of mutationsList) {
     if (mutation.type == 'childList') {
-    //   diff = targetNode.scrollHeight - targetNode.scrollTop
-      console.log("==>  <=====")
-    //   if (diff < 800) {
-        targetNode.scrollTop = targetNode.scrollHeight
-    //   } else {
-        // targetNode.scrollTop = targetNode.scrollHeight
-    //   }
+      // if (targetNode.scrollTop == null) {
+      //   diff = 0
+      // } else {
+      //   diff = targetNode.scrollHeight - targetNode.scrollTop
+      // }
+      // if (targetNode.scrollTop != null && diff < 300) {
+      targetNode.scrollTop = targetNode.scrollHeight
+      //   } else {
+      // targetNode.scrollTop = targetNode.scrollHeight
+      // }
     }
   }
 };
+
 // Create an observer instance linked to the callback function
 var observer = new MutationObserver(callback);
 // Start observing the target node for configured mutations

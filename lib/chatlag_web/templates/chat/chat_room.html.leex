@@ -84,12 +84,20 @@
 
 
     <% end %>
-
-
-
-
   </div>
   <div class="chat_input">
+
+    <div id="image-display" class="hidden chat_box   msg_reply">
+      <img height="50" id="upload-image-pic" src="" />
+    </div>
+
+
+    <div id="video-display" class="hidden chat_box   msg_reply">
+      <video controls width="100" height="100">
+        <source id="upload-video" src="" type="">
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
     <%= if @reply_to > 0 do %>
     <div class="chat_box   msg_reply">
@@ -121,19 +129,35 @@
     </h5>
     <% end %>
     <% else %>
+
+
     <div class="input_box">
+
+
       <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
+
+      <input type="hidden" value="<%= @csrf_token %>" name="_csrf_token" />
+      <%= hidden_input f, :media_name, id: "media_name" %>
+      <%= hidden_input f, :media_type, id: "media_type" %>
+      <%= hidden_input f, :media_content, id: "media_content" %>
+      <%= hidden_input f, :media_size, id: "media_size" %>
 
       <%= hidden_input f, :room_id %>
       <%= hidden_input f, :user_id %>
       <%= hidden_input f, :reply_to, value: @reply_to %>
+      <span class="hidden">
+        <input type="file" name="message[new_media]" id="image_file" class="inputfile" />
+      </span>
 
       <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה"
         placeholder="שלח הודעה" />
       <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span
           class="icon"></span></button>
       </form>
-      <a class="input_icon camera" title="העלה תמונה"><span class="icon"></span></a>
+
+      <a xphx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
+        <span class="icon"></span></a>
+
       <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
     </div>
     <% end %>
