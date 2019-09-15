@@ -45,16 +45,40 @@
         alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
       <% end %>
       <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
+        <%= if is_image(msg.media_type) do %>
+        <img max-width="200" src="<%= msg.media %>" />
+        <% end %>
+        <%= if is_video(msg.media_type) do %>
+        <video controls width="200" height="200">
+          <source src="<%= msg.media %>">
+          Your browser does not support the video tag.
+        </video>
+        <% end %>
+
+        <div class="clear"></div>
         <%= if msg.reply_to > 0 do %>
         <div class="msg_reply_display">
           <div class="massage_meta">
             <span class="username"><%= msg_nickname(msg.reply_to) %></span>
           </div>
+          <%= if is_image(msg.media_type) do %>
+          <img width="50" height="50" src="<%= msg.media %>" />
+          <% end %>
+          <%= if is_video(msg.media_type) do %>
+          <video controls width="50" height="50">
+            <source src="<%= msg.media %>">
+            Your browser does not support the video tag.
+          </video>
+          <% end %>
+
+          <div class="clear"></div>
           <%= msg_content(msg.reply_to) %>
         </div>
         <div class="clear"></div>
 
         <% end %>
+
+
         <%= msg.content %>
         <div class="massage_footer">
           <div class="massage_meta">
@@ -136,7 +160,7 @@
 
       <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
 
-      <input type="hidden" value="<%= @csrf_token %>" name="_csrf_token" />
+      <input type="hidden" value="<%= @csrf_token %>" name="csrf" />
       <%= hidden_input f, :media_name, id: "media_name" %>
       <%= hidden_input f, :media_type, id: "media_type" %>
       <%= hidden_input f, :media_content, id: "media_content" %>
@@ -158,7 +182,7 @@
       <a xphx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
         <span class="icon"></span></a>
 
-      <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a>
+      <!-- <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a> -->
     </div>
     <% end %>
   </div>

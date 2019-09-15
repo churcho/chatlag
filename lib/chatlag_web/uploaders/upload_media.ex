@@ -24,7 +24,7 @@ defmodule ChatlagWeb.UploadMedia do
     # IO.inspect(storage_dir(msg[:room_id], msg[:id]), label: "store image to")
     %Message{
       media_type: mtype,
-      media_content: media_content,
+      media_name: media_name,
       room_id: room_id,
       id: id
     } = msg
@@ -36,14 +36,14 @@ defmodule ChatlagWeb.UploadMedia do
       _ ->
         [_, _, ext] = Regex.run(~r/(.*)\/(.*)/, mtype)
 
-        IO.puts("Try to save the file ")
-
         case storage_dir(room_id) do
           {fullDir, strDir} ->
-            IO.inspect(media_content, label: "Content ")
+            res = File.cp!("./uploads/tmp/#{media_name}", ".#{strDir}/#{id}.#{ext}")
 
-            case File.write!("#{fullDir}/#{id}.#{ext}", media_content) do
+            case res do
               :ok ->
+                File.rm("./uploads/tmp/#{media_name}")
+                :timer.sleep(300)
                 "#{strDir}/#{id}.#{ext}"
 
               _ ->
@@ -52,7 +52,6 @@ defmodule ChatlagWeb.UploadMedia do
             end
 
           :error ->
-            "storage dir error"
             :error
         end
     end

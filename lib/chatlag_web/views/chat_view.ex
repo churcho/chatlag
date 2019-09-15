@@ -85,6 +85,28 @@ defmodule ChatlagWeb.ChatView do
     end
   end
 
+  def is_image(mtype) do
+    case mtype do
+      nil ->
+        false
+
+      _ ->
+        [_, image, _] = Regex.run(~r/(.*)\/(.*)/, mtype)
+        image == "image"
+    end
+  end
+
+  def is_video(mtype) do
+    case mtype do
+      nil ->
+        false
+
+      _ ->
+        [_, video, _] = Regex.run(~r/(.*)\/(.*)/, mtype)
+        video == "video"
+    end
+  end
+
   def getUserNickname(me, uid, pid) do
     u =
       if me == pid do

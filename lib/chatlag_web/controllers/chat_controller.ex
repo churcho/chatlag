@@ -20,6 +20,16 @@ defmodule ChatlagWeb.ChatController do
   def upload(conn, params) do
     IO.inspect(params, label: "Upload.....")
 
+    if upload = params["file"] do
+      # upload.path is a real file, and will be removed after request finish
+      # do File.cp before conn call
+      IO.inspect(upload.path)
+      IO.inspect(upload.filename)
+      # your phoenix project dir
+      File.cp(upload.path, "./uploads/tmp/#{upload.filename}")
+      "./uploads/tmp/#{upload.filename}"
+    end
+
     conn
     |> send_resp(200, "")
   end

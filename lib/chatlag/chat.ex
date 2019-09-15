@@ -242,11 +242,12 @@ defmodule Chatlag.Chat do
     case msg do
       {:ok, msg} ->
         case fileSaved = UploadMedia.save_media(msg) do
-          _ ->
+          :error ->
             :error
 
           _ ->
-            IO.inspect(fileSaved, label: "File saved ")
+            # IO.inspect(fileSaved, label: "File saved ")
+            update_message(msg, %{media: fileSaved})
         end
 
       _ ->
