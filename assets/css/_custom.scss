@@ -57,3 +57,16 @@ body {
 .pull-right {
 	float: right !important;
 }
+
+.error-msg {
+	padding: 3em;
+}
+
+.outer {
+  overflow: hidden;
+	position: absolute;
+  height: 100px;
+  width: 100px;
+  right: -500px;
+  top: 50px;
+}

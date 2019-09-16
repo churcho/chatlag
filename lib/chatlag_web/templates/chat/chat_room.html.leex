@@ -46,7 +46,7 @@
       <% end %>
       <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
         <%= if is_image(msg.media_type) do %>
-        <img max-width="200" src="<%= msg.media %>" />
+        <img width="200" src="<%= msg.media %>" />
         <% end %>
         <%= if is_video(msg.media_type) do %>
         <video controls width="200" height="200">
@@ -111,16 +111,24 @@
   </div>
   <div class="chat_input">
 
-    <div id="image-display" class="hidden chat_box   msg_reply">
+    <div id="image-display" class="hidden chat_box  alert msg_reply">
+      <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
+        <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
+      </button>
       <img height="50" id="upload-image-pic" src="" />
+      <span class="alert hidden error-msg"></span>
     </div>
 
 
-    <div id="video-display" class="hidden chat_box   msg_reply">
-      <video controls width="100" height="100">
+    <div id="video-display" class="hidden chat_box alert  msg_reply">
+      <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
+        <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
+      </button>
+      <video id="video-tag" controls width="100" height="100">
         <source id="upload-video" src="" type="">
         Your browser does not support the video tag.
       </video>
+      <span class="hidden error-msg"></span>
     </div>
 
     <%= if @reply_to > 0 do %>
@@ -157,6 +165,7 @@
 
     <div class="input_box">
 
+      <button phx-click="removed_image" class="hidden btn btn-link" id="enable-click"></button>
 
       <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
 
@@ -166,20 +175,21 @@
       <%= hidden_input f, :media_content, id: "media_content" %>
       <%= hidden_input f, :media_size, id: "media_size" %>
 
+
       <%= hidden_input f, :room_id %>
       <%= hidden_input f, :user_id %>
       <%= hidden_input f, :reply_to, value: @reply_to %>
-      <span class="hidden">
+      <span class="outer">
         <input type="file" name="message[new_media]" id="image_file" class="inputfile" />
       </span>
 
       <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה"
         placeholder="שלח הודעה" />
-      <button phx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span
+      <button xphx-disable-with=".." type="submit" class="submit input_icon" title="שלח"><span
           class="icon"></span></button>
       </form>
 
-      <a xphx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
+      <a phx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
         <span class="icon"></span></a>
 
       <!-- <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a> -->

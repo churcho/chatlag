@@ -24,21 +24,53 @@
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>
     <script>
         jQuery(document).ready(function ($) {
+            let $trigger = "";
+            let $inImage = false;
             let $image = $("#image_file");
             $("#camera-id").click(function (event) {
                 event.preventDefault();
+                $('#media_name').val("")
+                $trigger = "start";
+                $inImage = true;
+                $image.focus()
                 $image.click()
             });
 
+            $(".image-close").click(function () {
+                $('#image-display').hide()
+                $('#video-display').hide()
+                $('#media_type').val("")
+                $('#media_name').val("")
+                $('#media_size').val("")
+
+            })
 
             $("#image_file").change(function () {
 
                 readURL(this);
 
             });
+
+            $("#image_file").focusout(function () {
+
+                $trigger = "";
+
+            });
+            $("#image_file").focusin(function () {
+
+                if ($trigger == "" && $inImage) {
+                    if ($('#media_name').val() == "") {
+                        $('#enable-click').click()
+                        $inImage = false;
+                    }
+                }
+
+
+            });
         })
 
         function readURL(input) {
+
             var reader = new FileReader();
 
 
@@ -60,7 +92,6 @@
                 if ($size < 5 * 1024000) {
                     reader.onload = function (e) {
                         if ($type.includes("image")) {
-                            console.log(e)
                             $('#upload-image-pic').attr('src', e.target.result);
                             $('#image-display').show()
                         } else {
@@ -83,13 +114,20 @@
                             contentType: false,
                             processData: false,
                             success: function (response) {
-                                console.log("File uploaded")
                             },
                         });
 
                     }
 
                     reader.readAsDataURL(input.files[0]);
+                } else {
+                    if ($type.includes("image")) { $("#upload-image-pic").hide(); $('#image-display').show() }
+                    if ($type.includes("video")) { $("#video-tag").hide(); $('#video-display').show() }
+                    $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג")
+                    $(".error-msg").show()
+                    $('#media_type').val("")
+                    $('#media_name').val("")
+                    $('#media_size').val("")
                 }
             } else {
                 $('#media_name').val("")
@@ -99,6 +137,7 @@
                 $('#upload-image-pic').attr('src', '');
 
             }
+            $inImage = false;
         }
         function startUpload(formData) {
 

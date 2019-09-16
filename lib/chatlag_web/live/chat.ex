@@ -171,7 +171,7 @@ defmodule ChatlagWeb.Live.Chat do
     user_id = String.to_integer(params["user_id"])
     room_id = String.to_integer(params["room_id"])
     content = params["content"]
-    media = params["new_media"] || ''
+    media = params["media_type"] || ''
 
     store_media(media)
 
@@ -353,7 +353,19 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("add_image", _params, socket) do
-    {:noreply, assign(socket, image: "image1")}
+    IO.puts("** add image")
+    room_id = get_room_id(socket)
+
+    Chat.unsubscribe(topic(room_id))
+    {:noreply, socket}
+  end
+
+  def handle_event("removed_image", _params, socket) do
+    IO.puts("** removed_image")
+    room_id = get_room_id(socket)
+
+    Chat.subscribe(topic(room_id))
+    {:noreply, socket}
   end
 
   def handle_event("show_whoin", _params, socket) do
