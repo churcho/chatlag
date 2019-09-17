@@ -154,8 +154,9 @@ body * {
   color: black;
 }
 
-.link {
+.link , a:hover, a {
 	cursor: pointer;
+	color: black;
 }
 .social-link {
 	margin-right: 0.5rem;
@@ -227,14 +228,14 @@ body * {
 }
 .leading-row {
 	padding-top: 1em;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .leading-chat-title {
 	font-weight: 600;
 	letter-spacing: -0.02em;
 	margin-top: 0.1em;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .leading-online {
@@ -298,10 +299,10 @@ body * {
 }
 .additional-title {
 	font-weight: 600;
-	font-size: 0.85em;
+	font-size: 1.05em;
 }
 .additional-desc {
-	font-size: 10px;
+	font-size: 12px;
 	line-height: 1.3em;
 }
 

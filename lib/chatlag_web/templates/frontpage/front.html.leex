@@ -35,9 +35,7 @@
   <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
   <style>
-    a {
-      color: black;
-    }
+
   </style>
 </head>
 
@@ -54,8 +52,8 @@
           </div>
           <div class="header-left">
             <form class="search-form">
-              <input type="text" class="input-search" max-length="50" placeholder="חפש צ'אט" title="חפש צ'אט"
-                tabindex="1" />
+              <input type="text" class="input-search" name="search" max-length="50" placeholder="חפש צ'אט"
+                title="חפש צ'אט" tabindex="1" />
               <button type="submit" class="submit-search" title="חפש צ'אט" tabindex="2"></button>
             </form>
             <div class="social">
@@ -66,8 +64,10 @@
               <a href="<%= shareMessage(:wp) %>" class="link social-link" title="וואטסאפ" tabindex="5"><img
                   class="social-img" alt="וואטסאפ" src="/images/whatsapp.jpg" /></a>
             </div>
+            <%= if @user_id do %>
             <a href="/logout" class="link social-link" title="התנתקות" tabindex="3"><img class="social-img"
                 alt="התנתקות" src="/images/shutdown.png" /></a>
+            <% end %>
             <div class="clear"></div>
           </div>
           <div class="border"></div>

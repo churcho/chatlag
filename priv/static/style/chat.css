@@ -80,9 +80,9 @@ body * {
 }
 .chat_alert {
 	margin: 1.7em auto 2em auto;
-	background-color: #FFeEF7;
+	background-color: white;
 	text-align: center;
-	width: 40em;
+	/* width: 40em; */
 }
 .icon {
 	color: #08dfab;
@@ -101,12 +101,12 @@ body * {
 	cursor: pointer;
 }
 .chat_massage {
-	margin: 0em 0 0.3em 0;
+	margin: 0em 0 1.1em 0;
 	position: relative;
 }
 .profile_picture {
-	width: 3em;
-	height: 3em;
+	width: 2.4em;
+	height: 2.4em;
 	border-radius: 50%;
 	float: right;
 }
@@ -115,6 +115,16 @@ body * {
 	max-width: 42em;
 	margin-right: 1em;
 	overflow-wrap: anywhere;
+
+
+
+-moz-box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
+-webkit-box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
+box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
+
+
+
+
 }
 .massage_box:before {
 	content: "";
@@ -132,12 +142,16 @@ body * {
 
 
 .massage_box.me {
-	background: #caeeca;
+	background: #e1e7e5;
 }
 .massage_box.me:before {
-	border-bottom: 0.6em solid #caeeca;
+	border-bottom: 0.6em solid #e1e7e5;
 }
 
+
+.massage_box > me > msg_reply_display {
+	background: white;
+}
 
 
 .massage_footer {
@@ -151,16 +165,18 @@ body * {
 }
 
 .reply {
-	background-color: #08dfab;
-	color: black !important;
+	background-color: #04e1ab;
+	color: white !important;
 	padding: 0.1em 1em;
 	border-radius: 1em;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .massage_meta {
 		overflow-wrap: anywhere !important;
 		float: right;
+		color: #777b7b;
 }
 
 .massage_social {
@@ -496,7 +512,7 @@ body * {
 		overflow-wrap: anywhere;
 	}
 	.massage_box.me:before {
-		border-bottom: 0.6em solid #caeeca;
+		border-bottom: 0.6em solid #e1e7e5;
 	}
 	.menu {
 		float: none;
@@ -514,7 +530,7 @@ body * {
 		overflow-wrap: anywhere;
 	}
 	.massage_box.me {
-		background: #caeeca;
+		background: #e1e7e5;
 	}
 	
 	.profile_picture {
@@ -629,12 +645,14 @@ body * {
 	width: 100%;
 	max-width: 100%;
 	box-shadow: none;
+	height: 4em;
   }
   .private_massages_title {
 	padding: 0;
 	margin: 0;
 	font-size: 2em;
 	float: right;
+	margin-top: 0.4em;
   }
   .dark-green {
 	color: #05b489;
@@ -652,6 +670,7 @@ body * {
   .go-back {
 	background-color: #09c99a;
 	color: white;
+	margin-top: 1em;
   }
   .go-back .icon:before {
 	content: "\f053";

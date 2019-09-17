@@ -56,30 +56,11 @@
         <% end %>
 
         <div class="clear"></div>
-        <%= if msg.reply_to > 0 do %>
-        <div class="msg_reply_display">
-          <div class="massage_meta">
-            <span class="username"><%= msg_nickname(msg.reply_to) %></span>
-          </div>
-          <%= if is_image(msg.media_type) do %>
-          <img width="50" height="50" src="<%= msg.media %>" />
-          <% end %>
-          <%= if is_video(msg.media_type) do %>
-          <video controls width="50" height="50">
-            <source src="<%= msg.media %>">
-            Your browser does not support the video tag.
-          </video>
-          <% end %>
-
-          <div class="clear"></div>
-          <%= msg_content(msg.reply_to) %>
-        </div>
-        <div class="clear"></div>
-
-        <% end %>
-
 
         <%= msg.content %>
+
+
+
         <div class="massage_footer">
           <div class="massage_meta">
             <span class="username"><%= getUserNickname(msg.user_id) %></span>
@@ -100,9 +81,35 @@
             </div>
           </div>
           <div class="clear"></div>
+          <%= if msg.reply_to > 0 do %>
+          <div class="msg_reply_display">
+            <%= msg_content(msg.reply_to) %>
+            <div class="clear"></div>
+
+            <div class="massage_meta">
+              <span class="username"><%= msg_nickname(msg.reply_to) %></span>
+              <span class="usertime"><%= showDate(msg.updated_at) %></span>
+            </div>
+            <%= if is_image(msg.media_type) do %>
+            <img width="50" height="50" src="<%= msg.media %>" />
+            <% end %>
+            <%= if is_video(msg.media_type) do %>
+            <video controls width="50" height="50">
+              <source src="<%= msg.media %>">
+              Your browser does not support the video tag.
+            </video>
+            <% end %>
+
+            <div class="clear"></div>
+          </div>
+
+          <% end %>
         </div>
       </div>
       <div class="clear"></div>
+
+
+
     </div>
 
 

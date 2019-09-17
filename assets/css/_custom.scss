@@ -46,11 +46,16 @@ body {
 .msg_reply_display {
 	padding: 0.2em !important;
 	// box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
-	border-right: 2px solid green;
+	// border-right: 2px solid green;
 	overflow-wrap: break-word;
+	border-radius: 0.5em;
 	font-size: small;
-	background: white;
+	background: #03fcf8;
+	margin: 0.6em;
+	color: black;
 }
+
+
 .pull-left {
 	float: left !important;
 }
@@ -70,3 +75,6 @@ body {
   right: -500px;
   top: 50px;
 }
+ a, a:hover {
+	 color: black;
+ }
