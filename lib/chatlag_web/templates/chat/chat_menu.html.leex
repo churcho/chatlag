@@ -1,22 +1,28 @@
 <div class="menu">
   <div class="menu_icon d-none d-md-block d-lg-block">
-    <img alt="Logo" src="/images/header-logo.png" />
+    <img class="room-logo" alt="Logo" src="/images/header-logo.png" />
   </div>
   <a href="/chat">
     <div class="menu_icon home"><span class="icon"></span></div>
   </a>
-  <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="menu_icon comments"><i class="icon fas fa-comments"></i><span ></div>
-    <div phx-click="show_members" class="menu_icon users"><span class="icon"></span><span class="notifications"><%= @users_in_room %></div>
-      <div phx-click="show_privates" class="menu_icon user"><span class="icon"></span><span class="notifications"><%= @privates %></span></div>
-      <div phx-click="contact_form" class="menu_icon mail"><span class="icon"></span></div>
-      <div  class="menu_icon share"><span class="icon"> </span>
-        <div class="massage_social sub-menu hidden">
-          <a target="_blank" href="<%= shareMessage(@room_url, :facebook, "") %>" class="social_icon twitter" title="טוויטר"><i class="fab fa-facebook"></i></a>
-          <a target="_blank" href="<%= shareMessage(@room_url, :twitter, "") %>" class="social_icon twitter" title="פייסבוק"><i class="fab fa-twitter"></i></a>
-          <a target="_blank" href="<%= shareMessage(@room_url, :wp, "") %>" class="social_icon twitter" title="ווצאפ"><i class="fab fa-whatsapp-square"></i></a>
-        </div>
-      </div>
-      <div class="clear"></div>
+  <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="menu_icon comments"><i
+      class="icon fas fa-comments"></i><span></div>
+  <div phx-click="show_members" class="menu_icon users"><span class="icon"></span><span
+      class="notifications"><%= @users_in_room %></div>
+  <div phx-click="show_privates" class="menu_icon user"><span class="icon"></span><span
+      class="notifications"><%= @privates %></span></div>
+  <div phx-click="contact_form" class="menu_icon mail"><span class="icon"></span></div>
+  <div class="menu_icon share"><span class="icon"> </span>
+    <div class="massage_social sub-menu hidden">
+      <a target="_blank" href="<%= shareMessage(@room_url, :facebook, "") %>" class="social_icon twitter"
+        title="טוויטר"><i class="fab fa-facebook"></i></a>
+      <a target="_blank" href="<%= shareMessage(@room_url, :twitter, "") %>" class="social_icon twitter"
+        title="פייסבוק"><i class="fab fa-twitter"></i></a>
+      <a target="_blank" href="<%= shareMessage(@room_url, :wp, "") %>" class="social_icon twitter" title="ווצאפ"><i
+          class="fab fa-whatsapp-square"></i></a>
     </div>
-    <div class="clear"></div>
   </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>

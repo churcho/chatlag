@@ -12,7 +12,8 @@
       <div class="col-sm-6 col-xs-12 align-center logo-col">
         <div class="logo">
           <h1 class="logo-title" title="ChatLag">
-            <a href="/"><img class="logo-image align-center" alt="ChatLag" title="ChatLag" src="/images/logo-big.png"/></a>
+            <a href="/"><img class="logo-image align-center" alt="ChatLag" title="ChatLag"
+                src="/images/logo-big.png" /></a>
           </h1>
         </div>
         <div class="online-users smaller">
@@ -27,21 +28,22 @@
             <%= form_for @changeset, Routes.auth_path(@conn, :create), fn f -> %>
             <div class="alert-info" role="alert">
               <%= if f.errors[:gender] do %>
-                חובה לבחור מגדר
+              חובה לבחור מגדר
               <% end %>
               <%= if f.errors[:nickname] do %>
-                <%= if f.errors[:gender] do %>
-                  |
-                <% end %>
-                לא נבחר כינוי/כינוי תפוס/כינוי ארוך מדי
+              <%= if f.errors[:gender] do %>
+              |
+              <% end %>
+              לא נבחר כינוי/כינוי תפוס/כינוי ארוך מדי
               <% end %>
             </div>
             <div class="hidden-form">
               <%= hidden_input f, :ip_address, value: @ip %>
-              <input id="nickname" class="input" type="text" name="user[nickname]" type="text" maxlength="20" placeholder="בחר כינוי"/>
-              <input class="hidden" type="radio" name="user[gender]" value="" checked/>
+              <input id="nickname" class="input" type="text" name="user[nickname]" type="text" maxlength="20"
+                placeholder="בחר כינוי" />
+              <input class="hidden" type="radio" name="user[gender]" value="" checked />
               <label for="male" class="label align-center">
-                <input id="male" class="radio gender-radio" name="user[gender]" type="radio" value="M"/>
+                <input id="male" class="radio gender-radio" name="user[gender]" type="radio" value="M" />
                 <div class="icon circled gender-icon icon-male align-center" aria-hidden="true"></div>
                 <span class="smaller lightgray">זכר</span>
               </label>
@@ -58,34 +60,36 @@
             </div>
             <button type="submit" class="button green-back login-anonymous-button">התחברות אנונימית</button>
             <span class="bigger icon arrow-up"></span>
-          <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row align-center">
+          <div class="col-xs-2" aria-hidden="true"></div>
+          <div class="col-sm-11 col-xs-8">
+            <div class="col-xs-2" aria-hidden="true"></div>
+            <div class="middle-line border-black smaller col-xs-8">
+              <span class="white-back padding">או</span>
+            </div>
+            <div class="col-xs-2" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="row">
+          <a href="/auth/facebook">
+            <div class="col-xs-2" aria-hidden="true"></div>
+            <div class="login-facebook col-sm-11 col-xs-8">
+              <button class="button fb-blue-back login-facebook-button">
+                Facebook<span class="icon icon-left fb"></span>
+              </button>
+            </div>
+          </a>
+        </div>
+        <div class="login-terms smaller col-sm-11 col-xs-12 align-center">
+          בעת ההתחברות את/ה מאשר/ת את
+          <a target="_blank" href="<%= Routes.static_path(@conn, "/images/chatlag-tc.pdf") %>"
+            class="link green underline">תנאי
+            השימוש</a>
         </div>
       </div>
-      <div class="row align-center">
-        <div class="col-xs-2" aria-hidden="true"></div>
-        <div class="col-sm-11 col-xs-8">
-          <div class="col-xs-2" aria-hidden="true"></div>
-          <div class="middle-line border-black smaller col-xs-8">
-            <span class="white-back padding">או</span>
-          </div>
-          <div class="col-xs-2" aria-hidden="true"></div>
-        </div>
-      </div>
-      <div class="row">
-        <a href="/auth/facebook">
-          <div class="col-xs-2" aria-hidden="true"></div>
-          <div class="login-facebook col-sm-11 col-xs-8">
-            <button class="button fb-blue-back login-facebook-button">
-              Facebook<span class="icon icon-left fb"></span>
-            </button>
-          </div>
-        </a>
-      </div>
-      <div class="login-terms smaller col-sm-11 col-xs-12 align-center">
-        בעת ההתחברות את/ה מאשר/ת את
-        <a href="javascript:void(0)" class="link green underline">תנאי השימוש</a>
-      </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 </div>

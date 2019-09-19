@@ -235,7 +235,6 @@ defmodule Chatlag.Chat do
       %Message{}
       |> Message.changeset(attrs)
       |> Repo.insert()
-      |> notify_subs([:message, :inserted])
 
     # IO.inspect(msg, label: "after create")
 
@@ -255,6 +254,7 @@ defmodule Chatlag.Chat do
     end
 
     msg
+    |> notify_subs([:message, :inserted])
   end
 
   @doc """

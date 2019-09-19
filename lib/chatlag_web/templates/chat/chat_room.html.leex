@@ -46,10 +46,10 @@
       <% end %>
       <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: "me", else: "" %>">
         <%= if is_image(msg.media_type) do %>
-        <img width="200" src="<%= msg.media %>" />
+        <img class="chat-media" src="<%= msg.media %>" />
         <% end %>
         <%= if is_video(msg.media_type) do %>
-        <video controls width="200" height="200">
+        <video controls class="chat-media">
           <source src="<%= msg.media %>">
           Your browser does not support the video tag.
         </video>
