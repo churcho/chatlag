@@ -135,7 +135,7 @@ defmodule ChatlagWeb.ChatView do
           "https://facebook.com/sharer.php?u=#{thisUrl}&message=#{msg}"
 
         :wp ->
-          "https://wa.me/?text=#{thisUrl} #{msg}"
+          "https://web.whatsapp.com/send?text=#{thisUrl} #{msg}"
 
         :twitter ->
           "https://twitter.com/intent/tweet?text=#{thisUrl} #{msg}"
