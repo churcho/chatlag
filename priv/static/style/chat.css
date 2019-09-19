@@ -563,6 +563,10 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 		top: 0.5em;
 	}
 
+	.input_submit {
+		top: 0.4em;
+	}
+
 	.menu_icon {
 		float: right;
 		border-bottom:0;
