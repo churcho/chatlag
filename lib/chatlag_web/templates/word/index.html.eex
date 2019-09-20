@@ -1,0 +1,26 @@
+<h1><%= gettext("Listing Words") %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= gettext("Content") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for word <- @words do %>
+    <tr>
+      <td><%= word.content %></td>
+
+      <td>
+        <span><%= link raw("<i class='fas fa-eye'></i>"), to: Routes.word_path(@conn, :show, word) %></span>
+        <span><%= link raw("<i class='far fa-edit'></i>"), to: Routes.word_path(@conn, :edit, word) %></span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= if @counts < 1 do %>
+<span><%= link "New Word", to: Routes.word_path(@conn, :new) %></span>
+<% end %>

@@ -67,6 +67,7 @@ defmodule ChatlagWeb.Router do
 
     get "/", RoomController, :index
     resources "/rooms", RoomController
+    resources "/words", WordController
     get "/users", UserController, :index
   end
 

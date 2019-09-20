@@ -33,7 +33,7 @@ msgid "On front"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:29
+#: lib/chatlag_web/templates/layout/admin.html.eex:31
 msgid "Rooms"
 msgstr ""
 
@@ -88,12 +88,15 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:34
+#: lib/chatlag_web/templates/word/form.html.eex:11
+#: lib/chatlag_web/templates/word/show.html.eex:7
 msgid "Back"
 msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/form.html.eex:37
 #: lib/chatlag_web/templates/room/new_form.html.eex:35
+#: lib/chatlag_web/templates/word/form.html.eex:12
 msgid "Save"
 msgstr ""
 
@@ -127,7 +130,7 @@ msgid "midsize_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:152
+#: lib/chatlag_web/views/chat_view.ex:178
 msgid "Private Room"
 msgstr ""
 
@@ -151,12 +154,12 @@ msgid "Sign in"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:28
+#: lib/chatlag_web/templates/layout/admin.html.eex:29
 msgid "Lobby"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:34
+#: lib/chatlag_web/templates/layout/admin.html.eex:40
 msgid "Logout"
 msgstr ""
 
@@ -212,4 +215,35 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_room.html.leex:9
 msgid "suspended"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:33
+#: lib/chatlag_web/templates/word/show.html.eex:1
+msgid "Reserved words"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/word/index.html.eex:6
+msgid "Content"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/word/show.html.eex:6
+msgid "Edit"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/word/index.html.eex:1
+msgid "Listing Words"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/word/edit.html.eex:1
+msgid "Edit Word"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/chatlag_web/templates/word/form.html.eex:8
+msgid "reserved words with comma"
 msgstr ""

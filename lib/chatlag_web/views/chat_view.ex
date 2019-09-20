@@ -204,8 +204,23 @@ defmodule ChatlagWeb.ChatView do
   end
 
   def msg_content(msg_id) do
+    resWords = Chatlag.Reserved.get_first_content()
+
+    tr = fn s1 ->
+      resWords |> Enum.reduce(s1, fn x, acc -> String.replace(String.trim(acc), x, "***") end)
+    end
+
     msg = Chat.get_message!(msg_id)
-    msg.content
+
+    # IO.inspect(resWords, label: "Message ID")
+    # IO.inspect(msg_id, label: "Message ID")
+    # IO.inspect(msg.content, label: "origin")
+    # IO.inspect(tr.(msg.content), label: "trans")
+
+    case msg.content do
+      nil -> nil
+      _ -> tr.(msg.content) |> String.replace(~r/(\*\*\*)+/, "***")
+    end
   end
 
   def msg_nickname(msg_id) do

@@ -1,0 +1,9 @@
+<h1><%= gettext("Reserved words") %></h1>
+
+<%= @word.content %>
+<hr>
+<div>
+  <span><%= link gettext("Edit"), to: Routes.word_path(@conn, :edit, @word), class: "btn btn-primary" %></span>
+  <span><%= link gettext("Back"), to: Routes.word_path(@conn, :index) %></span>
+
+</div>
