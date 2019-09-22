@@ -369,7 +369,8 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 	border-bottom: 1px solid rgba(0,0,0,0.4);
 	padding: 0.7em 0;
 	text-align: center;
-	color: #08dfab;
+	/* color: #08dfab; */
+	color: #5f7d76;
 	cursor: pointer;
 	position: relative;
 }
@@ -397,6 +398,62 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 .mail .icon:before {
 	content: "\f0e0"
 }
+
+
+
+.social_icon .icon {
+	color: inherit;
+	font-size: 1.2em;
+	cursor: pointer;
+}
+
+.social_icon .icon:before {
+	font-family: "Font Awesome 5 Brands";
+	margin: 0 0.5em 0 0;
+}
+
+.facebook .icon:before {
+	content: "\f09a";
+}
+.instagram .icon:before {
+	content: "\f16d";
+}
+.whatsapp .icon:before {
+	content: "\f232";
+}
+.twitter .icon:before {
+	content: "\f099";
+}
+
+.menu_share_popup .icon:before {
+	font-weight: 400;
+	margin: 0 auto 0 auto;
+	padding: 0.2em 0.2em 0.2em 0.2em;
+	border-top: 1px solid #eeeeee;
+	font-size: 1em;
+}
+
+
+
+.xmenu_share_popup {
+	position: relative;
+	width: 100%;
+	padding-top: 0.5em;
+}
+
+
+
+.menu_share_popup {
+	position: absolute;
+	width: 2.5em;
+	background-color: white;
+	left: -3em;
+	top: -2em;
+	border: 1px solid #eeeeee;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+}
+
+
 
 .share .icon:before {
 	content: "\f1e0"
@@ -466,7 +523,7 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 		min-width: 100%;
 		margin: 0;
 		padding: 0;
-		padding-bottom: 5.4em;
+		padding-bottom: 6.0em;
 	}
 	.table-cell {
 		vertical-align: top;
@@ -490,11 +547,11 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 	}
 	
 	.header {
-		height: 2em;
+		height: 2.5em;
 	}
 	.chat {
-		width: 92%;
-		max-width: 92%;
+		width: 97.5%;
+		max-width: 97.5%;
 		margin: 0 auto 0 auto;
 		float: none;
 		border-radius: 1em;
@@ -593,6 +650,19 @@ box-shadow: -0.3em 0.3em 0.3em #b4b9b7;
 		padding-top: 0em;
 		height: 100%;
 	}
+
+	.menu_share_popup {
+		width: 7.5em;
+		left: -0.5em;
+		top: -2.2em;
+		font-size: 1.3em;
+		position: absolute;
+		background-color: white;
+		border: 1px solid #efefef;
+		padding-top: 0;
+		font-size: 1.3em;
+	}
+
 	.users {
 		padding-top: 0;
 	}
