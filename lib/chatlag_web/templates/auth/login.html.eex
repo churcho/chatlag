@@ -36,6 +36,11 @@
               <% end %>
               לא נבחר כינוי/כינוי תפוס/כינוי ארוך מדי
               <% end %>
+
+              <%= if f.errors[:age] do %>
+              חובה לבחור גיל
+              <% end %>
+
             </div>
             <div class="hidden-form">
               <%= hidden_input f, :ip_address, value: @ip %>

@@ -45,6 +45,7 @@ defmodule ChatlagWeb.Router do
     get "/details", AuthController, :details
     get "/logout", AuthController, :logout
     post "/login", AuthController, :create
+    put "/login", AuthController, :update
     post "/img_uploads", ChatController, :upload
   end
 
