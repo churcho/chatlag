@@ -15,23 +15,21 @@
   <div id="chatroom-share" class="menu_icon share">
     <span class="icon"></span>
     <div class="menu_share_popup hidden">
-      <a target="_blank" href="<%= shareMessage(@room_url, :facebook, "") %>" class="social_icon whatsapp"
-        title="פייסבוק"> <i class="fab fa-facebook-square"></i> </a>
-      <div class="clear"></div>
-
-      <a target="_blank" href="<%= shareMessage(@room_url, :twitter, "") %>" class="social_icon twitter"
-        title="טוויטר"><i class="fab fa-twitter-square"></i></a>
-      <div class="clear"></div>
-      <a target="_blank" href="<%= shareMessage(@room_url, :wp, "") %>" class="social_icon facebook" title="ווצאפ"><i
+      <a target="_blank" href="<%= shareMessage(@room_url, :facebook) %>" class="social_icon facebook" title="פייסבוק">
+        <i class="fab fa-facebook-square"></i> </a>
+      <div class="d-none d-md-block d-lg-block clear"></div>
+      <a target="_blank" href="<%= shareMessage(@room_url, :twitter) %>" class="social_icon twitter" title="טוויטר"><i
+          class="fab fa-twitter-square"></i></a>
+      <div class="d-none d-md-block d-lg-block clear"></div>
+      <a target="_blank" href="<%= shareMessage(@room_url, :wp) %>" class="social_icon whatsapp" title="ווצאפ"><i
           class="fab fa-whatsapp-square"></i></a>
-      <div class="clear"></div>
+      <div class="d-none d-md-block d-lg-block clear"></div>
     </div>
   </div>
 
 
 
 </div>
-<div class="clear"></div>
 </div>
 <div class="clear"></div>
 </div>
