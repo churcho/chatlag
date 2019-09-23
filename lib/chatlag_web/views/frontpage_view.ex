@@ -21,7 +21,7 @@ defmodule ChatlagWeb.FrontpageView do
 
         :wp ->
           # "https://wa.me/?text=#{thisUrl}"
-          "https://api.whatsapp.com/send?text=%22kjkj%20kj%20kjk%22&url=lll.com"
+          "https://api.whatsapp.com/send?text=מצאתי אתר יפה&url=https://chatlag.co.il"
 
         :twitter ->
           "https://twitter.com/intent/tweet?text=#{thisUrl}"
