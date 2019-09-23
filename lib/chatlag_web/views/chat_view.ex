@@ -274,6 +274,16 @@ defmodule ChatlagWeb.ChatView do
     end
   end
 
+  def admin_class(user_id) do
+    user = Users.get_user!(user_id, true)
+
+    if user.role == "admin" do
+      "is-admin"
+    else
+      ""
+    end
+  end
+
   def user_suspended(user_id) do
     user = Users.get_user!(user_id, true)
     user.suspend_at

@@ -10,8 +10,23 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
 
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/style/chat.css") %>" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css ") %>" />
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/style/chat.css ") %>" />
 </head>
 <style>
     .xs {
@@ -21,8 +36,8 @@
 
 <body>
     <%= render @view_module, @view_template, assigns %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js ") %>"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js ") %>"></script>
     <script>
         jQuery(document).ready(function ($) {
             let $trigger = "";
@@ -119,16 +134,21 @@
                             data: fd,
                             contentType: false,
                             processData: false,
-                            success: function (response) {
-                            },
+                            success: function (response) { },
                         });
 
                     }
 
                     reader.readAsDataURL(input.files[0]);
                 } else {
-                    if ($type.includes("image")) { $("#upload-image-pic").hide(); $('#image-display').show() }
-                    if ($type.includes("video")) { $("#video-tag").hide(); $('#video-display').show() }
+                    if ($type.includes("image")) {
+                        $("#upload-image-pic").hide();
+                        $('#image-display').show()
+                    }
+                    if ($type.includes("video")) {
+                        $("#video-tag").hide();
+                        $('#video-display').show()
+                    }
                     $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג")
                     $(".error-msg").show()
                     $('#media_type').val("")
@@ -145,6 +165,7 @@
             }
             $inImage = false;
         }
+
         function startUpload(formData) {
 
             jQuery.ajax({

@@ -1,80 +1,84 @@
 body {
-  direction: rtl;
-  text-align: right !important;
+    direction: rtl;
+    text-align: right !important;
 }
 
 .box {
-	// border: 1px solid;
-	padding: 1px;
-	// border-radius: 0.5em;
+    // border: 1px solid;
+    padding: 1px;
+    // border-radius: 0.5em;
 }
 
-.btn-sm, .btn-group-sm > .btn {
-	line-height: 0.8 !important;
+.btn-sm,
+.btn-group-sm>.btn {
+    line-height: 0.8 !important;
 }
 
 .chat_alert_private {
-		margin: 1.7em auto 2em auto;
-		background-color: #FFeEF7;
-		/* text-align: center; */
-		width: 95%;
+    margin: 1.7em auto 2em auto;
+    background-color: #FFeEF7;
+    /* text-align: center; */
+    width: 95%;
 }
 
 .active-chat {
-	color: #05b489;
+    color: #05b489;
 }
 
 .active-image {
-	border: 1px solid green;
+    border: 2px solid yellow;
 }
 
 .small-profile {
-	width: 2em !important;
-	height: 2em !important;
+    width: 2em !important;
+    height: 2em !important;
 }
 
 .msg_reply {
-	// margin: 0 !important;
-	margin-top: -4rem;
-	padding: 0.4em !important;
-	box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
-	border-right: 2px solid green;
-	overflow-wrap: break-word;
-	width: 95% !important;
+    // margin: 0 !important;
+    margin-top: -4rem;
+    padding: 0.4em !important;
+    box-shadow: -0.1em 0.1em 0.7em rgba(0, 0, 0, 0.2);
+    border-right: 2px solid green;
+    overflow-wrap: break-word;
+    width: 95% !important;
 }
 
 .msg_reply_display {
-	padding: 0.2em !important;
-	// box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
-	// border-right: 2px solid green;
-	overflow-wrap: break-word;
-	border-radius: 0.5em;
-	font-size: small;
-	background: #03fcf8;
-	margin: 0.6em;
-	color: black;
+    padding: 0.2em !important;
+    // box-shadow: -0.1em 0.1em 0.7em rgba(0,0,0,0.2); 
+    // border-right: 2px solid green;
+    overflow-wrap: break-word;
+    border-radius: 0.5em;
+    font-size: small;
+    background: #f3f7f5;
+    border-right: 2px solid #b4b9b7;
+    margin: 0.6em;
+    color: black;
 }
-
 
 .pull-left {
-	float: left !important;
+    float: left !important;
 }
+
 .pull-right {
-	float: right !important;
+    float: right !important;
 }
 
 .error-msg {
-	padding: 3em;
+    padding: 3em;
 }
 
 .outer {
-  overflow: hidden;
-	position: absolute;
-  height: 100px;
-  width: 100px;
-  right: -500px;
-  top: 50px;
+    overflow: hidden;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    right: -500px;
+    top: 50px;
 }
- a, a:hover {
-	 color: black;
- }
+
+a,
+a:hover {
+    color: black;
+}

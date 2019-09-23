@@ -2,7 +2,7 @@
   <div class="container box-shadow">
     <header class="row header centered-flex">
       <div class="col-xs-12">
-        <a href="javascript:void(0)" onClick="return rudr_favorite(this);" class="smaller favorites link">
+        <a href="javascript:void(0)" onClick="return rudr_favorite(this);" class="hidden smaller favorites link">
           <span class="icon icon-right star" aria-hidden="true"></span>
           הוסף למועדפים
         </a>

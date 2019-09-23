@@ -1,45 +1,46 @@
 <div class="chat">
-  <div class="chat_box upper_box">
-    <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Contact us") %> </span> </h2>
-    <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
-      <%= gettext("back to room")%></div>
-    <div class="clear"></div>
-  </div>
-  <div class="container" id="chatscroll">
-    <div class="row">
-      <div class="col">
-      </div>
-      <div class="col">
-        <img class="img-logo" src="/images/logo-big.png" alt="Chatlag" />
-      </div>
-      <div class="col">
-      </div>
+    <div class="chat_box upper_box">
+        <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Contact us") %> </span> </h2>
+        <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
+            <%= gettext("back to room")%>
+        </div>
+        <div class="clear"></div>
     </div>
-    <div class="col">
+    <div class="container" id="chatscroll">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <img style="width: 75%;" class="img-logo" src="/images/logo-big.png" alt="Chatlag" />
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <div class="col">
+        </div>
+        <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
+            <%= if @contact_cs.valid? do %>
+                ההודעה נשלחה בהצלחה
+                <% end %>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="שם מלא" name="contact_form[name]">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="אימייל" name="contact_form[email]">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <textarea class="form-control" placeholder="הודעה" name="contact_form[message]"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="col mx-auto">
+                            <button class="btn btn-info xs" type="submit">שלחו הודעה</button>
+                        </div>
+                    </div>
+                    </form>
     </div>
-    <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
-    <%= if @contact_cs.valid? do %>
-    ההודעה נשלחה בהצלחה
-    <% end %>
-    <div class="form-row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="שם מלא" name="contact_form[name]">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="אימייל" name="contact_form[email]">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col">
-        <textarea class="form-control" placeholder="הודעה" name="contact_form[message]"></textarea>
-      </div>
-    </div>
-    <br>
-    <div class="form-row">
-      <div class="col mx-auto">
-        <button class="btn btn-info xs" type="submit">שלחו הודעה</button>
-      </div>
-    </div>
-    </form>
-  </div>
 </div>

@@ -5,7 +5,8 @@ body {
 .box {
   padding: 1px; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn,
+.btn-group-sm > .btn {
   line-height: 0.8 !important; }
 
 .chat_alert_private {
@@ -18,7 +19,7 @@ body {
   color: #05b489; }
 
 .active-image {
-  border: 1px solid green; }
+  border: 2px solid yellow; }
 
 .small-profile {
   width: 2em !important;
@@ -37,7 +38,8 @@ body {
   overflow-wrap: break-word;
   border-radius: 0.5em;
   font-size: small;
-  background: #03fcf8;
+  background: #f3f7f5;
+  border-right: 2px solid #b4b9b7;
   margin: 0.6em;
   color: black; }
 
@@ -58,7 +60,8 @@ body {
   right: -500px;
   top: 50px; }
 
-a, a:hover {
+a,
+a:hover {
   color: black; }
 
 /*!
