@@ -20,8 +20,7 @@ defmodule ChatlagWeb.FrontpageView do
           "https://facebook.com/sharer.php?u=#{thisUrl}"
 
         :wp ->
-          # "https://wa.me/?text=#{thisUrl}"
-          "https://api.whatsapp.com/send?text=רציתי לשתף אתכם באתר הזה https://chatlag.co.il&url=https://chatlag.co.il"
+          "https://api.whatsapp.com/send?text=רציתי לשתף אתכם באתר הזה #{thisUrl}&url=https://chatlag.co.il"
 
         :twitter ->
           "https://twitter.com/intent/tweet?text=#{thisUrl}"
