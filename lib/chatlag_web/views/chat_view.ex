@@ -214,16 +214,29 @@ defmodule ChatlagWeb.ChatView do
       resWords |> Enum.reduce(s1, fn x, acc -> String.replace(String.trim(acc), x, "***") end)
     end
 
-    msg = Chat.get_message!(msg_id)
+    if msg_id do
+      msg = Chat.get_message!(msg_id)
 
-    # IO.inspect(resWords, label: "Message ID")
-    # IO.inspect(msg_id, label: "Message ID")
-    # IO.inspect(msg.content, label: "origin")
-    # IO.inspect(tr.(msg.content), label: "trans")
+      # IO.inspect(resWords, label: "Message ID")
+      # IO.inspect(msg_id, label: "Message ID")
+      # IO.inspect(msg.content, label: "origin")
+      # IO.inspect(tr.(msg.content), label: "trans")
 
-    case msg.content do
-      nil -> nil
-      _ -> tr.(msg.content) |> String.replace(~r/(\*\*\*)+/, "***")
+      case msg do
+        nil ->
+          nil
+
+        _ ->
+          content =
+            msg.content
+            |> String.split(" ")
+            |> Enum.filter(fn w -> String.length(w) < 10 end)
+            |> Enum.join(" ")
+
+          tr.(content) |> String.replace(~r/(\*\*\*)+/, "***")
+      end
+    else
+      nil
     end
   end
 
