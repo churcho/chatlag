@@ -1,191 +1,200 @@
 <div class="chat">
     <%= if @is_private do %>
-        <div class="chat_box upper_box">
-            <h2 class="private_massages_title">
-                שיחה פרטית
-                <span class="light-green xs">
-        <%= getUserNickname(@party_id) %>
-        <%= if user_suspended(@party_id) do %>
-        (<%= gettext("suspended") %>)
-        <% end %>
-      </span>
-            </h2>
-            <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
-                <%= gettext("back to room")%><span class="icon"></span></div>
-            <%= if is_admin(@user_id) do %>
+    <div class="chat_box upper_box">
+        <h2 class="private_massages_title">
+            שיחה פרטית
+            <span class="light-green xs">
+                <%= getUserNickname(@party_id) %>
                 <%= if user_suspended(@party_id) do %>
-                    <div phx-click="unsuspend_user" phx-value="<%= @party_id %>" class="pointer button">
-                        <%= gettext("Un Suspend")%><span class="icon"></span></div>
-                    <% else %>
-                        <div phx-click="suspend_user" phx-value="<%= @party_id %>" class="pointer button">
-                            <%= gettext("Suspend")%><span class="icon"></span></div>
+                (<%= gettext("suspended") %>)
+                <% end %>
+            </span>
+        </h2>
+        <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
+            <%= gettext("back to room")%><span class="icon"></span></div>
+        <%= if is_admin(@user_id) do %>
+        <%= if user_suspended(@party_id) do %>
+        <div phx-click="unsuspend_user" phx-value="<%= @party_id %>" class="pointer button">
+            <%= gettext("Un Suspend")%><span class="go-back icon"></span></div>
+        <% else %>
+        <div phx-click="suspend_user" phx-value="<%= @party_id %>" class="pointer button">
+            <%= gettext("Suspend")%><span class="go-back icon"></span></div>
+        <% end %>
+
+        <% end %>
+        <div class="clear"></div>
+
+    </div>
+
+
+    <% else %>
+    <div class="chat_box chat_alert">
+        <%= raw attached(@room_id) %>
+    </div>
+    <% end %>
+    <div class="chat_scroll" id="chatscroll">
+        <%= for msg <- @messages do %>
+
+        <div class="chat_massage massage01">
+            <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id or is_blocked(@user_id, msg.user_id) do %>
+            <img class='profile_picture <%= admin_class(msg.user_id) %> <%= if is_online?(msg.user_id), do: "active-image", else: "offline" %>'
+                alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+            <% else %>
+            <img phx-click="private_room" phx-value="<%= msg.user_id %>"
+                class='<%= if is_online?(msg.user_id), do: "active-image", else: "offline" %> pointer profile_picture'
+                alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
+            <% end %>
+            <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: " me ", else: " " %>">
+                <%= if is_image(msg.media_type) do %>
+                <img class="chat-media" src="<%= msg.media %>" />
+                <% end %>
+                <%= if is_video(msg.media_type) do %>
+                <video controls class="chat-media">
+                    <source src="<%= msg.media %>">
+                    Your browser does not support the video tag.
+                </video>
+                <% end %>
+
+                <div class="clear"></div>
+
+                <span class="msg-content"><%= msg_content(msg.id) %></span>
+
+
+
+                <div class="massage_footer">
+                    <div class="massage_meta">
+                        <span class="username"><%= getUserNickname(msg.user_id) %></span>
+                        <span class="usertime"><%= showDate(msg.updated_at) %></span>
+                        <a class="reply">
+                            <span phx-click="msg_reply" phx-value="<%= msg.id %>">
+                                הגב
+                            </span>
+                        </a>
+                        <div class="massage_social">
+                            <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>"
+                                class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
+                            <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>"
+                                class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
+                            <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>"
+                                class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <%= if msg.reply_to > 0 do %>
+                    <div class="msg_reply_display">
+                        <span class="msg-content"><%= msg_content(msg.reply_to) %></span>
+                        <div class="clear"></div>
+
+                        <div class="massage_meta">
+                            <span class="username"><%= msg_nickname(msg.reply_to) %></span>
+                            <span class="usertime"><%= showDate(msg.updated_at) %></span>
+                        </div>
+                        <%= if is_image(msg.media_type) do %>
+                        <img width="50" height="50" src="<%= msg.media %>" />
+                        <% end %>
+                        <%= if is_video(msg.media_type) do %>
+                        <video controls width="50" height="50">
+                            <source src="<%= msg.media %>">
+                            Your browser does not support the video tag.
+                        </video>
                         <% end %>
 
-                            <% end %>
-                                <div class="clear"></div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <% end %>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+
 
         </div>
 
 
-        <% else %>
-            <div class="chat_box chat_alert">
-                <%= raw attached(@room_id) %>
-            </div>
-            <% end %>
-                <div class="chat_scroll" id="chatscroll">
-                    <%= for msg <- @messages do %>
 
-                        <div class="chat_massage massage01">
-                            <%= if !is_online?(msg.user_id) or  @user_id == msg.user_id or is_blocked(@user_id, msg.user_id) do %>
-                                <img class='profile_picture <%= admin_class(msg.user_id) %> <%= if is_online?(msg.user_id), do: "active-image", else: "offline" %>' alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
-                                <% else %>
-                                    <img phx-click="private_room" phx-value="<%= msg.user_id %>" class='<%= if is_online?(msg.user_id), do: "active-image", else: "offline" %> pointer profile_picture' alt="user_pic" src="<%= getUserIcon(msg.user_id) %>" />
-                                    <% end %>
-                                        <div class="chat_box massage_box <%= if @user_id == msg.user_id, do: " me ", else: " " %>">
-                                            <%= if is_image(msg.media_type) do %>
-                                                <img class="chat-media" src="<%= msg.media %>" />
-                                                <% end %>
-                                                    <%= if is_video(msg.media_type) do %>
-                                                        <video controls class="chat-media">
-          <source src="<%= msg.media %>">
-          Your browser does not support the video tag.
-        </video>
-                                                        <% end %>
+        <% end %>
+    </div>
+    <div class="chat_input">
 
-                                                            <div class="clear"></div>
-
-                                                            <span class="msg-content"><%= msg_content(msg.id) %></span>
+        <div id="image-display" class="hidden chat_box  alert msg_reply">
+            <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
+                <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
+            </button>
+            <img height="50" id="upload-image-pic" src="" />
+            <span class="alert hidden error-msg"></span>
+        </div>
 
 
-
-                                                            <div class="massage_footer">
-                                                                <div class="massage_meta">
-                                                                    <span class="username"><%= getUserNickname(msg.user_id) %></span>
-                                                                    <span class="usertime"><%= showDate(msg.updated_at) %></span>
-                                                                    <a class="reply">
-              <span phx-click="msg_reply" phx-value="<%= msg.id %>">
-                הגב
-              </span>
-            </a>
-                                                                    <div class="massage_social">
-                                                                        <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>" class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
-                                                                        <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>" class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
-                                                                        <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>" class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
-
-                                                                    </div>
-                                                                </div>
-                                                                <div class="clear"></div>
-                                                                <%= if msg.reply_to > 0 do %>
-                                                                    <div class="msg_reply_display">
-                                                                              <span class="msg-content"><%= msg_content(msg.reply_to) %></span>
-                                                                            <div class="clear"></div>
-
-                                                                            <div class="massage_meta">
-                                                                                <span class="username"><%= msg_nickname(msg.reply_to) %></span>
-                                                                                <span class="usertime"><%= showDate(msg.updated_at) %></span>
-                                                                            </div>
-                                                                            <%= if is_image(msg.media_type) do %>
-                                                                                <img width="50" height="50" src="<%= msg.media %>" />
-                                                                                <% end %>
-                                                                                    <%= if is_video(msg.media_type) do %>
-                                                                                        <video controls width="50" height="50">
-              <source src="<%= msg.media %>">
-              Your browser does not support the video tag.
+        <div id="video-display" class="hidden chat_box alert  msg_reply">
+            <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
+                <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
+            </button>
+            <video id="video-tag" controls width="100" height="100">
+                <source id="upload-video" src="" type="">
+                Your browser does not support the video tag.
             </video>
-                                                                                        <% end %>
+            <span class="hidden error-msg"></span>
+        </div>
 
-                                                                                            <div class="clear"></div>
-                                                                    </div>
+        <%= if @reply_to > 0 do %>
+        <div class="chat_box   msg_reply">
+            <span class="massage_footer username"> <%= msg_nickname(@reply_to) %> </span>
+            <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
+                <span phx-click="close_reply" class="pull-left" aria-hidden="true">&times;</span>
+            </button>
+            <div class="clear"></div>
+            <span class="msg-content"><%= msg_content(@reply_to) %></span>
+        </div>
+        <div class="clear"></div>
+        <% end %>
 
-                                                                    <% end %>
-                                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
+        <%= if user_suspended(@user_id, @party_id) do %>
+        <%= if ! get_admin do %>
+        <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם יכולים
+            להשתתף בשיחות בחדרים. הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
+        </h5>
 
-
-
-                        </div>
-
-
-
-                        <% end %>
-                </div>
-                <div class="chat_input">
-
-                    <div id="image-display" class="hidden chat_box  alert msg_reply">
-                        <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
-        <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
-      </button>
-                        <img height="50" id="upload-image-pic" src="" />
-                        <span class="alert hidden error-msg"></span>
-                    </div>
-
-
-                    <div id="video-display" class="hidden chat_box alert  msg_reply">
-                        <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
-        <span phx-click="removed_image" class="image-close pull-left" aria-hidden="true">&times;</span>
-      </button>
-                        <video id="video-tag" controls width="100" height="100">
-        <source id="upload-video" src="" type="">
-        Your browser does not support the video tag.
-      </video>
-                        <span class="hidden error-msg"></span>
-                    </div>
-
-                    <%= if @reply_to > 0 do %>
-                        <div class="chat_box   msg_reply">
-                            <span class="massage_footer username"> <%= msg_nickname(@reply_to) %> </span>
-                            <button type="button" class="pull-left close" data-dismiss="alert" aria-label="Close">
-        <span phx-click="close_reply" class="pull-left" aria-hidden="true">&times;</span>
-      </button>
-                            <div class="clear"></div>
-                            <span class="msg-content"><%= msg_content(@reply_to) %></span>
-                        </div>
-                        <div class="clear"></div>
-                        <% end %>
-
-                            <%= if user_suspended(@user_id, @party_id) do %>
-                                <%= if ! get_admin do %>
-                                    <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
-                                    </h5>
-
-                                    <% else %>
-                                        <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room" phx-value="<%= get_admin() %>" class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים. תוכלו לפנות למנהל המערכת לפרטים
-                                        </h5>
-                                        <% end %>
-                                            <% else %>
+        <% else %>
+        <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room" phx-value="<%= get_admin() %>"
+            class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים. תוכלו לפנות למנהל המערכת לפרטים
+        </h5>
+        <% end %>
+        <% else %>
 
 
-                                                <div class="input_box">
+        <div class="input_box">
 
-                                                    <button phx-click="removed_image" class="hidden btn btn-link" id="enable-click"></button>
+            <button phx-click="removed_image" class="hidden btn btn-link" id="enable-click"></button>
 
-                                                    <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
+            <%= f = form_for @changeset, "#", [phx_submit: :send_message, multipart: true, autocomplete: :off] %>
 
-                                                        <input type="hidden" value="<%= @csrf_token %>" name="csrf" />
-                                                        <%= hidden_input f, :media_name, id: "media_name" %>
-                                                            <%= hidden_input f, :media_type, id: "media_type" %>
-                                                                <%= hidden_input f, :media_content, id: "media_content" %>
-                                                                    <%= hidden_input f, :media_size, id: "media_size" %>
+            <input type="hidden" value="<%= @csrf_token %>" name="csrf" />
+            <%= hidden_input f, :media_name, id: "media_name" %>
+            <%= hidden_input f, :media_type, id: "media_type" %>
+            <%= hidden_input f, :media_content, id: "media_content" %>
+            <%= hidden_input f, :media_size, id: "media_size" %>
 
 
-                                                                        <%= hidden_input f, :room_id %>
-                                                                            <%= hidden_input f, :user_id %>
-                                                                                <%= hidden_input f, :reply_to, value: @reply_to %>
-                                                                                    <span class="outer">
-        <input type="file" name="message[new_media]" id="image_file" class="inputfile" />
-      </span>
+            <%= hidden_input f, :room_id %>
+            <%= hidden_input f, :user_id %>
+            <%= hidden_input f, :reply_to, value: @reply_to %>
+            <span class="outer">
+                <input type="file" name="message[new_media]" id="image_file" class="inputfile" />
+            </span>
 
-                                                                                    <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה" placeholder="שלח הודעה" />
-                                                                                    <button xphx-disable-with=".." type="submit" class="submit input_submit input_icon" title="שלח"><span
-          class="icon"></span></button>
-                                                                                    </form>
+            <input type="text" class="chat-msg input" name="message[content]" maxlength="255" title="שלח הודעה"
+                placeholder="שלח הודעה" />
+            <button xphx-disable-with=".." type="submit" class="submit input_submit input_icon" title="שלח"><span
+                    class="icon"></span></button>
+            </form>
 
-                                                                                    <a phx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
-                                                                                        <span class="icon"></span></a>
+            <a phx-click="add_image" id="camera-id" class="input_icon camera" title="העלה תמונה">
+                <span class="icon"></span></a>
 
-                                                                                    <!-- <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a> -->
-                                                </div>
-                                                <% end %>
-                </div>
+            <!-- <a class="input_icon emoji" title="אימוג'י"><span class="icon"></span></a> -->
+        </div>
+        <% end %>
+    </div>
 </div>

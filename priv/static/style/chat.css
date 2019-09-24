@@ -326,7 +326,7 @@ ac .dot:nth-child(2) {
     position: relative;
 }
 
-.input {
+.letter-input {
     width: 100%;
     border-radius: 0;
     background-color: white;
@@ -337,7 +337,24 @@ ac .dot:nth-child(2) {
     font-family: "Open Sans Hebrew", Arial, sans-serif;
     box-shadow: 0 0 5px #0bdfac;
 
+    margin: 1em auto;
+    margin: 0.4em auto;
+    padding: 0.6em 3em 0.6em 5.5em;
 
+
+}
+.input {
+    width: 100%;
+    border-radius: 0;
+    background-color: white;
+    border: 0;
+    font-size: 1em;
+    font-family: "Open Sans Hebrew", Arial, sans-serif;
+    box-shadow: 0 0 5px #0bdfac;
+
+    margin: 1em auto;
+    margin: 0.4em auto;
+    padding: 0.6em 3em 0.6em 5.5em;
 
 
 }
