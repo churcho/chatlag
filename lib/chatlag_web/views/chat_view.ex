@@ -217,23 +217,23 @@ defmodule ChatlagWeb.ChatView do
     if msg_id do
       msg = Chat.get_message!(msg_id)
 
-      # IO.inspect(resWords, label: "Message ID")
-      # IO.inspect(msg_id, label: "Message ID")
-      # IO.inspect(msg.content, label: "origin")
-      # IO.inspect(tr.(msg.content), label: "trans")
-
       case msg do
         nil ->
           nil
 
         _ ->
-          content =
-            msg.content
-            |> String.split(" ")
-            |> Enum.filter(fn w -> String.length(w) < 10 end)
-            |> Enum.join(" ")
+          case msg.content do
+            nil -> nil
+            "" -> nil
+            _ ->
+              content =
+                msg.content
+                |> String.split(" ")
+                |> Enum.filter(fn w -> String.length(w) < 10 end)
+                |> Enum.join(" ")
 
-          tr.(content) |> String.replace(~r/(\*\*\*)+/, "***")
+              tr.(content) |> String.replace(~r/(\*\*\*)+/, "***")
+              end
       end
     else
       nil
