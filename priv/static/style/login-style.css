@@ -311,7 +311,7 @@ select {
     display: block;
     padding: 0.4em 1em;
     border-radius: 0.35em;
-    box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px #0bdfac;
     background-color: #fff
 }
 

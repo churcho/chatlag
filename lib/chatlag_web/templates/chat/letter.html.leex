@@ -11,7 +11,7 @@
             <div class="col">
             </div>
             <div class="col">
-                <img style="width: 75%;" class="img-logo" src="/images/logo-big.png" alt="Chatlag" />
+                <img style="width: 50%;" class="img-logo" src="/images/logo-big.png" alt="Chatlag" />
             </div>
             <div class="col">
             </div>
@@ -19,28 +19,28 @@
         <div class="col">
         </div>
         <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
-            <%= if @contact_cs.valid? do %>
-                ההודעה נשלחה בהצלחה
-                <% end %>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="שם מלא" name="contact_form[name]">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="אימייל" name="contact_form[email]">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <textarea class="form-control" placeholder="הודעה" name="contact_form[message]"></textarea>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col mx-auto">
-                            <button class="btn btn-info xs" type="submit">שלחו הודעה</button>
-                        </div>
-                    </div>
-                    </form>
+        <%= if @contact_cs.valid? do %>
+        ההודעה נשלחה בהצלחה
+        <% end %>
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="input" placeholder="שם מלא" name="contact_form[name]">
+            </div>
+            <div class="col">
+                <input type="text" class="input" placeholder="אימייל" name="contact_form[email]">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <textarea class="input" placeholder="הודעה" name="contact_form[message]"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col mx-auto">
+                <button class="btn btn-letter " type="submit">שלחו הודעה</button>
+            </div>
+        </div>
+        </form>
     </div>
 </div>

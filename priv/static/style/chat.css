@@ -332,10 +332,31 @@ ac .dot:nth-child(2) {
     background-color: white;
     border: 0;
     font-size: 1em;
-    margin: 1em auto;
-    padding: 0.6em 3em 0.6em 5.5em;
+    margin: 0.4em auto;
+    /* padding: 0.6em 3em 0.6em 5.5em; */
     font-family: "Open Sans Hebrew", Arial, sans-serif;
+    box-shadow: 0 0 5px #0bdfac;
+
+
+
+
 }
+
+.btn-letter {
+	/* color: #fff; */
+	background-color: #0de1ae;
+	border-color: #17a2b8;
+	font-size: large;
+}
+.xinput {
+	margin: 1%;
+	display: block;
+	padding: 0.4em 0.5em;
+	border-radius: 0.35em;
+	box-shadow: 0 0 5px black;
+	background-color: #fff;
+}
+
 
 .emoji .icon:before {
     content: "\f59a";

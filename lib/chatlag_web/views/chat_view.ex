@@ -55,10 +55,14 @@ defmodule ChatlagWeb.ChatView do
     if user.image do
       user.image
     else
-      if user.gender == "F" do
-        "/images/female.png"
+      if user.role == "admin" do
+        "/images/Logo.png"
       else
-        "/images/male.png"
+        if user.gender == "F" do
+          "/images/female.png"
+        else
+          "/images/male.png"
+        end
       end
     end
   end
