@@ -108,7 +108,7 @@ body * {
 }
 
 .msg-content {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .icon {
@@ -326,55 +326,34 @@ ac .dot:nth-child(2) {
     position: relative;
 }
 
-.letter-input {
-    width: 100%;
-    border-radius: 0;
-    background-color: white;
-    border: 0;
-    font-size: 1em;
-    margin: 0.4em auto;
-    /* padding: 0.6em 3em 0.6em 5.5em; */
-    font-family: "Open Sans Hebrew", Arial, sans-serif;
-    box-shadow: 0 0 5px #0bdfac;
-
-    margin: 1em auto;
-    margin: 0.4em auto;
-    padding: 0.6em 3em 0.6em 5.5em;
-
-
-}
 .input {
     width: 100%;
     border-radius: 0;
     background-color: white;
     border: 0;
     font-size: 1em;
-    font-family: "Open Sans Hebrew", Arial, sans-serif;
-    box-shadow: 0 0 5px #0bdfac;
-
     margin: 1em auto;
-    margin: 0.4em auto;
     padding: 0.6em 3em 0.6em 5.5em;
+    font-family: "Open Sans Hebrew", Arial, sans-serif;
+}
 
-
+.letter-input {
+    width: 100%;
+    border-radius: 0;
+    background-color: white;
+    border: 0;
+    font-size: 1em;
+    margin: 0.5em auto;
+    box-shadow: 0 0 5px #0be0ad;
+    /* padding: 0.6em 3em 0.6em 5.5em; */
+    font-family: "Open Sans Hebrew", Arial, sans-serif;
 }
 
 .btn-letter {
-	/* color: #fff; */
-	background-color: #0de1ae;
-	border-color: #17a2b8;
-	font-size: large;
+	color: black;
+	background-color: #0be0ad;
+	border-color: #0be0ad;
 }
-.xinput {
-	margin: 1%;
-	display: block;
-	padding: 0.4em 0.5em;
-	border-radius: 0.35em;
-	box-shadow: 0 0 5px black;
-	background-color: #fff;
-}
-
-
 .emoji .icon:before {
     content: "\f59a";
     color: gray;
@@ -837,4 +816,3 @@ ac .dot:nth-child(2) {
     padding-top: 0.2em;
 }
 
-\
