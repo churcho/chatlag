@@ -31,10 +31,18 @@ defmodule ChatlagWeb.Endpoint do
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
+  #   parsers: [:urlencoded, 
+  #   {:multipart, length: 20_000_000},
+  #    :json],
+  # query_string_length: 1_000_000,
+
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, {:multipart, length: 30_000_000, read_timeout: 45_000}, :json],
+    # query_string_length: 1_000_000,
     pass: ["*/*"],
-    json_decoder: Phoenix.json_library()
+    json_decoder: Poison
+
+  # json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head

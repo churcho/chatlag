@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat"> <span id="amera-id"></span>
     <div class="chat_box upper_box">
         <h2 class="private_massages_title">
             <%= gettext("Participants") %>
@@ -13,46 +13,53 @@
             <tbody>
 
                 <%= if user_suspended(@user_id) do %>
-                    <%= if ! get_admin do %>
-                        <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
-                        </h5>
+                <%= if ! get_admin do %>
+                <h5 class="btn-link chat_box chat_massage pointer" phx-click="contact_form" class="pointer xs"> אינכם
+                    יכולים להשתתף בשיחות בחדרים. הינכם מושעים. כרגע אין מנהל מערכת אונליין. תוכלו לשלוח לו הודעה
+                </h5>
 
+                <% else %>
+                <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room"
+                    phx-value="<%= get_admin() %>" class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים.
+                    תוכלו לפנות למנהל המערכת לפרטים
+                </h5>
+                <% end %>
+                <% else %>
+                <%= for u <- @users, u.user_id != @user_id do  %>
+                <tr class="pointer">
+                    <%= if is_blocked(@user_id, u.user_id) do %>
+                    <td>
                         <% else %>
-                            <h5 class="btn-link chat_box chat_massage pointer" phx-click="private_room" phx-value="<%= get_admin() %>" class="pointer xs"> אינכם יכולים להשתתף בשיחות בחדרים. הינכם מושעים. תוכלו לפנות למנהל המערכת לפרטים
-                            </h5>
-                            <% end %>
-                                <% else %>
-                                    <%= for u <- @users, u.user_id != @user_id do  %>
-                                        <tr class="pointer">
-                                            <%= if is_blocked(@user_id, u.user_id) do %>
-                                                <td>
-                                                    <% else %>
-                                                        <td phx-click="private_room" phx-value="<%= u.user_id %>">
-                                                            <% end %>
-                                                                &nbsp; &nbsp;<img class='<%= admin_class(u.user_id) %>  small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>' alt="user_pic" src="<%= getUserIcon(u.user_id) %>"
-                                                                />
-                                                                <%= u.nickname %>
-                                                                    &nbsp;&nbsp;
-                                                                    <%= u.age %>
-                                                        </td>
-                                                        <%= if is_blocked(@user_id, u.user_id) do %>
-                                                            <td></td>
-                                                            <% else %>
-                                                                <td title="שיחה פרטית" class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i class="far fa-comment-alt"></i></td>
-                                                                <% end %>
-                                                                    <%= if is_blocked(@user_id, u.user_id) do %>
-                                                                        <td title="הינך חסום על ידי משתמש זה" class=""><i class="fas fa-lock"></i></td>
-                                                                        <% else %>
-                                                                            <%= if is_blocked(u.user_id, @user_id) do %>
-                                                                                <td title="הסרת חסימה" class="" phx-click="unban_party" phx-value="<%= u.user_id %>"><i class="fas fa-unlock"></i></td>
-                                                                                <% else %>
-                                                                                    <td title="חסימת משתמש" class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i class="fas fa-ban"></i>
-                                                                                    </td>
-                                                                                    <% end %>
-                                                                                        <% end %>
-                                        </tr>
-                                        <% end %>
-                                            <% end %>
+                    <td phx-click="private_room" phx-value="<%= u.user_id %>">
+                        <% end %>
+                        &nbsp; &nbsp;<img
+                            class='<%= admin_class(u.user_id) %>  small-profile profile_picture <%= if is_online?(u.user_id), do: "active-image", else: "offline" %>'
+                            alt="user_pic" src="<%= getUserIcon(u.user_id) %>" />
+                        <%= u.nickname %>
+                        &nbsp;&nbsp;
+                        <%= u.age %>
+                    </td>
+                    <%= if is_blocked(@user_id, u.user_id) do %>
+                    <td></td>
+                    <% else %>
+                    <td title="שיחה פרטית" class="" phx-click="private_room" phx-value="<%= u.user_id %>"><i
+                            class="far fa-comment-alt"></i></td>
+                    <% end %>
+                    <%= if is_blocked(@user_id, u.user_id) do %>
+                    <td title="הינך חסום על ידי משתמש זה" class=""><i class="fas fa-lock"></i></td>
+                    <% else %>
+                    <%= if is_blocked(u.user_id, @user_id) do %>
+                    <td title="הסרת חסימה" class="" phx-click="unban_party" phx-value="<%= u.user_id %>"><i
+                            class="fas fa-unlock"></i></td>
+                    <% else %>
+                    <td title="חסימת משתמש" class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i
+                            class="fas fa-ban"></i>
+                    </td>
+                    <% end %>
+                    <% end %>
+                </tr>
+                <% end %>
+                <% end %>
             </tbody>
         </table>
     </div>

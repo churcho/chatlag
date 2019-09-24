@@ -49,6 +49,7 @@
             });
 
             $("#camera-id").click(function (event) {
+                console.log("Click")
                 event.preventDefault();
                 $('#media_name').val("")
                 $trigger = "start";
@@ -110,7 +111,7 @@
 
             if ($type.includes("image") || $type.includes("video")) {
 
-                if ($size < 10 * 1024000) {
+                if ($size < 20 * 1024000 + 1) {
                     reader.onload = function (e) {
                         if ($type.includes("image")) {
                             $('#upload-image-pic').attr('src', e.target.result);
@@ -134,11 +135,19 @@
                             data: fd,
                             contentType: false,
                             processData: false,
-                            success: function (response) { },
+                            success: function (response) {
+                            },
+                            error: function (response) {
+                                $(".error-msg").html("אירעה שגיאה בעת העלאת הקובץ")
+                                $(".error-msg").show()
+                                $('#media_type').val("")
+                                $('#media_name').val("")
+                                $('#media_size').val("")
+                            },
                         });
 
                     }
-
+                    console.log("start upload")
                     reader.readAsDataURL(input.files[0]);
                 } else {
                     if ($type.includes("image")) {
@@ -149,7 +158,7 @@
                         $("#video-tag").hide();
                         $('#video-display').show()
                     }
-                    $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג")
+                    $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג. גודל מקסימלי 20MB")
                     $(".error-msg").show()
                     $('#media_type').val("")
                     $('#media_name').val("")
