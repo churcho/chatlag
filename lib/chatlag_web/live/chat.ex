@@ -353,7 +353,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("add_image", _params, socket) do
-    IO.puts("** add image")
     room_id = get_room_id(socket)
 
     Chat.unsubscribe(topic(room_id))
@@ -361,7 +360,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("removed_image", _params, socket) do
-    IO.puts("** removed_image")
     room_id = get_room_id(socket)
 
     Chat.subscribe(topic(room_id))

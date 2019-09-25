@@ -56,7 +56,7 @@ defmodule ChatlagWeb.ChatView do
       user.image
     else
       if user.role == "admin" do
-        "/images/Logo.png"
+        "/images/header-logo.png"
       else
         if user.gender == "F" do
           "/images/female.png"
@@ -223,8 +223,12 @@ defmodule ChatlagWeb.ChatView do
 
         _ ->
           case msg.content do
-            nil -> nil
-            "" -> nil
+            nil ->
+              nil
+
+            "" ->
+              nil
+
             _ ->
               content =
                 msg.content
@@ -233,7 +237,7 @@ defmodule ChatlagWeb.ChatView do
                 |> Enum.join(" ")
 
               tr.(content) |> String.replace(~r/(\*\*\*)+/, "***")
-              end
+          end
       end
     else
       nil
@@ -288,6 +292,14 @@ defmodule ChatlagWeb.ChatView do
       admin |> Enum.filter(& &1) |> List.first()
     else
       nil
+    end
+  end
+
+  def revealSection(display, section) do
+    if display == section do
+      ""
+    else
+      "hidden"
     end
   end
 

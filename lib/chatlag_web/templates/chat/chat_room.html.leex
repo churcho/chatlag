@@ -1,4 +1,5 @@
-<div class="chat">
+<div class="chat  <%= revealSection(@display, "chat") %> ">
+
     <%= if @is_private do %>
     <div class="chat_box upper_box">
         <h2 class="private_massages_title">

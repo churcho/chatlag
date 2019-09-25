@@ -42,19 +42,19 @@
       <div class="header"></div>
       <div class="main">
 
+        <%= render "chat_room.html", assigns %>
+        <%= render "chat_users.html", assigns %>
+        <%= render "chat_privates.html", assigns %>
+        <%= render "letter.html", assigns %>
+        <%= render "chat_menu.html", assigns %>
+
         <%= case @display do %>
         <% "chat" -> %>
-        <%= render "chat_room.html", assigns %>
         <% "members" -> %>
-        <%= render "chat_users.html", assigns %>
         <% "privates" -> %>
-        <%= render "chat_privates.html", assigns %>
         <% "letter" -> %>
-        <%= render "letter.html", assigns %>
         <% _ -> %>
-        <%= render "chat_room.html", assigns %>
         <% end %>
-        <%= render "chat_menu.html", assigns %>
 
       </div>
     </div>

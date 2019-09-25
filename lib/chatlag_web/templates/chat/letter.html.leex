@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat  <%= revealSection(@display, "letter") %> ">
     <div class="chat_box upper_box">
         <h2 class="private_massages_title"><span class="dark-green"> <%= gettext("Contact us") %> </span> </h2>
         <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
