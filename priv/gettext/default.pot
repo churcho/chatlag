@@ -85,6 +85,7 @@ msgid "small_desc"
 msgstr ""
 
 #, elixir-format
+#: lib/chatlag_web/templates/room/ask_reset.html.eex:11
 #: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:34
 #: lib/chatlag_web/templates/word/form.html.eex:11
@@ -129,26 +130,18 @@ msgid "midsize_image"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/views/chat_view.ex:178
+#: lib/chatlag_web/views/chat_view.ex:182
 msgid "Private Room"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:3
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:4
 msgid "Participants"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/pow/registration/new.html.eex:1
-#: lib/chatlag_web/templates/pow/registration/new.html.eex:22
-#: lib/chatlag_web/templates/pow/session/new.html.eex:19
-msgid "Register"
-msgstr ""
-
-#, elixir-format
-#: lib/chatlag_web/templates/pow/registration/new.html.eex:21
 #: lib/chatlag_web/templates/pow/session/new.html.eex:1
-#: lib/chatlag_web/templates/pow/session/new.html.eex:20
+#: lib/chatlag_web/templates/pow/session/new.html.eex:21
 msgid "Sign in"
 msgstr ""
 
@@ -158,12 +151,11 @@ msgid "Lobby"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:40
+#: lib/chatlag_web/templates/layout/admin.html.eex:43
 msgid "Logout"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/pow/registration/new.html.eex:17
 #: lib/chatlag_web/templates/pow/session/new.html.eex:14
 msgid "admin"
 msgstr ""
@@ -185,14 +177,14 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_privates.html.leex:6
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:14
-#: lib/chatlag_web/templates/chat/chat_users.html.leex:5
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:15
+#: lib/chatlag_web/templates/chat/chat_users.html.leex:7
 #: lib/chatlag_web/templates/chat/letter.html.leex:5
 msgid "back to room"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:21
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:22
 msgid "Suspend"
 msgstr ""
 
@@ -207,12 +199,12 @@ msgid "first time FB"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:18
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:19
 msgid "Un Suspend"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/chat/chat_room.html.leex:9
+#: lib/chatlag_web/templates/chat/chat_room.html.leex:10
 msgid "suspended"
 msgstr ""
 
@@ -245,4 +237,19 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/word/form.html.eex:8
 msgid "reserved words with comma"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:36
+msgid "Clear messages"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/ask_reset.html.eex:12
+msgid "Delete all messages"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/chat/letter.html.leex:47
+msgid "Send message"
 msgstr ""

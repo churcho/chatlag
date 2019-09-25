@@ -70,6 +70,8 @@ defmodule ChatlagWeb.Router do
     resources "/rooms", RoomController
     resources "/words", WordController
     get "/users", UserController, :index
+    get "/reset", RoomController, :ask_reset
+    post "/reset", RoomController, :reset
   end
 
   # Other scopes may use custom stacks.

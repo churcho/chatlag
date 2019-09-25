@@ -6,7 +6,7 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div class="container" id="chatscroll">
+    <div class="container pull-down" id="chatscroll">
         <div class="row">
             <div class="col">
             </div>
@@ -18,9 +18,11 @@
         </div>
         <div class="col">
         </div>
-        <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on] %>
+        <%= form_for @contact_cs, "#", [phx_submit: :send_letter, autocomplete: :on], fn f -> %>
         <%= if @contact_cs.valid? do %>
         ההודעה נשלחה בהצלחה
+        <% else %>
+        <span class="xs"> אנא, מלאו את כל השדות</span>
         <% end %>
         <div class="form-row">
             <div class="col">
@@ -35,12 +37,20 @@
                 <textarea class="letter-input" placeholder="הודעה" name="contact_form[message]"></textarea>
             </div>
         </div>
-        <br>
         <div class="form-row">
-            <div class="col mx-auto">
-                <button class="btn btn-letter " type="submit">שלחו הודעה</button>
+
+
+            <div class="col-sm">
+                &nbsp;
             </div>
+            <div class="col-sm">
+                <%= PBF.submit f, gettext("Send message"), class: "btn btn-letter  xs" %>
+            </div>
+            <div class="col-sm">
+                &nbsp;
+            </div>
+
         </div>
-        </form>
+        <% end %>
     </div>
 </div>

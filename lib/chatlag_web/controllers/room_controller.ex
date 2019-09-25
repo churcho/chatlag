@@ -3,7 +3,7 @@ defmodule ChatlagWeb.RoomController do
 
   import Ecto.Query
   alias Chatlag.Chat
-  alias Chatlag.Chat.Room
+  alias Chatlag.Chat.{Room, Message}
   alias Chatlag.Repo
 
   def index(conn, params) do
@@ -66,6 +66,20 @@ defmodule ChatlagWeb.RoomController do
   def delete(conn, %{"id" => id}) do
     room = Chat.get_room!(id)
     {:ok, _room} = Chat.delete_room(room)
+
+    conn
+    |> put_flash(:info, "Room deleted successfully.")
+    |> redirect(to: Routes.room_path(conn, :index))
+  end
+
+  def ask_reset(conn, _params) do
+    changeset = Chat.change_room(%Room{})
+
+    render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, changeset: changeset)
+  end
+
+  def reset(conn, _params) do
+    IO.inspect(Chat.delete_all_messages())
 
     conn
     |> put_flash(:info, "Room deleted successfully.")

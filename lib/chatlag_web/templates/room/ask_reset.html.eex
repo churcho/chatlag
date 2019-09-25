@@ -1,0 +1,14 @@
+<br>
+
+<div class="jumbotron">
+    <h1 class="display-4">שימו לב!</h1>
+    <p class="lead">הינכם עומדים למחוק את כל ההודעות מכל החדרים.</p>
+    <hr class="my-4">
+    <p>פעולה זו הינה בלתי הפיכה וההודעות ימחקו לנצח כולל כל התמונות והסרטונים.</p>
+    <p>כמו כן כל החדרים הפרטיים יעלמו.</p>
+    <%= form_for @changeset, Routes.room_path(@conn, :reset), fn f -> %>
+
+    <% cancel = link gettext("Back"), to: Routes.room_path(@conn, :index), class: "btn btn-link" %>
+    <%= PBF.submit f, gettext("Delete all messages"), class: "btn-danger", alternative: cancel %>
+    <% end %>
+</div>

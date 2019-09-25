@@ -291,6 +291,18 @@ defmodule Chatlag.Chat do
     Repo.delete(message)
   end
 
+  def delete_all_messages() do
+    strDir = "uploads/messages"
+    {:ok, dir} = File.cwd()
+    fullDir = "#{dir}/#{strDir}"
+
+    File.rm_rf(fullDir)
+
+    File.mkdir(fullDir)
+    Ecto.Adapters.SQL.query!(Repo, "delete from messagese", [])
+    Ecto.Adapters.SQL.query!(Repo, "delete from rooms where is_private", [])
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking message changes.
 

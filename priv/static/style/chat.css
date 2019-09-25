@@ -346,16 +346,17 @@ ac .dot:nth-child(2) {
     background-color: white;
     border: 0;
     font-size: 1em;
-    margin: 0.5em auto;
-    box-shadow: 0 0 5px #0be0ad;
+    margin: 0.2em auto;
+    /* box-shadow: 0 0 5px #000000; */
     /* padding: 0.6em 3em 0.6em 5.5em; */
     font-family: "Open Sans Hebrew", Arial, sans-serif;
 }
 
 .btn-letter {
-	color: black;
+	color: gray;
 	background-color: #0be0ad;
-	border-color: #0be0ad;
+    border-color: #0be0ad;
+    font-weight: bold;
 }
 .emoji .icon:before {
     content: "\f59a";
