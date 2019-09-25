@@ -8,6 +8,10 @@ defmodule ChatlagWeb.LobbyController do
 
   plug :put_layout, "empty.html" when action in [:index]
 
+  def policy(conn, _params) do
+    render(conn, "policy.html")
+  end
+
   def index(conn, params) do
     search = params["search"]
 
@@ -23,8 +27,6 @@ defmodule ChatlagWeb.LobbyController do
                 like(r.slogen, ^search_term) or
                 like(r.small_desc, ^search_term)
         )
-
-      IO.inspect(searchQuery, label: "params")
 
       case searchQuery do
         [] ->
