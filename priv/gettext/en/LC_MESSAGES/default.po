@@ -86,6 +86,7 @@ msgid "small_desc"
 msgstr ""
 
 #, elixir-format
+#: lib/chatlag_web/templates/contact/form.html.eex:16
 #: lib/chatlag_web/templates/room/ask_reset.html.eex:11
 #: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:34
@@ -95,6 +96,7 @@ msgid "Back"
 msgstr ""
 
 #, elixir-format
+#: lib/chatlag_web/templates/contact/form.html.eex:17
 #: lib/chatlag_web/templates/room/form.html.eex:37
 #: lib/chatlag_web/templates/room/new_form.html.eex:35
 #: lib/chatlag_web/templates/word/form.html.eex:12
@@ -152,7 +154,7 @@ msgid "Lobby"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:43
+#: lib/chatlag_web/templates/layout/admin.html.eex:46
 msgid "Logout"
 msgstr ""
 
@@ -253,4 +255,39 @@ msgstr ""
 #, elixir-format
 #: lib/chatlag_web/templates/chat/letter.html.leex:47
 msgid "Send message"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/index.html.eex:9
+msgid "Completed"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/index.html.eex:7
+msgid "Email"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/index.html.eex:1
+msgid "Listing Messages"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/index.html.eex:8
+msgid "Message"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/index.html.eex:6
+msgid "Name"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/contact/form.html.eex:14
+msgid "completed"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:39
+msgid "messages"
 msgstr ""

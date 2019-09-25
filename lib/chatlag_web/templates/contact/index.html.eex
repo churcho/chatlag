@@ -1,0 +1,29 @@
+<h1><%= gettext("Listing Messages") %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th> <%= gettext("Name") %></th>
+      <th> <%= gettext("Email") %></th>
+      <th> <%= gettext("Message") %></th>
+      <th> <%= gettext("Completed") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for contact <- @contacts do %>
+    <tr>
+      <td><%= contact.name %></td>
+      <td><%= contact.email %></td>
+      <td><%= contact.message %></td>
+      <td><%= if contact.completed, do: "הסתיים", else: "לא הסתיים" %></td>
+
+      <td>
+        <span><%= link raw("<i class='far fa-edit'></i>"), to: Routes.contact_path(@conn, :edit, contact) %></span>
+        <span><%= link raw("<i class='fas fa-trash-alt'></i>"), to: Routes.contact_path(@conn, :delete, contact), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

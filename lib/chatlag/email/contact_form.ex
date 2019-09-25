@@ -24,7 +24,8 @@ defmodule Chatlag.Emails.ContactForm do
       true ->
         changeset.changes
         |> Emails.contact_email()
-        |> Mailer.deliver_now()
+
+        # |> Mailer.deliver_now()
 
         {:ok, changeset}
 

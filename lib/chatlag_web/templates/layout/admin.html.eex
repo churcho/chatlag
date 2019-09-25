@@ -35,6 +35,9 @@
                         <li class="nav-item">
                             <%= link gettext("Clear messages"), to: Routes.room_path(@conn, :ask_reset), class: "nav-link" %>
                         </li>
+                        <li class="nav-item">
+                            <%= link gettext("messages"), to: Routes.contact_path(@conn, :index), class: "nav-link" %>
+                        </li>
                     </ul>
                 </div>
                 <div class="pull-left collapse navbar-collapse" id="navbarNavDropdown">

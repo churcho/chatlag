@@ -69,6 +69,7 @@ defmodule ChatlagWeb.Router do
     get "/", RoomController, :index
     resources "/rooms", RoomController
     resources "/words", WordController
+    resources "/contacts", ContactController
     get "/users", UserController, :index
     get "/reset", RoomController, :ask_reset
     post "/reset", RoomController, :reset
