@@ -23,7 +23,7 @@
         <% end %>
 
         <% end %>
-        <div class="clear"></div>
+        <div class="clear" style="margin-bottom: 2em;"></div>
 
     </div>
 
@@ -33,7 +33,7 @@
         <%= raw attached(@room_id) %>
     </div>
     <% end %>
-    <div class="chat_scroll" id="chatscroll">
+    <div class="chat_scroll <%= if @is_private, do: "pull-down" %> " id="chatscroll">
         <%= for msg <- @messages do %>
 
         <div class="chat_massage massage01">
