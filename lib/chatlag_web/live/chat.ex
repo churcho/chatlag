@@ -241,8 +241,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("suspend_user", user_id, socket) do
-    IO.puts("Suspend #{user_id}")
-
     user_id
     |> String.to_integer()
     |> Users.suspend_user()
@@ -254,8 +252,6 @@ defmodule ChatlagWeb.Live.Chat do
   end
 
   def handle_event("unsuspend_user", user_id, socket) do
-    IO.puts("Unsuspend #{user_id}")
-
     user_id
     |> String.to_integer()
     |> Users.unsuspend_user()
