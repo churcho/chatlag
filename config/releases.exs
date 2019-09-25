@@ -28,7 +28,10 @@ secret_key_base =
 config :chatlag, Chatlag.Mailer,
   adapter: Bamboo.MailgunAdapter,
   api_key: System.get_env("MAILGUN_API_KEY"),
-  domain: System.get_env("MAILGUN_DOMAIN")
+  domain: System.get_env("MAILGUN_DOMAIN"),
+  hackney: [
+    recv_timeout: 5 * 60 * 1000
+  ]
 
 config :chatlag, ChatlagWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
