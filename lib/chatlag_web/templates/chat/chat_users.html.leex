@@ -48,6 +48,9 @@
                     <%= if is_blocked(@user_id, u.user_id) do %>
                     <td title="הינך חסום על ידי משתמש זה" class=""><i class="fas fa-lock"></i></td>
                     <% else %>
+                    <td></td>
+                    <%= if is_admin(u.user_id) do %>
+                    <% else %>
                     <%= if is_blocked(u.user_id, @user_id) do %>
                     <td title="הסרת חסימה" class="" phx-click="unban_party" phx-value="<%= u.user_id %>"><i
                             class="fas fa-unlock"></i></td>
@@ -55,6 +58,7 @@
                     <td title="חסימת משתמש" class="" phx-click="ban_party" phx-value="<%= u.user_id %>"><i
                             class="fas fa-ban"></i>
                     </td>
+                    <% end %>
                     <% end %>
                     <% end %>
                 </tr>
