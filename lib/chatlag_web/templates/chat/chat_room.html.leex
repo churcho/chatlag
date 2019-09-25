@@ -6,7 +6,7 @@
             שיחה פרטית
             <span class="light-green xs">
                 <%= getUserNickname(@party_id) %>
-                <%= if user_suspended(@party_id) do %>
+                <%= if @party_suspended do %>
                 (<%= gettext("suspended") %>)
                 <% end %>
             </span>
@@ -14,11 +14,11 @@
         <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="pointer button go-back">
             <%= gettext("back to room")%><span class="icon"></span></div>
         <%= if is_admin(@user_id) do %>
-        <%= if user_suspended(@party_id) do %>
-        <div phx-click="unsuspend_user" phx-value="<%= @party_id %>" class="pointer button">
+        <%= if @party_suspended do %>
+        <div phx-click="unsuspend_user" phx-value="<%= @party_id %>" class="pointer button go-suspend">
             <%= gettext("Un Suspend")%><span class="go-back icon"></span></div>
         <% else %>
-        <div phx-click="suspend_user" phx-value="<%= @party_id %>" class="pointer button">
+        <div phx-click="suspend_user" phx-value="<%= @party_id %>" class="pointer button go-suspend">
             <%= gettext("Suspend")%><span class="go-back icon"></span></div>
         <% end %>
 

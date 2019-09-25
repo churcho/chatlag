@@ -812,6 +812,14 @@ ac .dot:nth-child(2) {
     margin-top: 1em;
 }
 
+.go-suspend {
+    /* background-color: red; */
+    /* color: white; */
+    margin-top: 1em;
+    /* margin-left: 0.5em; */
+    width: 10em;
+}
+
 .go-back .icon:before {
     content: "\f053";
     color: white;
