@@ -34,7 +34,7 @@ config :chatlag, Chatlag.Mailer,
   ]
 
 config :chatlag, ChatlagWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
+  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "80")],
   https: [
     :inet6,
     port: 443,
