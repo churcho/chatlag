@@ -39,7 +39,7 @@ config :chatlag, ChatlagWeb.Endpoint,
     :inet6,
     port: 443,
     cipher_suite: :strong,
-    keyfile: System.get_env("APP_SSL_KEY_PATH"),
+   keyfile: System.get_env("APP_SSL_KEY_PATH"),
     certfile: System.get_env("APP_SSL_CERT_PATH")
   ],
 

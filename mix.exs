@@ -67,6 +67,7 @@ defmodule Chatlag.MixProject do
       {:poison, "~> 4.0"},
       {:httpoison, "~> 1.4"},
       {:uuid, "~> 1.1"},
+      {:hackney, github: "benoitc/hackney", override: true},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

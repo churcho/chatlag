@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :chatlag, Chatlag.Repo,
   username: "chatlag",
-  password: "chatlag",
+  password: "ChatlagEfrat68",
   database: "chatlag",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -16,7 +16,7 @@ config :chatlag, Chatlag.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :chatlag, ChatlagWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 9040],
   https: [
     port: 4001,
     cipher_suite: :strong,
