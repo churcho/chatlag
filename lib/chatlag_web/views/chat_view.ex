@@ -233,7 +233,7 @@ defmodule ChatlagWeb.ChatView do
               content =
                 msg.content
                 |> String.split(" ")
-                |> Enum.filter(fn w -> String.length(w) < 10 end)
+                |> Enum.filter(fn w -> String.length(w) < 18 end)
                 |> Enum.join(" ")
 
               tr.(content) |> String.replace(~r/(\*\*\*)+/, "***")
