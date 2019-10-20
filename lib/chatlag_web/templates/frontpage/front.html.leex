@@ -35,7 +35,9 @@
   <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
   <style>
-
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -96,7 +98,7 @@
                     <h4 class="leading-chat-title"><%= room.title %></h4>
                     <div class="leading-chat-content">
                       <p class="leading-chat-desc"></p>
-                      <p class="leading-online green"><span class="online-users">
+                      <p class="hidden leading-online green"><span class="online-users">
                           <%= @rooms_count["room-#{room.id}"] %>
                         </span> משתמשים <span class="online" lang="en">online</span>
                       </p>
@@ -185,11 +187,11 @@
                       class="stats-num green stats1"><%= @num_of_rooms %></span> צ'אטים </div>
                 </div>
                 <div class="col-lg-3 stats">
-                  <div class="active-chats-stats"> <span id="stats2"
+                  <div class="hidden active-chats-stats"> <span id="stats2"
                       class="stats-num green stats2"><%= @active_chats %></span> צ'אטים פעילים כרגע </div>
                 </div>
                 <div class="col-lg-3 stats">
-                  <div class="active-chats-stats"> <span id="stats3"
+                  <div class="hidden active-chats-stats"> <span id="stats3"
                       class="stats-num green stats3"><%= @num_in_chats %></span> משתמשים Online </div>
                 </div>
                 <div class="col-lg-3 stats">

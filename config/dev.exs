@@ -3,7 +3,8 @@ use Mix.Config
 # Configure your database
 config :chatlag, Chatlag.Repo,
   username: "chatlag",
-  password: "ChatlagEfrat68",
+  # password: "ChatlagEfrat68",
+  password: "chatlag",
   database: "chatlag",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

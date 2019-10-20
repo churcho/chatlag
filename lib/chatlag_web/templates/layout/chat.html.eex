@@ -111,15 +111,18 @@
 
             if ($type.includes("image") || $type.includes("video")) {
 
-                if ($size < 20 * 1024000 + 1) {
+                if ($size < 2 * 1024000 + 1) {
                     reader.onload = function (e) {
                         if ($type.includes("image")) {
                             $('#upload-image-pic').attr('src', e.target.result);
                             $('#image-display').show()
                         } else {
-                            $('#upload-video').attr('src', e.target.result);
-                            $('#upload-video').attr('type', $type);
-                            $('#video-display').show()
+                            if ($type.includes("video")) {
+                                $('#upload-video').attr('src', e.target.result);
+                                $('#upload-video').attr('type', $type);
+                                $('#video-display').show()
+                            } else {
+                            }
                         }
                         // $('#media_content').val(e.target)
 
@@ -150,6 +153,7 @@
                     console.log("start upload")
                     reader.readAsDataURL(input.files[0]);
                 } else {
+                    alert("קובץ גדול מדי. לא ניתן להציג. גודל מקסימלי 20MB")
                     if ($type.includes("image")) {
                         $("#upload-image-pic").hide();
                         $('#image-display').show()
@@ -158,13 +162,14 @@
                         $("#video-tag").hide();
                         $('#video-display').show()
                     }
-                    $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג. גודל מקסימלי 20MB")
+                    // $(".error-msg").html("קובץ גדול מדי. לא ניתן להציג. גודל מקסימלי 20MB")
                     $(".error-msg").show()
                     $('#media_type').val("")
                     $('#media_name').val("")
                     $('#media_size').val("")
                 }
             } else {
+                alert("סוג קובץ זה לא נתמך על ידי המערכת")
                 $('#media_name').val("")
                 $('#media_size').val("")
                 $('#media_type').val("")
