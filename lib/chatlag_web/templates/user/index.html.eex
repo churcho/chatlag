@@ -6,6 +6,7 @@
             <th><%= gettext("Nickname") %></th>
             <th><%= gettext("Role") %></th>
             <th><%= gettext("IP address") %></th>
+            <th><%= gettext("Suspened") %></th>
 
             <th></th>
         </tr>
@@ -16,6 +17,7 @@
             <td><%= link user.nickname, to: Routes.user_path(@conn, :edit, user) %></td>
             <td><%= user.role %></td>
             <td><%= user.ip_address %></td>
+            <td><%= if user.suspend_at == nil, do: "לא", else: "כן" %></td>
 
             <td class="btn-sm">
                 <%= link raw("<i class='far fa-edit'></i>"), to: Routes.user_path(@conn, :edit, user) %>&nbsp;

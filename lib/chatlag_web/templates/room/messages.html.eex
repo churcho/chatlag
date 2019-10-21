@@ -1,0 +1,49 @@
+<h1>
+    <%= getRoomName(@room_id) %>
+    -
+    <%= gettext("Listing chats") %>
+</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><%= gettext("User") %></th>
+            <th><%= gettext("Message") %></th>
+            <th><%= gettext("Media") %></th>
+            <th></th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%= for message <- @messages do %>
+        <tr>
+            <td>
+
+                <img class='profile_picture' alt="user_pic" src="<%= getUserIcon(message.user_id) %>" />
+                <%= getUserNickname(message.user_id) %>
+
+            </td>
+            <td><%= message.content %></td>
+            <td>
+                <%= if is_image(message.media_type) do %>
+                <img class="chat-media" src="<%= message.media %>" />
+                <% end %>
+
+                <%= if is_video(message.media_type) do %>
+                <video controls class="chat-media">
+                    <source src="<%= message.media %>">
+                    Your browser does not support the video tag.
+                </video>
+                <% end %>
+
+            </td>
+            <td class="btn-sm">
+                <%= link raw("<i class='fas fa-trash-alt'></i>"), to: Routes.room_path(@conn, :del_messages, message), method: :get, data: [confirm: gettext("Are you sure?")]  %>
+                &nbsp;
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<%= pagination_links @page %>

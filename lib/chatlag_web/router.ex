@@ -69,6 +69,7 @@ defmodule ChatlagWeb.Router do
     get "/", RoomController, :index
     get "/users/:id/suspend", UserController, :suspend
     get "/users/:id/unsuspend", UserController, :unsuspend
+    get "/rooms/:id/del_messages", RoomController, :del_messages
     get "/rooms/:id/messages", RoomController, :messages
     resources "/rooms", RoomController
     resources "/words", WordController

@@ -12,6 +12,8 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/room/index.html.eex:25
+#: lib/chatlag_web/templates/room/messages.html.eex:42
+#: lib/chatlag_web/templates/user/index.html.eex:24
 msgid "Are you sure?"
 msgstr ""
 
@@ -21,7 +23,7 @@ msgid "Listing Rooms"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/room/index.html.eex:32
+#: lib/chatlag_web/templates/room/index.html.eex:33
 #: lib/chatlag_web/templates/room/new.html.eex:1
 msgid "New Room"
 msgstr ""
@@ -32,7 +34,7 @@ msgid "On front"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:31
+#: lib/chatlag_web/templates/layout/admin.html.eex:39
 msgid "Rooms"
 msgstr ""
 
@@ -89,6 +91,7 @@ msgstr ""
 #: lib/chatlag_web/templates/room/ask_reset.html.eex:11
 #: lib/chatlag_web/templates/room/form.html.eex:36
 #: lib/chatlag_web/templates/room/new_form.html.eex:34
+#: lib/chatlag_web/templates/user/form.html.eex:19
 #: lib/chatlag_web/templates/word/form.html.eex:11
 #: lib/chatlag_web/templates/word/show.html.eex:7
 msgid "Back"
@@ -98,6 +101,7 @@ msgstr ""
 #: lib/chatlag_web/templates/contact/form.html.eex:17
 #: lib/chatlag_web/templates/room/form.html.eex:37
 #: lib/chatlag_web/templates/room/new_form.html.eex:35
+#: lib/chatlag_web/templates/user/form.html.eex:20
 #: lib/chatlag_web/templates/word/form.html.eex:12
 msgid "Save"
 msgstr ""
@@ -148,12 +152,12 @@ msgid "Sign in"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:29
+#: lib/chatlag_web/templates/layout/admin.html.eex:37
 msgid "Lobby"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:46
+#: lib/chatlag_web/templates/layout/admin.html.eex:57
 msgid "Logout"
 msgstr ""
 
@@ -187,6 +191,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_room.html.leex:22
+#: lib/chatlag_web/templates/user/form.html.eex:22
 msgid "Suspend"
 msgstr ""
 
@@ -202,6 +207,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/chat/chat_room.html.leex:19
+#: lib/chatlag_web/templates/user/form.html.eex:23
 msgid "Un Suspend"
 msgstr ""
 
@@ -211,7 +217,7 @@ msgid "suspended"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:33
+#: lib/chatlag_web/templates/layout/admin.html.eex:41
 #: lib/chatlag_web/templates/word/show.html.eex:1
 msgid "Reserved words"
 msgstr ""
@@ -242,7 +248,7 @@ msgid "reserved words with comma"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:36
+#: lib/chatlag_web/templates/layout/admin.html.eex:44
 msgid "Clear messages"
 msgstr ""
 
@@ -263,6 +269,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/contact/index.html.eex:7
+#: lib/chatlag_web/templates/user/form.html.eex:11
 msgid "Email"
 msgstr ""
 
@@ -273,6 +280,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/chatlag_web/templates/contact/index.html.eex:8
+#: lib/chatlag_web/templates/room/messages.html.eex:11
 msgid "Message"
 msgstr ""
 
@@ -287,6 +295,68 @@ msgid "completed"
 msgstr ""
 
 #, elixir-format
-#: lib/chatlag_web/templates/layout/admin.html.eex:39
-msgid "messages"
+#: lib/chatlag_web/templates/user/form.html.eex:13
+msgid "Age"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/edit.html.eex:2
+msgid "Edit User"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/form.html.eex:14
+msgid "Genter"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/index.html.eex:8
+msgid "IP address"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/index.html.eex:1
+msgid "Listing Users"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/messages.html.eex:12
+msgid "Media"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/form.html.eex:10
+#: lib/chatlag_web/templates/user/index.html.eex:6
+msgid "Nickname"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/form.html.eex:12
+#: lib/chatlag_web/templates/user/index.html.eex:7
+msgid "Role"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:50
+msgid "users"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/user/index.html.eex:9
+msgid "Suspened"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/layout/admin.html.eex:47
+msgid "users messages"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/messages.html.eex:4
+msgid "Listing chats"
+msgstr ""
+
+#, elixir-format
+#: lib/chatlag_web/templates/room/messages.html.eex:10
+msgid "User"
 msgstr ""

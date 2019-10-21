@@ -77,13 +77,40 @@ defmodule ChatlagWeb.RoomController do
     render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, changeset: changeset)
   end
 
-  def messages(conn, %{"id" => id}) do
-    conn
+  def messages(conn, params) do
+    # params = %{}
+
+    %{"id" => id} = params
+
+    page =
+      Message
+      |> where(room_id: ^id)
+      |> order_by(asc: :id)
+      |> Repo.paginate(params)
+
+    IO.inspect(params)
+    # conn
+
+    render(conn,
+      layout: {ChatlagWeb.LayoutView, "admin.html"},
+      messages: page.entries,
+      page: page,
+      room_id: id
+    )
   end
 
   def reset(conn, _params) do
     conn
     |> put_flash(:info, "Room deleted successfully.")
     |> redirect(to: Routes.room_path(conn, :index))
+  end
+
+  def del_messages(conn, %{"id" => id}) do
+    msg = Chat.get_message!(id)
+    {:ok, _room} = Chat.delete_message(msg)
+
+    conn
+    |> put_flash(:info, "Message deleted successfully.")
+    |> redirect(to: Routes.room_path(conn, :messages, msg.room_id))
   end
 end

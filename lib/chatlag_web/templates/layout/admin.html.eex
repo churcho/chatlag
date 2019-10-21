@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+
+    <style>
+        .chat-media {
+            /* border: 1px solid gray; */
+            width: 8em;
+            /* margin: 1em; */
+        }
+    </style>
 </head>
 
 <body>
@@ -36,7 +44,7 @@
                             <%= link gettext("Clear messages"), to: Routes.room_path(@conn, :ask_reset), class: "nav-link" %>
                         </li>
                         <li class="nav-item">
-                            <%= link gettext("messages"), to: Routes.contact_path(@conn, :index), class: "nav-link" %>
+                            <%= link gettext("users messages"), to: Routes.contact_path(@conn, :index), class: "nav-link" %>
                         </li>
                         <li class="nav-item">
                             <%= link gettext("users"), to: Routes.user_path(@conn, :index), class: "nav-link" %>

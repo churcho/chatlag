@@ -11,21 +11,22 @@
     </tr>
   </thead>
   <tbody>
-<%= for room <- @rooms do %>
+    <%= for room <- @rooms do %>
     <tr>
       <td><%= link room.title, to: Routes.room_path(@conn, :edit, room) %></td>
       <td><%= room.slug %></td>
       <td><%= room.on_front %></td>
 
       <td class="btn-sm">
-          <%= link raw("<i class='fas fa-eye'></i>"), to: Routes.chat_path(@conn, :chat, room) %> &nbsp;
-          <%= if !room.is_private do %>
-          <%= link raw("<i class='far fa-edit'></i>"), to: Routes.room_path(@conn, :edit, room) %>&nbsp;
-          <% end %>
-          <%= link raw("<i class='fas fa-trash-alt'></i>"), to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: gettext("Are you sure?")] %>
-        </td>
+        <%= link raw("<i class='fas fa-eye'></i>"), to: Routes.chat_path(@conn, :chat, room) %> &nbsp;
+        <%= if !room.is_private do %>
+        <%= link raw("<i class='far fa-edit'></i>"), to: Routes.room_path(@conn, :edit, room) %>&nbsp;
+        <% end %>
+        <%= link raw("<i class='fas fa-trash-alt'></i>"), to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: gettext("Are you sure?")] %>
+        <%= link raw("<i class='fas fa-list'></i>"), to: Routes.room_path(@conn, :messages, room) %> &nbsp;
+      </td>
     </tr>
-<% end %>
+    <% end %>
   </tbody>
 </table>
 <%= pagination_links @page %>
