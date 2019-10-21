@@ -9,6 +9,8 @@
         content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
+    <link href="<%= Routes.static_path(@conn, "/css/emoji.css ") %>" rel="stylesheet">
+
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
@@ -36,10 +38,26 @@
 
 <body>
     <%= render @view_module, @view_template, assigns %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js ") %>"></script>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js ") %>"></script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js ") %>'></script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/jquery-3.4.1.min.js ") %>'></script>
+
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/emoji_config.js ") %>'></script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/emoji_util.js ") %>'></script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/jquery.emojiarea.js ") %>'></script>
+    <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/emoji-picker.js ") %>'></script>
+
     <script>
         jQuery(document).ready(function ($) {
+
+            window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                // emojiable_selector: '.chat-msg',
+                assetsPath: '/img/',
+                popupButtonClasses: 'fa fa-smile-o'
+            });
+
+            // window.emojiPicker.discover();
+
             let $trigger = "";
             let $inImage = false;
             let $image = $("#image_file");
