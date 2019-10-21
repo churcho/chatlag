@@ -1,0 +1,9 @@
+<h1>
+    <%= gettext("Edit User") %>
+    <%= if @user.suspend_at do %>
+    (מושעה)
+    <% end %>
+
+</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>

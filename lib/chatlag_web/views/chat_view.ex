@@ -315,7 +315,7 @@ defmodule ChatlagWeb.ChatView do
 
   def user_suspended(user_id) do
     user = Users.get_user!(user_id, true)
-    user.suspend_at
+    user.suspend_at != nil
   end
 
   def user_suspended(user_id, party_id) do
@@ -334,7 +334,7 @@ defmodule ChatlagWeb.ChatView do
             p
         end
 
-      if user.suspend_at do
+      if user.suspend_at != nil do
         if party_id && party.role == "admin" do
           false
         else

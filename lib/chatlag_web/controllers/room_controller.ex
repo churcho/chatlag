@@ -7,7 +7,6 @@ defmodule ChatlagWeb.RoomController do
   alias Chatlag.Repo
 
   def index(conn, params) do
-    # rooms = Chat.list_rooms()
     page =
       Room
       |> order_by(asc: :id)
@@ -78,9 +77,11 @@ defmodule ChatlagWeb.RoomController do
     render(conn, layout: {ChatlagWeb.LayoutView, "admin.html"}, changeset: changeset)
   end
 
-  def reset(conn, _params) do
-    IO.inspect(Chat.delete_all_messages())
+  def messages(conn, %{"id" => id}) do
+    conn
+  end
 
+  def reset(conn, _params) do
     conn
     |> put_flash(:info, "Room deleted successfully.")
     |> redirect(to: Routes.room_path(conn, :index))

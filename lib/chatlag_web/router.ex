@@ -67,10 +67,13 @@ defmodule ChatlagWeb.Router do
     pipe_through [:browser, :admin]
 
     get "/", RoomController, :index
+    get "/users/:id/suspend", UserController, :suspend
+    get "/users/:id/unsuspend", UserController, :unsuspend
+    get "/rooms/:id/messages", RoomController, :messages
     resources "/rooms", RoomController
     resources "/words", WordController
     resources "/contacts", ContactController
-    get "/users", UserController, :index
+    resources "/users", UserController
     get "/reset", RoomController, :ask_reset
     post "/reset", RoomController, :reset
   end

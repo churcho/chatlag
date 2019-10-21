@@ -111,7 +111,7 @@
 
             if ($type.includes("image") || $type.includes("video")) {
 
-                if ($size < 2 * 1024000 + 1) {
+                if ($size < 20 * 1024000 + 1) {
                     reader.onload = function (e) {
                         if ($type.includes("image")) {
                             $('#upload-image-pic').attr('src', e.target.result);

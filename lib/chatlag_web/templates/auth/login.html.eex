@@ -16,7 +16,7 @@
                 src="/images/logo-big.png" /></a>
           </h1>
         </div>
-        <div class="online-users smaller">
+        <div class="hidden online-users smaller">
           <span id="users-number" class="circled gray-back align-center"><%= getUsers() %></span>
           משתמשים אונליין</div>
       </div>
