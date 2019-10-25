@@ -72,11 +72,11 @@
                             </span>
                         </a>
                         <div class="massage_social">
-                            <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content) %>"
+                            <a target="_blank" href="<%= shareMessage(@room_url, :twitter, msg.content, msg.media) %>"
                                 class="social_icon twitter" title="טוויטר"><span class="icon"></span></a>
-                            <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content) %>"
+                            <a target="_blank" href="<%= shareMessage(@room_url, :facebook, msg.content, msg.media) %>"
                                 class="social_icon facebook" title="פייסבוק"><span class="icon"></span></a>
-                            <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content) %>"
+                            <a target="_blank" href="<%= shareMessage(@room_url, :wp, msg.content, msg.media) %>"
                                 class="social_icon whatsapp" title="ווצאפ"><span class="icon"></span></a>
 
                         </div>

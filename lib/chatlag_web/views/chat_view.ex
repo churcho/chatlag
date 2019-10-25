@@ -130,19 +130,26 @@ defmodule ChatlagWeb.ChatView do
   # https://wa.me/?text=Chatlaghttp%3A%2F%2Fwww.efrat37.co.il%2F%23%2Fchat%3Froom%3D%25D7%25A4%25D7%2595%25D7%259C%25D7%2599%25D7%2598%25D7%2599%25D7%25A7%25D7%2594
   # https://twitter.com/intent/tweet?text=Chatlag%20http%3A%2F%2Fwww.efrat37.co.il%2F%23%2Fchat%3Froom%3D%25D7%25A4%25D7%2595%25D7%259C%25D7%2599%25D7%2598%25D7%2599%25D7%25A7%25D7%2594
   # https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.efrat37.co.il%2F%23%2Fchat%3Froom%3D%25D7%25A4%25D7%2595%25D7%259C%25D7%2599%25D7%2598%25D7%2599%25D7%25A7%25D7%2594
-  def shareMessage(url, media, msg \\ "") do
+  def shareMessage(url, media, msg \\ "", link \\ "") do
     thisUrl = "https://chatlag.co.il#{url}"
     # https://api.whatsapp.com/send?text=%22kjkj%20kj%20kjk%22&url=lll.com
+
+    link =
+      case link do
+        "" -> link
+        _ -> "https://chatlag.co.il#{link}"
+      end
+
     link =
       case media do
         :facebook ->
-          "https://facebook.com/sharer.php?u=#{thisUrl}&message=#{msg}"
+          "https://facebook.com/sharer.php?u=#{thisUrl}&message=#{msg} #{link}"
 
         :wp ->
-          "https://api.whatsapp.com/send?text=#{thisUrl}  #{msg} "
+          "https://api.whatsapp.com/send?text=#{thisUrl}  #{msg} #{link}"
 
         :twitter ->
-          "https://twitter.com/intent/tweet?text=#{thisUrl} #{msg}"
+          "https://twitter.com/intent/tweet?text=#{thisUrl} #{msg} #{link}"
       end
 
     "#{link}"
