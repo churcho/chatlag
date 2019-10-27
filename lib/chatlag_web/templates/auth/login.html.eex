@@ -72,13 +72,13 @@
           <div class="col-xs-2" aria-hidden="true"></div>
           <div class="col-sm-11 col-xs-8">
             <div class="col-xs-2" aria-hidden="true"></div>
-            <div class="middle-line border-black smaller col-xs-8">
+            <div class="hidden middle-line border-black smaller col-xs-8">
               <span class="white-back padding">או</span>
             </div>
             <div class="col-xs-2" aria-hidden="true"></div>
           </div>
         </div>
-        <div class="row">
+        <div class="hidden row">
           <a href="/auth/facebook">
             <div class="col-xs-2" aria-hidden="true"></div>
             <div class="login-facebook col-sm-11 col-xs-8">
