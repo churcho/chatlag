@@ -42,7 +42,7 @@
               <% end %>
 
             </div>
-            <div class="hidden-form">
+            <div class="xhidden-form">
               <%= hidden_input f, :ip_address, value: @ip %>
               <input id="nickname" class="input" type="text" name="user[nickname]" type="text" maxlength="20"
                 placeholder="בחר כינוי" />
@@ -64,7 +64,7 @@
               <div class="error red smaller">נא לבחור כינוי, מגדר וגיל</div>
             </div>
             <button type="submit" class="button green-back login-anonymous-button">התחברות אנונימית</button>
-            <span class="bigger icon arrow-up"></span>
+            <span class="hidden bigger icon arrow-up"></span>
             <% end %>
           </div>
         </div>

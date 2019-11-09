@@ -51,7 +51,7 @@
                 window.sidebar.addPanel(pageTitle, pageURL, "");
             } catch (e) {
                 // Opera solution
-                if (typeof(opera) == "object") {
+                if (typeof (opera) == "object") {
                     a.rel = "sidebar";
                     a.title = pageTitle;
                     a.url = pageURL;
