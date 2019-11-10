@@ -12,7 +12,7 @@ defmodule ChatlagWeb.LobbyController do
     render(conn, "policy.html")
   end
 
-  def index(conn, params) do
+  def oldindex(conn, params) do
     search = params["search"]
 
     if search do
@@ -53,5 +53,13 @@ defmodule ChatlagWeb.LobbyController do
       ChatlagWeb.Live.Frontpage,
       session: %{user_id: user_id, current_user: current_user}
     )
+  end
+
+  def index(conn, _params) do
+    room = Repo.one(from x in Room, order_by: [asc: x.id], limit: 1)
+
+    conn
+    |> redirect(to: "/chat/#{room.id}")
+    |> halt
   end
 end

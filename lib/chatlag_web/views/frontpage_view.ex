@@ -12,7 +12,7 @@ defmodule ChatlagWeb.FrontpageView do
   end
 
   def shareMessage(media) do
-    thisUrl = "https://chatlag.co.il"
+    thisUrl = "https://chat.chatlag.co.il"
 
     link =
       case media do
@@ -20,7 +20,7 @@ defmodule ChatlagWeb.FrontpageView do
           "https://facebook.com/sharer.php?u=#{thisUrl}"
 
         :wp ->
-          "https://api.whatsapp.com/send?text=רציתי לשתף אתכם באתר הזה #{thisUrl}&url=https://chatlag.co.il"
+          "https://api.whatsapp.com/send?text=רציתי לשתף אתכם באתר הזה #{thisUrl}&url=https://chat.chatlag.co.il"
 
         :twitter ->
           "https://twitter.com/intent/tweet?text=#{thisUrl}"

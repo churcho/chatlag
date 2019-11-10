@@ -1,8 +1,8 @@
 <div class="menu">
   <div class="menu_icon d-none d-md-block d-lg-block">
-    <a href="/"> <img class="room-logo" alt="Logo" src="/images/header-logo.png" /></a>
+    <a href="//chatlag.co.il" target="_blank"> <img class="room-logo" alt="Logo" src="/images/header-logo.png" /></a>
   </div>
-  <a href="/chat">
+  <a href="//chatlag.co.il" target="_blank">
     <div class="menu_icon home"><span class="icon"></span></div>
   </a>
   <div phx-click="change_room" phx-value="<%= @last_room_id %>" class="menu_icon comments"><i
@@ -12,7 +12,11 @@
   <div phx-click="show_privates" class="menu_icon user"><span class="icon"></span><span
       class="notifications"><%= @privates %></span></div>
   <div phx-click="contact_form" class="menu_icon mail"><span class="icon"></span></div>
-  <div id="chatroom-share" class="menu_icon share">
+  <div class="menu_icon power-off"><a href="/logout"><span class="icon"><i class="fas fa-power-off"></i></span></a>
+  </div>
+
+
+  <div id="chatroom-share" class="hidden menu_icon share">
     <span class="icon"></span>
     <div class="menu_share_popup hidden">
       <a target="_blank" href="<%= shareMessage(@room_url, :facebook) %>" class="hidden social_icon facebook"
