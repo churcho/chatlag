@@ -34,12 +34,12 @@ config :chatlag, Chatlag.Mailer,
   ]
 
 config :chatlag, ChatlagWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "80")],
+  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "9040")],
   https: [
     :inet6,
-    port: 443,
+    port: 9050,
     cipher_suite: :strong,
-   keyfile: System.get_env("APP_SSL_KEY_PATH"),
+    keyfile: System.get_env("APP_SSL_KEY_PATH"),
     certfile: System.get_env("APP_SSL_CERT_PATH")
   ],
 

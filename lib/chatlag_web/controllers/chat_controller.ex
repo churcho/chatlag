@@ -38,6 +38,7 @@ defmodule ChatlagWeb.ChatController do
     user_id = get_session(conn, :user_id)
     room = Chat.get_room!(room_id)
 
+
     if room.title =~ ~r/room_(\d+)_(\d+)/ do
       [[_, u1, u2]] = Regex.scan(~r/room_(\d+)_(\d+)/, room.title)
 

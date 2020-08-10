@@ -14,7 +14,8 @@ defmodule ChatlagWeb.AuthController do
   plug :put_layout, "login.html" when action in [:login, :details, :create, :update]
 
   def request(conn, _params) do
-    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
+    IO.puts("Request::::")
+    render(conn, "request.html", callback_url: "https://chatlag.co.il/auth/facebook/callback")
   end
 
   def callback(
@@ -64,7 +65,7 @@ defmodule ChatlagWeb.AuthController do
   end
 
   def login(conn, params) do
-    IO.inspect(params, label: "login")
+    IO.inspect(params, label: "llllogin")
     # user_id = get_session(conn, :user_id)
     user_id =
       case Pow.Plug.current_user(conn) do
