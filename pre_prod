@@ -1,0 +1,11 @@
+export MIX_ENV=prod
+export SECRET_KEY_BASE=0a7thhtpjnVq7Je2IW7zyE6v2xs/zFZUIGNz+1h9XEGJGkZuL1nFR32dKO7Dhnw/
+export DATABASE_URL=postgres://chatlag:ChatlagEfrat68@localhost:5432/chatlag
+mix deps.get --only prod
+MIX_ENV=prod mix compile
+
+npm run deploy --prefix ./assets
+
+mix phx.digest
+mix release --overwrite
+

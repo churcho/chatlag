@@ -1,0 +1,20 @@
+#!/bin/bash
+cd /home/eli/chatlag
+
+export HOME=/home/eli
+
+export MAILGUN_API_KEY=key-3a5100b6a2b10eb0bc6c396efbf35efb
+export MAILGUN_DOMAIN=vilearn.com
+
+export MIX_ENV=prod
+export SECRET_KEY_BASE=0a7thhtpjnVq7Je2IW7zyE6v2xs/zFZUIGNz+1h9XEGJGkZuL1nFR32dKO7Dhnw/
+export DATABASE_URL=postgres://chatlag:ChatlagEfrat68@localhost:5432/chatlag
+export PORT=9040
+
+export APP_SSL_KEY_PATH=/etc/letsencrypt/live/chatlag.co.il/privkey.pem
+export APP_SSL_CERT_PATH=/etc/letsencrypt/live/chatlag.co.il/fullchain.pem
+
+export APP_SSL_CERT_PATH=/home/eli/chatlag/priv/cert/selfsigned.pem
+export APP_SSL_KEY_PATH=/home/eli/chatlag/priv/cert/selfsigned_key.pem
+
+mix phx.routes

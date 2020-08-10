@@ -1,0 +1,5 @@
+export MIX_ENV=prod
+export SECRET_KEY_BASE=0a7thhtpjnVq7Je2IW7zyE6v2xs/zFZUIGNz+1h9XEGJGkZuL1nFR32dKO7Dhnw/
+export DATABASE_URL=postgres://chatlag:ChatlagEfrat68@localhost:5432/chatlag
+
+_build/prod/rel/chatlag/bin/chatlag eval "Chatlag.Release.migrate"
